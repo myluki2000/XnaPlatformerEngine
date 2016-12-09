@@ -1,9 +1,19 @@
 ﻿Imports System.Collections.Generic
+Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
 
 Public Class ScreenHandler
-    Public Shared Screens As New List(Of Screen) = {DefaultScreen}
-    Public Shared SelectedScreen As Screen =
+    Public Shared SelectedScreen As Screen = New Screen
+
+
+    Public Shared Sub InitializeSelectedScreen()
+        SelectedScreen.Inititialize()
+    End Sub
+
+    Public Shared Sub Update(gameTime As GameTime)
+        SelectedScreen.Update(gameTime)
+    End Sub
+
     Public Shared Sub Draw(theSpriteBatch As SpriteBatch)
         SelectedScreen.Draw(theSpriteBatch)
     End Sub

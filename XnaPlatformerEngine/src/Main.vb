@@ -29,7 +29,8 @@ Public Class Main
     ''' and initialize them as well.
     ''' </summary>
     Protected Overrides Sub Initialize()
-        ScreenHandler.Screens.Add(New TestScreen)
+        ScreenHandler.SelectedScreen = New TestScreen
+        ScreenHandler.InitializeSelectedScreen()
 
         MyBase.Initialize()
     End Sub
@@ -42,7 +43,7 @@ Public Class Main
         ' Create a new SpriteBatch, which can be used to draw textures.
         spriteBatch = New SpriteBatch(GraphicsDevice)
 
-
+        FontKoot = Content.Load(Of SpriteFont)("Koot")
         DevPurple = Content.Load(Of Texture2D)("devpurple")
         ' TODO: use this.Content to load your game content here
     End Sub
@@ -65,7 +66,10 @@ Public Class Main
             [Exit]()
         End If
 
-        ' TODO: Add your update logic here
+
+        ScreenHandler.Update(gameTime)
+
+
 
         MyBase.Update(gameTime)
     End Sub

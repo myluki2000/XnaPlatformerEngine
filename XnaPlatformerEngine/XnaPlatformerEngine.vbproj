@@ -52,11 +52,10 @@
     <Import Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalVariables.vb" />
+    <Compile Include="src\GlobalVariables.vb" />
     <Compile Include="src\Main.vb" />
     <Compile Include="src\Program.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
-    <Compile Include="src\ScreenHandler\DefaultScreen.vb" />
     <Compile Include="src\ScreenHandler\Screen.vb" />
     <Compile Include="src\ScreenHandler\ScreenHandler.vb" />
     <Compile Include="src\ScreenHandler\TestScreen.vb" />
