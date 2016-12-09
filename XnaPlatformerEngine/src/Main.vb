@@ -29,7 +29,7 @@ Public Class Main
     ''' and initialize them as well.
     ''' </summary>
     Protected Overrides Sub Initialize()
-        ' TODO: Add your initialization logic here
+        ScreenHandler.Screens.Add(New TestScreen)
 
         MyBase.Initialize()
     End Sub
@@ -42,6 +42,8 @@ Public Class Main
         ' Create a new SpriteBatch, which can be used to draw textures.
         spriteBatch = New SpriteBatch(GraphicsDevice)
 
+
+        DevPurple = Content.Load(Of Texture2D)("devpurple")
         ' TODO: use this.Content to load your game content here
     End Sub
 
@@ -75,7 +77,7 @@ Public Class Main
     Protected Overrides Sub Draw(gameTime As GameTime)
         GraphicsDevice.Clear(Color.CornflowerBlue)
 
-        ' TODO: Add your drawing code here
+        ScreenHandler.Draw(spriteBatch)
 
         MyBase.Draw(gameTime)
     End Sub

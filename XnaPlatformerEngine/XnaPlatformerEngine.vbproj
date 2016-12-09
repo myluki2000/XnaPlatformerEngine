@@ -52,22 +52,33 @@
     <Import Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.vb" />
-    <Compile Include="Program.vb" />
+    <Compile Include="GlobalVariables.vb" />
+    <Compile Include="src\Main.vb" />
+    <Compile Include="src\Program.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
+    <Compile Include="src\ScreenHandler\DefaultScreen.vb" />
+    <Compile Include="src\ScreenHandler\Screen.vb" />
+    <Compile Include="src\ScreenHandler\ScreenHandler.vb" />
+    <Compile Include="src\ScreenHandler\TestScreen.vb" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework">
-      <HintPath>C:\Program Files (x86)\MonoGame\v3.0\Assemblies\WindowsPhone\x86\MonoGame.Framework.dll</HintPath>
+    <Reference Include="MonoGame.Framework, Version=3.4.0.456, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\devpurple.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\" />
+    <None Include="Content\Koot.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
