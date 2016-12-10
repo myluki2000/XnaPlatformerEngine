@@ -3,7 +3,7 @@ Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
 
 Public Class ScreenHandler
-    Public Shared SelectedScreen As Screen = New Screen
+    Public Shared SelectedScreen As Screen = New TestScreen
 
 
     Public Shared Sub InitializeSelectedScreen()

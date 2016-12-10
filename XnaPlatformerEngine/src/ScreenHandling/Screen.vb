@@ -1,8 +1,12 @@
 ﻿Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
 
-Public Class Screen
+Public MustInherit Class Screen
     Public Overridable Sub Inititialize()
+
+    End Sub
+
+    Public Overridable Sub PostContentLoad()
 
     End Sub
 

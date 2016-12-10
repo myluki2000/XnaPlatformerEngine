@@ -16,6 +16,8 @@ Public Class Main
     Private graphics As GraphicsDeviceManager
     Private spriteBatch As SpriteBatch
 
+    Dim TestWorld1 As New TestWorld.TestWorld
+
     Public Sub New()
         MyBase.New()
         graphics = New GraphicsDeviceManager(Me)
@@ -29,7 +31,8 @@ Public Class Main
     ''' and initialize them as well.
     ''' </summary>
     Protected Overrides Sub Initialize()
-        ScreenHandler.SelectedScreen = New TestScreen
+
+        ScreenHandler.SelectedScreen = TestWorld1
         ScreenHandler.InitializeSelectedScreen()
 
         MyBase.Initialize()
@@ -42,6 +45,9 @@ Public Class Main
     Protected Overrides Sub LoadContent()
         ' Create a new SpriteBatch, which can be used to draw textures.
         spriteBatch = New SpriteBatch(GraphicsDevice)
+
+        TestWorld.Textures.LoadContent(Content)
+        TestWorld1.PostContentLoad()
 
         FontKoot = Content.Load(Of SpriteFont)("Koot")
         DevPurple = Content.Load(Of Texture2D)("devpurple")

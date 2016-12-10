@@ -56,9 +56,14 @@
     <Compile Include="src\Main.vb" />
     <Compile Include="src\Program.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
-    <Compile Include="src\ScreenHandler\Screen.vb" />
-    <Compile Include="src\ScreenHandler\ScreenHandler.vb" />
-    <Compile Include="src\ScreenHandler\TestScreen.vb" />
+    <Compile Include="src\ScreenHandling\Screen.vb" />
+    <Compile Include="src\ScreenHandling\ScreenHandler.vb" />
+    <Compile Include="src\ScreenHandling\Screens\TestScreen.vb" />
+    <Compile Include="src\SpriteHandling\Sprite.vb" />
+    <Compile Include="src\WorldHandling\Worlds\TestWorld\Textures.vb" />
+    <Compile Include="src\WorldHandling\World.vb" />
+    <Compile Include="src\WorldHandling\WorldObject.vb" />
+    <Compile Include="src\WorldHandling\Worlds\TestWorld\TestWorld.vb" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.4.0.456, Culture=neutral, processorArchitecture=MSIL">
@@ -79,5 +84,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
