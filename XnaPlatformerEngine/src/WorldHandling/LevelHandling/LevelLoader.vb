@@ -23,6 +23,15 @@ Public Class LevelLoader
                 _placedObjects.Add(_placedObj)
             Next
 
+            Dim _worldObjs = LoadTextures()
+            For Each _pObj In _placedObjects
+                For Each _wObj In _worldObjs
+                    If _pObj.Name = _wObj.Name Then
+                        _pObj.TexturePath = _wObj.TexturePath
+                    End If
+                Next
+            Next
+
             MsgBox("Load complete")
             Return _placedObjects
         Else
@@ -30,7 +39,15 @@ Public Class LevelLoader
         End If
     End Function
 
-    Private Function LoadTextures() As List(Of WorldObject)
+    Shared Function LoadTextures() As List(Of WorldObject)
+        Dim _objs As New List(Of WorldObject)
 
+        'Load WorldObjects from XML
+        Dim xele As XElement = XElement.Load("tes.xml")
+        For Each _wObj In xele.Elements
+            _objs.Add(New WorldObject(_wObj.Attribute("Name").Value, _wObj.Element("TexturePath").Value))
+        Next
+
+        Return _objs
     End Function
 End Class
