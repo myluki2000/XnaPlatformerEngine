@@ -3,18 +3,29 @@ Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
 
 Public Class ScreenHandler
-    Public Shared SelectedScreen As Screen = New TestScreen
+    Shared SelectedScreen As Screen
 
 
-    Public Shared Sub InitializeSelectedScreen()
-        SelectedScreen.Inititialize()
+    Shared Sub InitializeSelectedScreen()
+        If SelectedScreen IsNot Nothing Then
+            SelectedScreen.Inititialize()
+        End If
     End Sub
 
     Public Shared Sub Update(gameTime As GameTime)
-        SelectedScreen.Update(gameTime)
+        If SelectedScreen IsNot Nothing Then
+            SelectedScreen.Update(gameTime)
+        End If
     End Sub
 
     Public Shared Sub Draw(theSpriteBatch As SpriteBatch)
-        SelectedScreen.Draw(theSpriteBatch)
+        If SelectedScreen IsNot Nothing Then
+            SelectedScreen.Draw(theSpriteBatch)
+        End If
+    End Sub
+
+    Public Shared Sub SetSelectedScreen(_screen As Screen)
+        SelectedScreen = _screen
+        InitializeSelectedScreen()
     End Sub
 End Class
