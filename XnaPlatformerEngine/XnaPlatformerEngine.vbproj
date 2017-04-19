@@ -52,6 +52,8 @@
     <Import Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Characters\Character.vb" />
+    <Compile Include="src\Characters\Player.vb" />
     <Compile Include="src\GlobalVariables.vb" />
     <Compile Include="src\Main.vb" />
     <Compile Include="src\Misc\Misc.vb" />
@@ -61,6 +63,8 @@
     <Compile Include="src\ScreenHandling\Screen.vb" />
     <Compile Include="src\ScreenHandling\ScreenHandler.vb" />
     <Compile Include="src\ScreenHandling\Screens\TestScreen.vb" />
+    <Compile Include="src\SpriteHandling\AnimatedSprite.vb" />
+    <Compile Include="src\SpriteHandling\Animation.vb" />
     <Compile Include="src\SpriteHandling\Sprite.vb" />
     <Compile Include="src\WorldHandling\LevelHandling\Level.vb" />
     <Compile Include="src\WorldHandling\LevelHandling\LevelLoader.vb" />

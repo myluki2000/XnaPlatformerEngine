@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Content
 Imports Microsoft.Xna.Framework.Graphics
 
@@ -34,6 +35,10 @@ Public Class World
             Next
         End If
         theSpriteBatch.End()
+    End Sub
+
+    Public Overrides Sub Update(gameTime As GameTime)
+        SelectedLevel.Update(gameTime)
     End Sub
 
     Public Sub LoadLevel()

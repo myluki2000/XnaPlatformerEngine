@@ -2,7 +2,7 @@
 Imports Microsoft.Xna.Framework.Content
 Imports Microsoft.Xna.Framework.Graphics
 
-Public Class Sprite
+Public MustInherit Class Sprite
     Public Name As String
     Public Texture As Texture2D
     Public TexturePath As String
@@ -17,6 +17,8 @@ Public Class Sprite
 
     Sub New()
     End Sub
+
+    Public MustOverride Sub Update(gameTime As GameTime)
 
     Public Overridable Sub Draw(theSpriteBatch As SpriteBatch)
         If Texture IsNot Nothing Then

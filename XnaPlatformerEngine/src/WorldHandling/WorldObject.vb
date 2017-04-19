@@ -1,4 +1,6 @@
-﻿Public Class WorldObject
+﻿Imports Microsoft.Xna.Framework
+
+Public Class WorldObject
     Inherits Sprite
 
     Public zIndex As Integer = 0
@@ -8,6 +10,10 @@
     End Sub
 
     Sub New()
+
+    End Sub
+
+    Public Overrides Sub Update(gameTime As GameTime)
 
     End Sub
 
