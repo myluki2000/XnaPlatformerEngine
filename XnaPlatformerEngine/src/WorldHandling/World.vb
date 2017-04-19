@@ -12,6 +12,9 @@ Public Class World
         For Each _level In Levels
             _level.LoadContent(_content)
         Next
+
+
+        PostContentLoad()
     End Sub
 
     Public Overrides Sub PostContentLoad()

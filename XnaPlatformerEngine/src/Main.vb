@@ -30,8 +30,7 @@ Public Class Main
     ''' </summary>
     Protected Overrides Sub Initialize()
 
-        ScreenHandler.SelectedScreen = TestWorld1
-        ScreenHandler.InitializeSelectedScreen()
+        ScreenHandler.SetSelectedScreen(TestWorld1)
 
         MyBase.Initialize()
     End Sub
@@ -47,7 +46,7 @@ Public Class Main
         TestWorld1.Levels.Add(New Level(LevelLoader.LoadLevel()))
 
         TestWorld1.LoadContent(Content)
-        TestWorld1.PostContentLoad()
+        TestWorld1.SetSelectedLevel(0)
 
         FontKoot = Content.Load(Of SpriteFont)("Koot")
         DevPurple = Content.Load(Of Texture2D)("devpurple")
@@ -74,8 +73,6 @@ Public Class Main
 
 
         ScreenHandler.Update(gameTime)
-
-
 
         MyBase.Update(gameTime)
     End Sub
