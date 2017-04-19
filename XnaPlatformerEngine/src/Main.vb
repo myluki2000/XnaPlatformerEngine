@@ -5,7 +5,6 @@ Imports Microsoft.Xna.Framework.Content
 Imports Microsoft.Xna.Framework.Graphics
 Imports Microsoft.Xna.Framework.Input
 Imports Microsoft.Xna.Framework.Storage
-Imports Microsoft.Xna.Framework.GamerServices
 #End Region
 
 ''' <summary>
@@ -13,10 +12,9 @@ Imports Microsoft.Xna.Framework.GamerServices
 ''' </summary>
 Public Class Main
     Inherits Game
-    Private graphics As GraphicsDeviceManager
     Private spriteBatch As SpriteBatch
 
-    Dim TestWorld1 As New TestWorld.TestWorld
+    Dim TestWorld1 As New World
 
     Public Sub New()
         MyBase.New()
@@ -46,7 +44,9 @@ Public Class Main
         ' Create a new SpriteBatch, which can be used to draw textures.
         spriteBatch = New SpriteBatch(GraphicsDevice)
 
-        TestWorld.Textures.LoadContent(Content)
+        TestWorld1.Levels.Add(New Level(LevelLoader.LoadLevel()))
+
+        TestWorld1.LoadContent(Content)
         TestWorld1.PostContentLoad()
 
         FontKoot = Content.Load(Of SpriteFont)("Koot")
