@@ -29,7 +29,7 @@ Public MustInherit Class Sprite
         End If
     End Sub
 
-    Public Sub LoadContent(_content As ContentManager)
+    Public Overridable Sub LoadContent(_content As ContentManager)
         Texture = _content.Load(Of Texture2D)(TexturePath)
     End Sub
 
