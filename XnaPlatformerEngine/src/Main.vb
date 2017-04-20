@@ -15,7 +15,6 @@ Public Class Main
     Private spriteBatch As SpriteBatch
 
     Dim TestWorld1 As New World
-    Dim TestAnimSprite As New AnimatedSprite
 
     Public Sub New()
         MyBase.New()
@@ -33,9 +32,6 @@ Public Class Main
 
         ScreenHandler.SetSelectedScreen(TestWorld1)
 
-        TestAnimSprite.Animations.Add(New Animation("explosion", "explosion", 125))
-        TestAnimSprite.SetSelectedAnimation("explosion")
-
         MyBase.Initialize()
     End Sub
 
@@ -51,8 +47,6 @@ Public Class Main
 
         TestWorld1.LoadContent(Content)
         TestWorld1.SetSelectedLevel(0)
-
-        TestAnimSprite.LoadContent(Content)
 
         FontKoot = Content.Load(Of SpriteFont)("Koot")
         DevPurple = Content.Load(Of Texture2D)("devpurple")
@@ -77,7 +71,6 @@ Public Class Main
             [Exit]()
         End If
 
-        TestAnimSprite.Update(gameTime)
 
         ScreenHandler.Update(gameTime)
 
@@ -92,10 +85,6 @@ Public Class Main
         GraphicsDevice.Clear(Color.CornflowerBlue)
 
         ScreenHandler.Draw(spriteBatch)
-
-        spriteBatch.Begin()
-        TestAnimSprite.Draw(spriteBatch)
-        spriteBatch.End()
 
         MyBase.Draw(gameTime)
     End Sub

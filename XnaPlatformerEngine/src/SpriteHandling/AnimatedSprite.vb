@@ -12,9 +12,12 @@ Public Class AnimatedSprite
     Private FrameWidth As Integer
     Private ElapsedTime As Integer = 0
 
+    Sub New(_frmWidth As Integer, _rect As Rectangle)
+        FrameWidth = _frmWidth
+        rect = _rect
+    End Sub
+
     Public Overrides Sub LoadContent(_content As ContentManager)
-        rect = New Rectangle(0, 0, 32, 32)
-        FrameWidth = 32
         For Each _anim In Animations
             _anim.LoadContent(_content)
         Next

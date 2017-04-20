@@ -4,8 +4,9 @@ Imports Microsoft.Xna.Framework.Graphics
 Public Class Character
     Inherits AnimatedSprite
 
-    Sub New()
-        Animations.Add(New Animation("idle", "Characters/Player/idle", 400))
+    Sub New(_frmWidth As Integer, _rect As Rectangle)
+        MyBase.New(_frmWidth, _rect)
+
     End Sub
 
     Public Overrides Sub Update(gameTime As GameTime)
