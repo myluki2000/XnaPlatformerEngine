@@ -34,12 +34,15 @@ Public Class AnimatedSprite
 
         ElapsedTime += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
 
-        If ElapsedTime >= SelectedAnimation.FrameDuration * SelectedAnimation.Texture.Width / FrameWidth AndAlso SelectedAnimation.IterationCount <> 0 Then
-            ElapsedTime = 0
 
+        If ElapsedTime >= SelectedAnimation.FrameDuration * SelectedAnimation.Texture.Width / FrameWidth Then
             If SelectedAnimation.IterationCount > 0 Then
                 SelectedAnimation.IterationCount -= 1
             End If
+            If SelectedAnimation.IterationCount <> 0 Then
+                ElapsedTime = 0
+            End If
+
         End If
     End Sub
 
