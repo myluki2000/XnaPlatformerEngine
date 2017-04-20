@@ -28,4 +28,8 @@ Public Class ScreenHandler
         SelectedScreen = _screen
         InitializeSelectedScreen()
     End Sub
+
+    Public Shared Function GetSelectedScreen() As Screen
+        Return SelectedScreen
+    End Function
 End Class

@@ -26,6 +26,10 @@ Public Class World
         SelectedLevel = Levels(index)
     End Sub
 
+    Public Function GetSelectedLevel() As Level
+        Return SelectedLevel
+    End Function
+
     Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
         theSpriteBatch.Begin()
 
