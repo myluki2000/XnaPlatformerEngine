@@ -8,12 +8,14 @@ Public Class World
 
     Public Levels As New List(Of Level)
     Private SelectedLevel As Level
+    Public Player As New Player With {.Scale = 2}
 
     Public Sub LoadContent(_content As ContentManager)
         For Each _level In Levels
             _level.LoadContent(_content)
         Next
 
+        Player.LoadContent(_content)
 
         PostContentLoad()
     End Sub
@@ -31,18 +33,23 @@ Public Class World
     End Function
 
     Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
-        theSpriteBatch.Begin()
+        theSpriteBatch.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, Nothing)
 
         If SelectedLevel IsNot Nothing Then
             For Each _object In SelectedLevel.PlacedObjects
                 _object.Draw(theSpriteBatch)
             Next
+
+            Player.Draw(theSpriteBatch)
         End If
         theSpriteBatch.End()
     End Sub
 
     Public Overrides Sub Update(gameTime As GameTime)
-        SelectedLevel.Update(gameTime)
+        If SelectedLevel IsNot Nothing Then
+            SelectedLevel.Update(gameTime)
+            Player.Update(gameTime)
+        End If
     End Sub
 
     Public Sub LoadLevel()
