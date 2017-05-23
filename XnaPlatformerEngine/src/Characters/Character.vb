@@ -1,8 +1,12 @@
 ﻿Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
 
-Public Class Character
+Partial Public Class Character
     Inherits AnimatedSprite
+
+    Friend Velocity As New Vector2(0, 0)
+    Friend Position As New Vector2(60, 100)
+    Friend Acceleration As New Vector2(0, -15)
 
     Sub New(_frmWidth As Integer, _rect As Rectangle)
         MyBase.New(_frmWidth, _rect)
@@ -11,19 +15,20 @@ Public Class Character
 
     Public Overrides Sub Update(gameTime As GameTime)
         MyBase.Update(gameTime)
+
+        Dim _newPos As Vector2 = Velocity * CSng(gameTime.ElapsedGameTime.TotalSeconds)
+        Diagnostics.Debug.WriteLine(_newPos.ToString)
+
+        CollidingCheck(_newPos, gameTime)
     End Sub
 
-    Private Function IsColliding(displacement As Vector2) As Boolean
-        Dim _rect As New Rectangle(CInt(getTrueRect.X + displacement.X), CInt(getTrueRect.Y + displacement.Y), getTrueRect.Width, getTrueRect.Height)
-
-        If ScreenHandler.GetSelectedScreen.GetType() = GetType(World) Then
-            For Each _wObj In CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects
-                If _rect.Intersects(_wObj.getTrueRect) Then
-                    Return True
-                End If
-            Next
+    Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
+        If SelectedAnimation IsNot Nothing Then
+            theSpriteBatch.Draw(SelectedAnimation.Texture, New Rectangle(CInt(Position.X), CInt(Position.Y), FrameWidth, SelectedAnimation.Texture.Height), srcRect, Color.White)
         End If
+    End Sub
 
-        Return False
+    Public Overrides Function getTrueRect() As Rectangle
+        Return New Rectangle(Position.ToPoint, getTextureSize.ToPoint)
     End Function
 End Class

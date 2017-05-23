@@ -39,7 +39,7 @@ Public MustInherit Class Sprite
         ' We need to change it to support scrolling levels!
     End Function
 
-    Public Function getTrueRect() As Rectangle
+    Public Overridable Function getTrueRect() As Rectangle
         Return New Rectangle(rect.X * 30, rect.Y * 30, CInt(rect.Width * Scale), CInt(rect.Height * Scale))
     End Function
 End Class

@@ -7,9 +7,9 @@ Public Class AnimatedSprite
     Inherits Sprite
 
     Public Animations As New List(Of Animation)
-    Private srcRect As New Rectangle(0, 0, 0, 0)
-    Private SelectedAnimation As Animation
-    Private FrameWidth As Integer
+    Protected srcRect As New Rectangle(0, 0, 0, 0)
+    Protected SelectedAnimation As Animation
+    Protected FrameWidth As Integer
     Private ElapsedTime As Integer = 0
 
     Sub New(_frmWidth As Integer, _rect As Rectangle)
@@ -56,5 +56,9 @@ Public Class AnimatedSprite
             End If
         Next
     End Sub
+
+    Public Function getTextureSize() As Vector2
+        Return New Vector2(FrameWidth, Animations(0).Texture.Height)
+    End Function
 End Class
 

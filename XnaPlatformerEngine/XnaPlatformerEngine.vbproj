@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Characters\Character.vb" />
+    <Compile Include="src\Characters\Collision.vb" />
     <Compile Include="src\Characters\Player.vb" />
     <Compile Include="src\GlobalVariables.vb" />
     <Compile Include="src\Main.vb" />
