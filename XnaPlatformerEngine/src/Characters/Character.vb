@@ -5,19 +5,26 @@ Partial Public Class Character
     Inherits AnimatedSprite
 
     Friend Velocity As New Vector2(0, 0)
-    Friend Position As New Vector2(60, 100)
-    Friend Acceleration As New Vector2(0, -15)
+    Friend Position As New Vector2(300, 320)
+    Friend Acceleration As New Vector2(0, 0)
+    Public IsGrounded As Boolean = True
 
     Sub New(_frmWidth As Integer, _rect As Rectangle)
         MyBase.New(_frmWidth, _rect)
 
     End Sub
 
+    Public Sub Jump()
+        If IsGrounded Then
+            Velocity.Y = -50
+        End If
+    End Sub
+
     Public Overrides Sub Update(gameTime As GameTime)
         MyBase.Update(gameTime)
 
         Dim _newPos As Vector2 = Velocity * CSng(gameTime.ElapsedGameTime.TotalSeconds)
-        Diagnostics.Debug.WriteLine(_newPos.ToString)
+        Diagnostics.Debug.WriteLine(IsGrounded)
 
         CollidingCheck(_newPos, gameTime)
     End Sub

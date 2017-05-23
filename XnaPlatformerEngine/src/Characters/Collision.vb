@@ -28,6 +28,7 @@ Partial Public Class Character
 
     Private Function CheckCollidingVertical(displacement As Vector2) As Boolean
         If displacement.Y < 0 Then
+            IsGrounded = False
             Dim _rect = New Rectangle(getTrueRect.X, CInt(getTrueRect.Y + displacement.Y - 1), getTrueRect.Width, getTrueRect.Height)
             For Each _wObj In CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects
                 If _rect.Intersects(_wObj.getTrueRect) Then
@@ -46,9 +47,11 @@ Partial Public Class Character
                     Position.Y = _wObj.getTrueRect.Y - getTrueRect.Height
                     Acceleration.Y = 0
                     Velocity.Y = 0
+                    IsGrounded = True
                     Return True
                 End If
             Next
+            IsGrounded = False
             Return False
 
         Else

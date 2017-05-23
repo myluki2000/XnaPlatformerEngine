@@ -18,6 +18,9 @@ Public Class Player
         Else
             Velocity.X = 0
         End If
+        If Keyboard.GetState.IsKeyDown(Keys.Space) Then
+            Jump()
+        End If
 
         MyBase.Update(gameTime)
     End Sub
