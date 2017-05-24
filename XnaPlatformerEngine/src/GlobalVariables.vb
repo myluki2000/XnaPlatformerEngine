@@ -6,4 +6,5 @@ Module GlobalVariables
     Public DevPurple As Texture2D
     Public FontKoot As SpriteFont
     Public graphics As GraphicsDeviceManager
+    Public LevelCameraMatrix As Matrix
 End Module

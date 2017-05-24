@@ -16,7 +16,7 @@ Partial Public Class Character
 
     Public Sub Jump()
         If IsGrounded Then
-            Velocity.Y = -50
+            Velocity.Y = -70
         End If
     End Sub
 
@@ -37,5 +37,9 @@ Partial Public Class Character
 
     Public Overrides Function getTrueRect() As Rectangle
         Return New Rectangle(Position.ToPoint, getTextureSize.ToPoint)
+    End Function
+
+    Public Overrides Function getScreenRect() As Rectangle
+        Return New Rectangle(Position.ToPoint - New Point(CInt(LevelCameraMatrix.Translation.X), CInt(LevelCameraMatrix.Translation.Y)), getTextureSize.ToPoint)
     End Function
 End Class
