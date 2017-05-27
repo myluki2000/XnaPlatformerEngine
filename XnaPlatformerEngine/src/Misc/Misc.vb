@@ -1,9 +1,10 @@
-﻿Imports Microsoft.Xna.Framework
+﻿Imports System.Collections.Generic
+Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
 
 Public Class Misc
 
-    Shared dummyTexture As Texture2D = New Texture2D(Graphics.GraphicsDevice, 1, 1)
+    Shared dummyTexture As Texture2D = New Texture2D(graphics.GraphicsDevice, 1, 1)
 
     Shared Sub New()
         dummyTexture.SetData(New Color() {Color.White})
@@ -81,5 +82,55 @@ Public Class Misc
         Next
 
         Return colors2D
+    End Function
+
+    Public Shared Function WObjListTo2DArray(_wObjs As List(Of WorldObject)) As WorldObject(,)
+        Dim arrWObjs(,) As WorldObject
+
+        Dim minX As Integer = 0
+        Dim minY As Integer = 0
+
+        ' Fin min x and y values
+        For Each _wObj In _wObjs
+            If _wObj.rect.X < minX Then
+                minX = _wObj.rect.X
+            End If
+
+            If _wObj.rect.Y < minY Then
+                minY = _wObj.rect.Y
+            End If
+        Next
+
+        ' Move x and y values of all placed objects so no position is < 0
+        For Each _wObj In _wObjs
+            _wObj.rect.X += -minX
+            _wObj.rect.Y += -minY
+        Next
+
+
+        Dim maxX As Integer = 0
+        Dim maxY As Integer = 0
+
+        ' Find max x and y values for placed objects
+        For Each _wObj In _wObjs
+            If _wObj.rect.X > maxX Then
+                maxX = _wObj.rect.X
+            End If
+
+            If _wObj.rect.Y > maxY Then
+                maxY = _wObj.rect.Y
+            End If
+        Next
+
+
+        ' Resize array
+        ReDim arrWObjs(maxX, maxY)
+
+        ' Copy objects from list to array
+        For Each _wObj In _wObjs
+            arrWObjs(_wObj.rect.X, _wObj.rect.Y) = _wObj
+        Next
+
+        Return arrWObjs
     End Function
 End Class

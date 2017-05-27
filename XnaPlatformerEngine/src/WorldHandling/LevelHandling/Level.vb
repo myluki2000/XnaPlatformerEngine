@@ -3,21 +3,25 @@ Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Content
 
 Public Class Level
-    Public PlacedObjects As New List(Of WorldObject)
+    Public PlacedObjects(,) As WorldObject
 
     Sub New(_placedObjs As List(Of WorldObject))
-        PlacedObjects = _placedObjs
+        PlacedObjects = Misc.WObjListTo2DArray(_placedObjs)
     End Sub
 
     Public Sub LoadContent(_content As ContentManager)
-        For Each _obj In PlacedObjects
-            _obj.LoadContent(_content)
+        For Each _wObj In PlacedObjects
+            If _wObj IsNot Nothing Then
+                _wObj.LoadContent(_content)
+            End If
         Next
     End Sub
 
     Public Sub Update(gameTime As GameTime)
         For Each _wObj In PlacedObjects
-            _wObj.Update(gameTime)
+            If _wObj IsNot Nothing Then
+                _wObj.Update(gameTime)
+            End If
         Next
     End Sub
 End Class

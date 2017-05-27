@@ -31,11 +31,13 @@ Partial Public Class Character
             IsGrounded = False
             Dim _rect = New Rectangle(getTrueRect.X, CInt(getTrueRect.Y + displacement.Y - 1), getTrueRect.Width, getTrueRect.Height)
             For Each _wObj In CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects
-                If _rect.Intersects(_wObj.getTrueRect) Then
-                    Position.Y = _wObj.getTrueRect.Y + _wObj.getTrueRect.Height
-                    Acceleration.Y = 0
-                    Velocity.Y = 0
-                    Return True
+                If _wObj IsNot Nothing Then
+                    If _rect.Intersects(_wObj.getTrueRect) Then
+                        Position.Y = _wObj.getTrueRect.Y + _wObj.getTrueRect.Height
+                        Acceleration.Y = 0
+                        Velocity.Y = 0
+                        Return True
+                    End If
                 End If
             Next
             Return False
@@ -43,12 +45,14 @@ Partial Public Class Character
         ElseIf displacement.Y > 0 Then
             Dim _rect = New Rectangle(getTrueRect.X, CInt(getTrueRect.Y + displacement.Y + 1), getTrueRect.Width, getTrueRect.Height)
             For Each _wObj In CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects
-                If _rect.Intersects(_wObj.getTrueRect) Then
-                    Position.Y = _wObj.getTrueRect.Y - getTrueRect.Height
-                    Acceleration.Y = 0
-                    Velocity.Y = 0
-                    IsGrounded = True
-                    Return True
+                If _wObj IsNot Nothing Then
+                    If _rect.Intersects(_wObj.getTrueRect) Then
+                        Position.Y = _wObj.getTrueRect.Y - getTrueRect.Height
+                        Acceleration.Y = 0
+                        Velocity.Y = 0
+                        IsGrounded = True
+                        Return True
+                    End If
                 End If
             Next
             IsGrounded = False
@@ -63,11 +67,13 @@ Partial Public Class Character
         If displacement.X < 0 Then
             Dim _rect = New Rectangle(CInt(getTrueRect.X + displacement.X - 1), getTrueRect.Y, getTrueRect.Width, getTrueRect.Height)
             For Each _wObj In CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects
-                If _rect.Intersects(_wObj.getTrueRect) Then
-                    Position.X = _wObj.getTrueRect.X + _wObj.getTrueRect.Width
-                    Acceleration.X = 0
-                    Velocity.X = 0
-                    Return True
+                If _wObj IsNot Nothing Then
+                    If _rect.Intersects(_wObj.getTrueRect) Then
+                        Position.X = _wObj.getTrueRect.X + _wObj.getTrueRect.Width
+                        Acceleration.X = 0
+                        Velocity.X = 0
+                        Return True
+                    End If
                 End If
             Next
             Return False
@@ -75,11 +81,13 @@ Partial Public Class Character
         ElseIf displacement.X > 0 Then
             Dim _rect = New Rectangle(CInt(getTrueRect.X + displacement.X + 1), getTrueRect.Y, getTrueRect.Width, getTrueRect.Height)
             For Each _wObj In CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects
-                If _rect.Intersects(_wObj.getTrueRect) Then
-                    Position.X = _wObj.getTrueRect.X - getTrueRect.Width
-                    Acceleration.X = 0
-                    Velocity.X = 0
-                    Return True
+                If _wObj IsNot Nothing Then
+                    If _rect.Intersects(_wObj.getTrueRect) Then
+                        Position.X = _wObj.getTrueRect.X - getTrueRect.Width
+                        Acceleration.X = 0
+                        Velocity.X = 0
+                        Return True
+                    End If
                 End If
             Next
             Return False

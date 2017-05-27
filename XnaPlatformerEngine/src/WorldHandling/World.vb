@@ -38,14 +38,13 @@ Public Class World
 
     Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
 
-
-
-
         theSpriteBatch.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
 
         If SelectedLevel IsNot Nothing Then
             For Each _object In SelectedLevel.PlacedObjects
-                _object.Draw(theSpriteBatch)
+                If _object IsNot Nothing Then
+                    _object.Draw(theSpriteBatch)
+                End If
             Next
 
             Player.Draw(theSpriteBatch)
