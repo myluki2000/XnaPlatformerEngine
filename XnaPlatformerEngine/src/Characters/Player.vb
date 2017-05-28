@@ -22,6 +22,14 @@ Public Class Player
             Jump()
         End If
 
+        If Mouse.GetState.LeftButton = ButtonState.Pressed Then
+            ShootAtMouse()
+        End If
+
         MyBase.Update(gameTime)
+    End Sub
+
+    Private Sub ShootAtMouse()
+        ShootAt(Misc.ScreenPosToWorldPos(Mouse.GetState.Position))
     End Sub
 End Class

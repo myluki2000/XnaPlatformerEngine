@@ -48,6 +48,8 @@ Public Class Main
         TestWorld1.LoadContent(Content)
         TestWorld1.SetSelectedLevel(0)
 
+        Textures.Bullet = Content.Load(Of Texture2D)("Textures/Bullet")
+
         FontKoot = Content.Load(Of SpriteFont)("Koot")
         DevPurple = Content.Load(Of Texture2D)("devpurple")
         ' TODO: use this.Content to load your game content here

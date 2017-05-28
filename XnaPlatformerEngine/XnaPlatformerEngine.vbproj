@@ -56,6 +56,7 @@
     <Import Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Characters\Bullet.vb" />
     <Compile Include="src\Characters\Character.vb" />
     <Compile Include="src\Characters\Collision.vb" />
     <Compile Include="src\Characters\Player.vb" />
@@ -63,6 +64,7 @@
     <Compile Include="src\Main.vb" />
     <Compile Include="src\Misc\Misc.vb" />
     <Compile Include="src\Misc\Polygon.vb" />
+    <Compile Include="src\Misc\Textures.vb" />
     <Compile Include="src\Program.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
     <Compile Include="src\ScreenHandling\Screen.vb" />

@@ -133,4 +133,8 @@ Public Class Misc
 
         Return arrWObjs
     End Function
+
+    Public Shared Function ScreenPosToWorldPos(_screenPos As Point) As Vector2
+        Return New Vector2(_screenPos.X - LevelCameraMatrix.Translation.X, _screenPos.Y - LevelCameraMatrix.Translation.Y)
+    End Function
 End Class

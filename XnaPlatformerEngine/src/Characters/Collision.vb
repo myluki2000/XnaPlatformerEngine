@@ -4,7 +4,7 @@ Partial Public Class Character
     Private Sub CollidingCheck(displacement As Vector2, gameTime As GameTime)
         Dim _rect As New Rectangle(CInt(getTrueRect.X + displacement.X) - 1, CInt(getTrueRect.Y + displacement.Y) - 1, getTrueRect.Width + 2, getTrueRect.Height + 2) ' 1 Pixel border
 
-        Acceleration.Y += CSng(40 * gameTime.ElapsedGameTime.TotalSeconds) + 0.01
+        Acceleration.Y += CSng(40 * gameTime.ElapsedGameTime.TotalSeconds + 0.01)
         Velocity += Acceleration * CSng(gameTime.ElapsedGameTime.TotalSeconds)
 
         If ScreenHandler.GetSelectedScreen.GetType() = GetType(World) Then
