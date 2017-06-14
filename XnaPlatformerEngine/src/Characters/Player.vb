@@ -12,9 +12,9 @@ Public Class Player
 
     Public Overrides Sub Update(gameTime As GameTime)
         If Keyboard.GetState.IsKeyDown(Keys.A) Then
-            Velocity.X = -20
+            Velocity.X = -40
         ElseIf Keyboard.GetState.IsKeyDown(Keys.D) Then
-            Velocity.X = 20
+            Velocity.X = 40
         Else
             Velocity.X = 0
         End If

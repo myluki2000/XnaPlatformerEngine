@@ -16,7 +16,7 @@ Partial Public Class Character
 
     Public Sub Jump()
         If IsGrounded Then
-            Velocity.Y = -50
+            Velocity.Y = -70
         End If
     End Sub
 
