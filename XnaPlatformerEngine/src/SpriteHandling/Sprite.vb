@@ -33,10 +33,8 @@ Public MustInherit Class Sprite
         Texture = _content.Load(Of Texture2D)(TexturePath)
     End Sub
 
-    Public Function getScreenRect() As Rectangle
-        'Return New Rectangle(rect.X * 30, rect.Y * 30, CInt(rect.Width * Scale), CInt(rect.Height * Scale))
-        Throw New NotImplementedException
-        ' We need to change it to support scrolling levels!
+    Public Overridable Function getScreenRect() As Rectangle
+        Return New Rectangle(CInt(rect.X * 30 - LevelCameraMatrix.Translation.X), CInt(rect.Y * 30 - LevelCameraMatrix.Translation.Y), CInt(rect.Width * Scale), CInt(rect.Height * Scale))
     End Function
 
     Public Overridable Function getTrueRect() As Rectangle

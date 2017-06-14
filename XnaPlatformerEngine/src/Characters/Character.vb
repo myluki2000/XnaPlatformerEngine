@@ -1,5 +1,7 @@
-﻿Imports Microsoft.Xna.Framework
+﻿Imports System.Collections.Generic
+Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
+Imports Microsoft.Xna.Framework.Input
 
 Partial Public Class Character
     Inherits AnimatedSprite
@@ -8,10 +10,16 @@ Partial Public Class Character
     Friend Position As New Vector2(300, 320)
     Friend Acceleration As New Vector2(0, 0)
     Public IsGrounded As Boolean = True
+    Public Alive As Boolean = True
+    Public Bullets As New List(Of Bullet)
 
     Sub New(_frmWidth As Integer, _rect As Rectangle)
         MyBase.New(_frmWidth, _rect)
 
+    End Sub
+
+    Public Sub ShootAt(_target As Vector2)
+        Bullets.Add(New Bullet(Position, Vector2.Normalize(_target - Position) * 100))
     End Sub
 
     Public Sub Jump()
@@ -27,15 +35,30 @@ Partial Public Class Character
         Diagnostics.Debug.WriteLine(IsGrounded)
 
         CollidingCheck(_newPos, gameTime)
+
+
+        For Each _bul In Bullets
+            _bul.Update(gameTime)
+        Next
+
+        Bullets.RemoveAll(Function(x) x.Existing = False)
     End Sub
 
     Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
         If SelectedAnimation IsNot Nothing Then
             theSpriteBatch.Draw(SelectedAnimation.Texture, New Rectangle(CInt(Position.X), CInt(Position.Y), FrameWidth, SelectedAnimation.Texture.Height), srcRect, Color.White)
         End If
+
+        For Each _bul In Bullets
+            _bul.Draw(theSpriteBatch)
+        Next
     End Sub
 
     Public Overrides Function getTrueRect() As Rectangle
         Return New Rectangle(Position.ToPoint, getTextureSize.ToPoint)
+    End Function
+
+    Public Overrides Function getScreenRect() As Rectangle
+        Return New Rectangle(Position.ToPoint - New Point(CInt(LevelCameraMatrix.Translation.X), CInt(LevelCameraMatrix.Translation.Y)), getTextureSize.ToPoint)
     End Function
 End Class
