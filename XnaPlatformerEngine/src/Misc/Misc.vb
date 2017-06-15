@@ -137,4 +137,9 @@ Public Class Misc
     Public Shared Function ScreenPosToWorldPos(_screenPos As Point) As Vector2
         Return New Vector2(_screenPos.X - LevelCameraMatrix.Translation.X, _screenPos.Y - LevelCameraMatrix.Translation.Y)
     End Function
+
+    Public Shared Function GetRandomArrayIndex(_arr() As Object) As Integer
+        Dim rand As New Random
+        Return rand.Next(0, _arr.GetLength(0))
+    End Function
 End Class

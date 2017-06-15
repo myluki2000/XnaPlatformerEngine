@@ -65,6 +65,8 @@
     <Compile Include="src\Misc\Misc.vb" />
     <Compile Include="src\Misc\Polygon.vb" />
     <Compile Include="src\Misc\Textures.vb" />
+    <Compile Include="src\ParticleSystem\Particle.vb" />
+    <Compile Include="src\ParticleSystem\ParticleSystem.vb" />
     <Compile Include="src\Program.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
     <Compile Include="src\ScreenHandling\Screen.vb" />
