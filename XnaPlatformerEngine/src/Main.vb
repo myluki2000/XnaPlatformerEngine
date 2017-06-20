@@ -15,7 +15,6 @@ Public Class Main
     Private spriteBatch As SpriteBatch
 
     Dim TestWorld1 As New World
-    Dim ps As New ParticleSystem(New Vector2(100, 100)) With {.ParticleVelocityLowest = New Point(-10, -10), .ParticleVelocityHighest = New Point(10, 10)}
 
     Public Sub New()
         MyBase.New()
@@ -54,8 +53,7 @@ Public Class Main
         FontKoot = Content.Load(Of SpriteFont)("Koot")
         DevPurple = Content.Load(Of Texture2D)("devpurple")
 
-        ps.PossibleTextures = {DevPurple, Textures.Bullet}
-        ' TODO: use this.Content to load your game content here
+
     End Sub
 
     ''' <summary>
@@ -76,13 +74,8 @@ Public Class Main
             [Exit]()
         End If
 
-        If Keyboard.GetState.IsKeyDown(Keys.K) Then
-            ps.SpawnParticles(1)
-        End If
-
         ScreenHandler.Update(gameTime)
 
-        ps.Update(gameTime)
 
         MyBase.Update(gameTime)
     End Sub
@@ -95,10 +88,6 @@ Public Class Main
         GraphicsDevice.Clear(Color.CornflowerBlue)
 
         ScreenHandler.Draw(spriteBatch)
-
-        spriteBatch.Begin()
-        ps.Draw(spriteBatch)
-        spriteBatch.End()
 
         MyBase.Draw(gameTime)
     End Sub
