@@ -11,6 +11,7 @@ Public Class ParticleSystem
     Public ParticleLifetime As Integer = 5000
     Private Rand As New Random
     Public SpawnsPerSecond As Single = 10
+    Public ParticleFadeTime As Integer = 500
 
     Sub New(_pos As Vector2)
         Position = _pos
@@ -21,7 +22,7 @@ Public Class ParticleSystem
             Dim randVelocity As Vector2
             randVelocity.X = Rand.Next(ParticleVelocityLowest.X, ParticleVelocityHighest.X + 1)
             randVelocity.Y = Rand.Next(ParticleVelocityLowest.Y, ParticleVelocityHighest.Y + 1)
-            Particles.Add(New Particle(PossibleTextures(Misc.GetRandomArrayIndex(PossibleTextures)), Position, randVelocity, ParticleLifetime))
+            Particles.Add(New Particle(PossibleTextures(Misc.GetRandomArrayIndex(PossibleTextures)), Position, randVelocity, ParticleLifetime, ParticleFadeTime))
         Next
     End Sub
 
