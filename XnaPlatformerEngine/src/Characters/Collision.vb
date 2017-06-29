@@ -31,7 +31,7 @@ Partial Public Class Character
             IsGrounded = False
             Dim _rect = New Rectangle(getTrueRect.X, CInt(getTrueRect.Y + displacement.Y - 1), getTrueRect.Width, getTrueRect.Height)
             For ind As Integer = 0 To CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects.GetLength(0) - 1
-                Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(ind, CInt(Math.Floor(_rect.Top / 30)))
+                Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(ind, CInt(Math.Floor(_rect.Top / 30)), 50) ' Z = 50 because z-index = 0 is 50 in the array
                 If _wObj IsNot Nothing Then
                     If _rect.Intersects(_wObj.getTrueRect) Then
                         Position.Y = _wObj.getTrueRect.Y + _wObj.getTrueRect.Height
@@ -46,7 +46,7 @@ Partial Public Class Character
         ElseIf displacement.Y > 0 Then
             Dim _rect = New Rectangle(getTrueRect.X, CInt(getTrueRect.Y + displacement.Y + 1), getTrueRect.Width, getTrueRect.Height)
             For ind As Integer = 0 To CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects.GetLength(0) - 1
-                Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(ind, CInt(Math.Floor(_rect.Bottom / 30)))
+                Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(ind, CInt(Math.Floor(_rect.Bottom / 30)), 50) ' Z = 50 because z-index = 0 is 50 in the array
                 If _wObj IsNot Nothing Then
                     If _rect.Intersects(_wObj.getTrueRect) Then
                         Position.Y = _wObj.getTrueRect.Y - getTrueRect.Height
@@ -70,9 +70,9 @@ Partial Public Class Character
         If displacement.X < 0 Then
             Dim _rect = New Rectangle(CInt(getTrueRect.X + displacement.X - 1), getTrueRect.Y, getTrueRect.Width, getTrueRect.Height)
             For ind As Integer = 0 To CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects.GetLength(1) - 1
-                Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Left / 30)), ind)
+                Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Left / 30)), ind, 50) ' Z = 50 because z-index = 0 is 50 in the array
                 If _wObj IsNot Nothing Then
-                    If _rect.Intersects(_wObj.getTrueRect) Then
+                    If _rect.Intersects(_wObj.getTrueRect) AndAlso _wObj.zIndex = 0 Then
                         Position.X = _wObj.getTrueRect.X + _wObj.getTrueRect.Width
                         Acceleration.X = 0
                         Velocity.X = 0
@@ -85,9 +85,9 @@ Partial Public Class Character
         ElseIf displacement.X > 0 Then
             Dim _rect = New Rectangle(CInt(getTrueRect.X + displacement.X + 1), getTrueRect.Y, getTrueRect.Width, getTrueRect.Height)
             For ind As Integer = 0 To CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects.GetLength(1) - 1
-                Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Right / 30)), ind)
+                Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Right / 30)), ind, 50) ' Z = 50 because z-index = 0 is 50 in the array
                 If _wObj IsNot Nothing Then
-                    If _rect.Intersects(_wObj.getTrueRect) Then
+                    If _rect.Intersects(_wObj.getTrueRect) AndAlso _wObj.zIndex = 0 Then
                         Position.X = _wObj.getTrueRect.X - getTrueRect.Width
                         Acceleration.X = 0
                         Velocity.X = 0

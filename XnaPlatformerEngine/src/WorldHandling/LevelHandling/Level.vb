@@ -3,10 +3,10 @@ Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Content
 
 Public Class Level
-    Public PlacedObjects(,) As WorldObject
+    Public PlacedObjects(,,) As WorldObject
 
     Sub New(_placedObjs As List(Of WorldObject))
-        PlacedObjects = Misc.WObjListTo2DArray(_placedObjs)
+        PlacedObjects = Misc.WObjListTo3DArray(_placedObjs)
     End Sub
 
     Public Sub LoadContent(_content As ContentManager)

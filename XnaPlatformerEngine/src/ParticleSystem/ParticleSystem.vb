@@ -17,6 +17,10 @@ Public Class ParticleSystem
         Position = _pos
     End Sub
 
+    Sub New()
+
+    End Sub
+
     Public Sub SpawnParticles(_amount As Integer)
         For i As Integer = 1 To _amount
             Dim randVelocity As Vector2

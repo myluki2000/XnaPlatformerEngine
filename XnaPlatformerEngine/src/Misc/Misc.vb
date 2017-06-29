@@ -84,8 +84,8 @@ Public Class Misc
         Return colors2D
     End Function
 
-    Public Shared Function WObjListTo2DArray(_wObjs As List(Of WorldObject)) As WorldObject(,)
-        Dim arrWObjs(,) As WorldObject
+    Public Shared Function WObjListTo3DArray(_wObjs As List(Of WorldObject)) As WorldObject(,,)
+        Dim arrWObjs(,,) As WorldObject
 
         Dim minX As Integer = 0
         Dim minY As Integer = 0
@@ -124,11 +124,11 @@ Public Class Misc
 
 
         ' Resize array
-        ReDim arrWObjs(maxX, maxY)
+        ReDim arrWObjs(maxX, maxY, 100)
 
         ' Copy objects from list to array
         For Each _wObj In _wObjs
-            arrWObjs(_wObj.rect.X, _wObj.rect.Y) = _wObj
+            arrWObjs(_wObj.rect.X, _wObj.rect.Y, _wObj.zIndex + 50) = _wObj
         Next
 
         Return arrWObjs

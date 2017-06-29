@@ -29,6 +29,8 @@ Public Class Main
     ''' and initialize them as well.
     ''' </summary>
     Protected Overrides Sub Initialize()
+        IsMouseVisible = True
+
 
         ScreenHandler.SetSelectedScreen(TestWorld1)
 
@@ -70,7 +72,7 @@ Public Class Main
     ''' </summary>
     ''' <param name="gameTime">Provides a snapshot of timing values.</param>
     Protected Overrides Sub Update(gameTime As GameTime)
-        If GamePad.GetState(PlayerIndex.One).Buttons.Back = ButtonState.Pressed OrElse Keyboard.GetState().IsKeyDown(Keys.Escape) Then
+        If Keyboard.GetState().IsKeyDown(Keys.Escape) Then
             [Exit]()
         End If
 

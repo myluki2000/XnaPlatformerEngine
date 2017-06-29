@@ -27,7 +27,7 @@ Public Class Bullet
         Dim _centerPos As New Vector2(CSng(Position.X + Textures.Bullet.Width / 2), CSng(Position.Y + Textures.Bullet.Height / 2)) ' Get center pos of bullet
 
         Try
-            If CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_centerPos.X / 30)), CInt(Math.Floor(_centerPos.Y / 30))) IsNot Nothing Then
+            If CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_centerPos.X / 30)), CInt(Math.Floor(_centerPos.Y / 30)), 50) IsNot Nothing Then
                 ' Use center pos to check if block at position in level
                 Return True
             Else

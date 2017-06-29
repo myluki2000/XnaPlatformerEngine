@@ -30,6 +30,7 @@ Public Class World
 
     Public Sub SetSelectedLevel(index As Integer)
         SelectedLevel = Levels(index)
+
     End Sub
 
     Public Function GetSelectedLevel() As Level
@@ -41,13 +42,29 @@ Public Class World
         theSpriteBatch.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
 
         If SelectedLevel IsNot Nothing Then
-            For Each _object In SelectedLevel.PlacedObjects
-                If _object IsNot Nothing Then
-                    _object.Draw(theSpriteBatch)
-                End If
+            For x As Integer = 0 To SelectedLevel.PlacedObjects.GetUpperBound(0)
+                For y As Integer = 0 To SelectedLevel.PlacedObjects.GetUpperBound(1)
+                    For z As Integer = 0 To 50
+                        Dim _object = SelectedLevel.PlacedObjects(x, y, z)
+                        If _object IsNot Nothing Then
+                            _object.Draw(theSpriteBatch)
+                        End If
+                    Next
+                Next
             Next
 
             Player.Draw(theSpriteBatch)
+
+            For x As Integer = 0 To SelectedLevel.PlacedObjects.GetUpperBound(0)
+                For y As Integer = 0 To SelectedLevel.PlacedObjects.GetUpperBound(1)
+                    For z As Integer = 51 To 100
+                        Dim _object = SelectedLevel.PlacedObjects(x, y, z)
+                        If _object IsNot Nothing Then
+                            _object.Draw(theSpriteBatch)
+                        End If
+                    Next
+                Next
+            Next
         End If
         theSpriteBatch.End()
 
