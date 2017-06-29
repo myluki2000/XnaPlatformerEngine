@@ -35,7 +35,7 @@ Public Class LevelLoader
             MsgBox("Load complete")
             Return _placedObjects
         Else
-            Return Nothing
+            Return LoadLevel()
         End If
     End Function
 
