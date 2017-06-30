@@ -10,10 +10,12 @@ Public Class Bullet
     Public Existing As Boolean = True
     Public Landed As Boolean = False
     Public ps As ParticleSystem
+    Dim Rotation As Single
 
     Sub New(_pos As Vector2, _vel As Vector2)
         Position = _pos
         Velocity = _vel
+        Rotation = CSng(Math.Atan2(Velocity.Y, Velocity.X))
     End Sub
 
     Dim counter As Integer = 0
@@ -22,7 +24,7 @@ Public Class Bullet
             Position += Velocity * CSng(gameTime.ElapsedGameTime.TotalSeconds)
             If CheckCollision() Then
                 Landed = True
-                ps = New ParticleSystem(Position + (Textures.Bullet.Bounds.Size / New Point(2, 2)).ToVector2) With {.ParticleFadeTime = 200, .ParticleLifetime = 700, .PossibleTextures = {Textures.ParticleSpark},
+                ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 700, .PossibleTextures = {Textures.ParticleSpark},
                     .ParticleVelocityLowest = New Point(-20, -20), .ParticleVelocityHighest = New Point(20, 20)}
                 ps.SpawnParticles(5)
             End If
@@ -37,7 +39,7 @@ Public Class Bullet
 
     Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
         If Not Landed Then
-            theSpriteBatch.Draw(Textures.Bullet, Position, Color.White)
+            theSpriteBatch.Draw(Textures.Bullet, Position, Nothing, Color.White, Rotation, New Vector2(Textures.Bullet.Width / 2, Textures.Bullet.Height / 2), 1, Nothing, Nothing)
         End If
 
         If ps IsNot Nothing Then
