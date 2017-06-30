@@ -51,6 +51,7 @@ Public Class Main
         TestWorld1.SetSelectedLevel(0)
 
         Textures.Bullet = Content.Load(Of Texture2D)("Textures/Bullet")
+        Textures.ParticleSpark = Content.Load(Of Texture2D)("Textures/Spark")
 
         FontKoot = Content.Load(Of SpriteFont)("Koot")
         DevPurple = Content.Load(Of Texture2D)("devpurple")

@@ -10,7 +10,7 @@ Public Class ParticleSystem
     Public ParticleVelocityHighest As Point
     Public ParticleLifetime As Integer = 5000
     Private Rand As New Random
-    Public SpawnsPerSecond As Single = 10
+    Public SpawnsPerSecond As Single = 0
     Public ParticleFadeTime As Integer = 500
 
     Sub New(_pos As Vector2)

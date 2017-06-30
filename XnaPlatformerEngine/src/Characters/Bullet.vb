@@ -8,19 +8,41 @@ Public Class Bullet
     Public Position As Vector2
     Public Velocity As Vector2
     Public Existing As Boolean = True
+    Public Landed As Boolean = False
+    Public ps As ParticleSystem
 
     Sub New(_pos As Vector2, _vel As Vector2)
         Position = _pos
         Velocity = _vel
     End Sub
 
+    Dim counter As Integer = 0
     Public Overrides Sub Update(gameTime As GameTime)
-        Position += Velocity * CSng(gameTime.ElapsedGameTime.TotalSeconds)
-        Existing = Not CheckCollision()
+        If Not Landed Then
+            Position += Velocity * CSng(gameTime.ElapsedGameTime.TotalSeconds)
+            If CheckCollision() Then
+                Landed = True
+                ps = New ParticleSystem(Position + (Textures.Bullet.Bounds.Size / New Point(2, 2)).ToVector2) With {.ParticleFadeTime = 200, .ParticleLifetime = 700, .PossibleTextures = {Textures.ParticleSpark},
+                    .ParticleVelocityLowest = New Point(-20, -20), .ParticleVelocityHighest = New Point(20, 20)}
+                ps.SpawnParticles(5)
+            End If
+        Else
+            ps.Update(gameTime)
+            counter += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
+            If counter = 700 Then
+                Existing = False
+            End If
+        End If
     End Sub
 
     Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
-        theSpriteBatch.Draw(Textures.Bullet, Position, Color.White)
+        If Not Landed Then
+            theSpriteBatch.Draw(Textures.Bullet, Position, Color.White)
+        End If
+
+        If ps IsNot Nothing Then
+            ps.Draw(theSpriteBatch)
+        End If
     End Sub
 
     Private Function CheckCollision() As Boolean

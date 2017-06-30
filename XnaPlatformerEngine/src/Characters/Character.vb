@@ -12,14 +12,19 @@ Partial Public Class Character
     Public IsGrounded As Boolean = True
     Public Alive As Boolean = True
     Public Bullets As New List(Of Bullet)
+    Public BulletCooldown As Integer = 200
 
     Sub New(_frmWidth As Integer, _rect As Rectangle)
         MyBase.New(_frmWidth, _rect)
 
     End Sub
 
+    Dim BulletCooldownCounter As Integer = 0
     Public Sub ShootAt(_target As Vector2)
-        Bullets.Add(New Bullet(Position, Vector2.Normalize(_target - Position) * 100))
+        If BulletCooldownCounter > BulletCooldown Then
+            Bullets.Add(New Bullet(Position, Vector2.Normalize(_target - Position) * 200))
+            BulletCooldownCounter = 0
+        End If
     End Sub
 
     Public Sub Jump()
@@ -42,6 +47,8 @@ Partial Public Class Character
         Next
 
         Bullets.RemoveAll(Function(x) x.Existing = False)
+
+        BulletCooldownCounter += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
     End Sub
 
     Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
