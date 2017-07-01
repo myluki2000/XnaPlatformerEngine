@@ -1,5 +1,4 @@
 ﻿Imports Microsoft.Xna.Framework
-Imports Microsoft.Xna.Framework.Content
 Imports Microsoft.Xna.Framework.Graphics
 
 Public Class Bullet
@@ -39,7 +38,7 @@ Public Class Bullet
 
     Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
         If Not Landed Then
-            theSpriteBatch.Draw(Textures.Bullet, Position, Nothing, Color.White, Rotation, New Vector2(Textures.Bullet.Width / 2, Textures.Bullet.Height / 2), 1, Nothing, Nothing)
+            theSpriteBatch.Draw(Textures.Bullet, Position, Nothing, Color.White, Rotation, New Vector2(CSng(Textures.Bullet.Width / 2), CSng(Textures.Bullet.Height / 2)), 1, Nothing, Nothing)
         End If
 
         If ps IsNot Nothing Then
