@@ -8,7 +8,7 @@ Public Class Bullet
     Public Velocity As Vector2
     Public Existing As Boolean = True
     Public Landed As Boolean = False
-    Public ps As ParticleSystem
+    Public WithEvents ps As ParticleSystem
     Dim Rotation As Single
 
     Sub New(_pos As Vector2, _vel As Vector2)
@@ -47,11 +47,9 @@ Public Class Bullet
     End Sub
 
     Private Function CheckCollision() As Boolean
-        Dim _centerPos As New Vector2(CSng(Position.X + Textures.Bullet.Width / 2), CSng(Position.Y + Textures.Bullet.Height / 2)) ' Get center pos of bullet
-
         Try
-            If CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_centerPos.X / 30)), CInt(Math.Floor(_centerPos.Y / 30)), 50) IsNot Nothing Then
-                ' Use center pos to check if block at position in level
+            If CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(Position.X / 30)), CInt(Math.Floor(Position.Y / 30)), 50) IsNot Nothing Then
+                ' check if block at position in level
                 Return True
             Else
                 Return False
@@ -60,4 +58,10 @@ Public Class Bullet
             Return True ' When bullet flies out of level return true so it gets deleted
         End Try
     End Function
+
+    Private Sub DeleteBullet() Handles ps.ParticlesDespawned
+        If Landed Then
+            Existing = False
+        End If
+    End Sub
 End Class

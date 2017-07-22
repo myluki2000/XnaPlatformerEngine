@@ -29,7 +29,7 @@ Partial Public Class Character
 
     Public Sub Jump()
         If IsGrounded Then
-            Velocity.Y = -70
+            Velocity.Y = -120
         End If
     End Sub
 
@@ -37,7 +37,6 @@ Partial Public Class Character
         MyBase.Update(gameTime)
 
         Dim _newPos As Vector2 = Velocity * CSng(gameTime.ElapsedGameTime.TotalSeconds)
-        Diagnostics.Debug.WriteLine(IsGrounded)
 
         CollidingCheck(_newPos, gameTime)
 

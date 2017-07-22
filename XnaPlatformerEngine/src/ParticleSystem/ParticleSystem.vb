@@ -12,6 +12,7 @@ Public Class ParticleSystem
     Private Rand As New Random
     Public SpawnsPerSecond As Single = 0
     Public ParticleFadeTime As Integer = 500
+    Public Event ParticlesDespawned()
 
     Sub New(_pos As Vector2)
         Position = _pos
@@ -55,5 +56,8 @@ Public Class ParticleSystem
         Next
 
         Particles.RemoveAll(Function(x) x.Alive = False)
+        If Particles.Count = 0 Then
+            RaiseEvent ParticlesDespawned()
+        End If
     End Sub
 End Class
