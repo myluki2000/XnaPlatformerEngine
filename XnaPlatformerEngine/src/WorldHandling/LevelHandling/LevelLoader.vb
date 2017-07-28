@@ -1,10 +1,11 @@
 ﻿Imports System.Collections.Generic
 Imports System.Xml.Linq
+Imports System.Windows.Forms
 
 Public Class LevelLoader
     Public Shared Function LoadLevel() As List(Of WorldObject)
         Dim _placedObjects As New List(Of WorldObject)
-        Dim dlgLoad As New Windows.Forms.OpenFileDialog
+        Dim dlgLoad As New OpenFileDialog
         dlgLoad.Filter = "Platformer level | *.plvl"
         dlgLoad.Multiselect = False
         dlgLoad.ShowDialog()

@@ -30,6 +30,6 @@ Public Class Player
     End Sub
 
     Private Sub ShootAtMouse()
-        ShootAt(Misc.ScreenPosToWorldPos(Mouse.GetState.Position))
+        Weapon.ShootAt(Misc.ScreenPosToWorldPos(Mouse.GetState.Position))
     End Sub
 End Class

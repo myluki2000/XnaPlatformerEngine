@@ -74,7 +74,7 @@ Public Class Main
     ''' <param name="gameTime">Provides a snapshot of timing values.</param>
     Protected Overrides Sub Update(gameTime As GameTime)
         If Keyboard.GetState().IsKeyDown(Keys.Escape) Then
-            [Exit]()
+            End
         End If
 
         ScreenHandler.Update(gameTime)

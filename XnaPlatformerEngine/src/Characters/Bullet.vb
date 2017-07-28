@@ -6,14 +6,18 @@ Public Class Bullet
 
     Public Position As Vector2
     Public Velocity As Vector2
+    Public Damage As Integer
     Public Existing As Boolean = True
     Public Landed As Boolean = False
     Public WithEvents ps As ParticleSystem
     Dim Rotation As Single
 
-    Sub New(_pos As Vector2, _vel As Vector2)
+    Public Event BulletImpact(ByRef sender As Bullet)
+
+    Sub New(_pos As Vector2, _vel As Vector2, _dmg As Integer)
         Position = _pos
         Velocity = _vel
+        Damage = _dmg
         Rotation = CSng(Math.Atan2(Velocity.Y, Velocity.X))
     End Sub
 
@@ -23,6 +27,9 @@ Public Class Bullet
             Position += Velocity * CSng(gameTime.ElapsedGameTime.TotalSeconds)
             If CheckCollision() Then
                 Landed = True
+
+                RaiseEvent BulletImpact(Me)
+
                 ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 700, .PossibleTextures = {Textures.ParticleSpark},
                     .ParticleVelocityLowest = New Point(-20, -20), .ParticleVelocityHighest = New Point(20, 20)}
                 ps.SpawnParticles(5)

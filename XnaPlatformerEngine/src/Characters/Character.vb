@@ -11,20 +11,12 @@ Partial Public Class Character
     Friend Acceleration As New Vector2(0, 0)
     Public IsGrounded As Boolean = True
     Public Alive As Boolean = True
-    Public Bullets As New List(Of Bullet)
-    Public BulletCooldown As Integer = 200
+
+    Public Weapon As New Weapon
 
     Sub New(_frmWidth As Integer, _rect As Rectangle)
         MyBase.New(_frmWidth, _rect)
 
-    End Sub
-
-    Dim BulletCooldownCounter As Integer = 0
-    Public Sub ShootAt(_target As Vector2)
-        If BulletCooldownCounter > BulletCooldown Then
-            Bullets.Add(New Bullet(Position, Vector2.Normalize(_target - Position) * 200))
-            BulletCooldownCounter = 0
-        End If
     End Sub
 
     Public Sub Jump()
@@ -40,14 +32,9 @@ Partial Public Class Character
 
         CollidingCheck(_newPos, gameTime)
 
+        Weapon.Position = Position
+        Weapon.Update(gameTime)
 
-        For Each _bul In Bullets
-            _bul.Update(gameTime)
-        Next
-
-        Bullets.RemoveAll(Function(x) x.Existing = False)
-
-        BulletCooldownCounter += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
     End Sub
 
     Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
@@ -55,9 +42,7 @@ Partial Public Class Character
             theSpriteBatch.Draw(SelectedAnimation.Texture, New Rectangle(CInt(Position.X), CInt(Position.Y), FrameWidth, SelectedAnimation.Texture.Height), srcRect, Color.White)
         End If
 
-        For Each _bul In Bullets
-            _bul.Draw(theSpriteBatch)
-        Next
+        Weapon.Draw(theSpriteBatch)
     End Sub
 
     Public Overrides Function getTrueRect() As Rectangle
