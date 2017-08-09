@@ -67,38 +67,42 @@ Partial Public Class Character
     End Function
 
     Private Function CheckCollidingSides(displacement As Vector2) As Boolean
-        If displacement.X < 0 Then
-            Dim _rect = New Rectangle(CInt(getTrueRect.X + displacement.X - 1), getTrueRect.Y, getTrueRect.Width, getTrueRect.Height)
-            For ind As Integer = 0 To CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects.GetLength(1) - 1
-                Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Left / 30)), ind, 50) ' Z = 50 because z-index = 0 is 50 in the array
-                If _wObj IsNot Nothing Then
-                    If _rect.Intersects(_wObj.getTrueRect) AndAlso _wObj.zIndex = 0 Then
-                        Position.X = _wObj.getTrueRect.X + _wObj.getTrueRect.Width
-                        Acceleration.X = 0
-                        Velocity.X = 0
-                        Return True
+        Try
+            If displacement.X < 0 Then
+                Dim _rect = New Rectangle(CInt(getTrueRect.X + displacement.X - 1), getTrueRect.Y, getTrueRect.Width, getTrueRect.Height)
+                For ind As Integer = 0 To CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects.GetLength(1) - 1
+                    Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Left / 30)), ind, 50) ' Z = 50 because z-index = 0 is 50 in the array
+                    If _wObj IsNot Nothing Then
+                        If _rect.Intersects(_wObj.getTrueRect) AndAlso _wObj.zIndex = 0 Then
+                            Position.X = _wObj.getTrueRect.X + _wObj.getTrueRect.Width
+                            Acceleration.X = 0
+                            Velocity.X = 0
+                            Return True
+                        End If
                     End If
-                End If
-            Next
-            Return False
+                Next
+                Return False
 
-        ElseIf displacement.X > 0 Then
-            Dim _rect = New Rectangle(CInt(getTrueRect.X + displacement.X + 1), getTrueRect.Y, getTrueRect.Width, getTrueRect.Height)
-            For ind As Integer = 0 To CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects.GetLength(1) - 1
-                Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Right / 30)), ind, 50) ' Z = 50 because z-index = 0 is 50 in the array
-                If _wObj IsNot Nothing Then
-                    If _rect.Intersects(_wObj.getTrueRect) AndAlso _wObj.zIndex = 0 Then
-                        Position.X = _wObj.getTrueRect.X - getTrueRect.Width
-                        Acceleration.X = 0
-                        Velocity.X = 0
-                        Return True
+            ElseIf displacement.X > 0 Then
+                Dim _rect = New Rectangle(CInt(getTrueRect.X + displacement.X + 1), getTrueRect.Y, getTrueRect.Width, getTrueRect.Height)
+                For ind As Integer = 0 To CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects.GetLength(1) - 1
+                    Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Right / 30)), ind, 50) ' Z = 50 because z-index = 0 is 50 in the array
+                    If _wObj IsNot Nothing Then
+                        If _rect.Intersects(_wObj.getTrueRect) AndAlso _wObj.zIndex = 0 Then
+                            Position.X = _wObj.getTrueRect.X - getTrueRect.Width
+                            Acceleration.X = 0
+                            Velocity.X = 0
+                            Return True
+                        End If
                     End If
-                End If
-            Next
-            Return False
+                Next
+                Return False
 
-        Else
-            Return False ' If sideway velocity is 0 it can't collide on sides
-        End If
+            Else
+                Return False ' If sideway velocity is 0 it can't collide on sides
+            End If
+        Catch ex As IndexOutOfRangeException
+
+        End Try
     End Function
 End Class
