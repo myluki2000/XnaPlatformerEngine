@@ -10,6 +10,7 @@ Public Class Player
         SetSelectedAnimation("idle")
     End Sub
 
+
     Public Overrides Sub Update(gameTime As GameTime)
         If Keyboard.GetState.IsKeyDown(Keys.A) Then
             Velocity.X = -100
@@ -22,8 +23,12 @@ Public Class Player
             Jump()
         End If
 
-        If Mouse.GetState.LeftButton = ButtonState.Pressed Then
+        If Mouse.GetState.LeftButton = ButtonState.Pressed AndAlso Not Weapon.CurrentlyReloading Then
             ShootAtMouse()
+        End If
+
+        If Keyboard.GetState.IsKeyDown(Keys.R) OrElse Weapon.CurrentlyReloading Then
+            Weapon.ReloadWeapon(gameTime)
         End If
 
         MyBase.Update(gameTime)

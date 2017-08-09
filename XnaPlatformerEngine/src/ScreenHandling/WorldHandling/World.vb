@@ -68,6 +68,13 @@ Public Class World
         End If
         theSpriteBatch.End()
 
+
+        theSpriteBatch.Begin()
+
+        DrawUI(theSpriteBatch)
+
+        theSpriteBatch.End()
+
         CameraFocusOnObject(Player)
     End Sub
 
@@ -84,5 +91,9 @@ Public Class World
 
     Public Sub LoadLevel()
 
+    End Sub
+
+    Public Sub DrawUI(_sb As SpriteBatch)
+        _sb.DrawString(FontKoot, Player.Weapon.BulletsInMag & "/" & Player.Weapon.BulletsMagMax, New Vector2(10, 10), Color.Black)
     End Sub
 End Class

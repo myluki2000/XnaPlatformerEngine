@@ -12,7 +12,7 @@ Partial Public Class Character
     Public IsGrounded As Boolean = True
     Public Alive As Boolean = True
 
-    Public Weapon As New Weapon
+    Public Weapon As New AR
 
     Sub New(_frmWidth As Integer, _rect As Rectangle)
         MyBase.New(_frmWidth, _rect)
@@ -42,7 +42,7 @@ Partial Public Class Character
             theSpriteBatch.Draw(SelectedAnimation.Texture, New Rectangle(CInt(Position.X), CInt(Position.Y), FrameWidth, SelectedAnimation.Texture.Height), srcRect, Color.White)
         End If
 
-        Weapon.Draw(theSpriteBatch)
+        Weapon.Draw(theSpriteBatch, Me)
     End Sub
 
     Public Overrides Function getTrueRect() As Rectangle

@@ -65,11 +65,12 @@
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="src\Characters\Bullet.vb" />
+    <Compile Include="src\Characters\Weapons\Bullet.vb" />
     <Compile Include="src\Characters\Character.vb" />
     <Compile Include="src\Characters\Collision.vb" />
     <Compile Include="src\Characters\Player.vb" />
     <Compile Include="src\Characters\Weapons\AR.vb" />
+    <Compile Include="src\Characters\Weapons\Pistol.vb" />
     <Compile Include="src\Characters\Weapons\Weapon.vb" />
     <Compile Include="src\GlobalVariables.vb" />
     <Compile Include="src\Main.vb" />
@@ -86,10 +87,10 @@
     <Compile Include="src\SpriteHandling\AnimatedSprite.vb" />
     <Compile Include="src\SpriteHandling\Animation.vb" />
     <Compile Include="src\SpriteHandling\Sprite.vb" />
-    <Compile Include="src\WorldHandling\LevelHandling\Level.vb" />
-    <Compile Include="src\WorldHandling\LevelHandling\LevelLoader.vb" />
-    <Compile Include="src\WorldHandling\World.vb" />
-    <Compile Include="src\WorldHandling\WorldObject.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Level.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\LevelLoader.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\World.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\WorldObject.vb" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL">
