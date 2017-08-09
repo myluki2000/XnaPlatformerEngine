@@ -21,10 +21,6 @@ Public Class Weapon
     End Sub
 
     Public Overridable Sub Update(gameTime As GameTime)
-        If BulletsInMag < 1 Then
-            ReloadWeapon(gameTime)
-        End If
-
         For Each _bul In Bullets
             _bul.Update(gameTime)
         Next
@@ -55,7 +51,7 @@ Public Class Weapon
                 Misc.DrawRectangle(_sb, New Rectangle(_parent.Position.ToPoint + New Point(0, -20), New Point(CInt(_parent.getTextureSize.X), 2)), Color.Black)
 
                 ' Draw moving vertical line
-                Misc.DrawRectangle(_sb, New Rectangle(_parent.Position.ToPoint + New Point(_parent.getTextureSize.X * ReloadCounter / ReloadTime - 2, -24), New Point(4, 10)), Color.Black)
+                Misc.DrawRectangle(_sb, New Rectangle(_parent.Position.ToPoint + New Point(CInt(_parent.getTextureSize.X * ReloadCounter / ReloadTime - 2), -24), New Point(4, 10)), Color.Black)
             End If
         End If
 

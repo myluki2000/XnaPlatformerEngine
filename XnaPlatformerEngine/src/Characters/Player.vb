@@ -27,7 +27,7 @@ Public Class Player
             ShootAtMouse()
         End If
 
-        If Keyboard.GetState.IsKeyDown(Keys.R) OrElse Weapon.CurrentlyReloading Then
+        If Keyboard.GetState.IsKeyDown(Keys.R) OrElse Weapon.CurrentlyReloading OrElse Weapon.BulletsInMag < 1 Then
             Weapon.ReloadWeapon(gameTime)
         End If
 
