@@ -84,6 +84,7 @@
     <Compile Include="src\ScreenHandling\Screen.vb" />
     <Compile Include="src\ScreenHandling\ScreenHandler.vb" />
     <Compile Include="src\ScreenHandling\Screens\TestScreen.vb" />
+    <Compile Include="src\SoundSystem\Sounds.vb" />
     <Compile Include="src\SpriteHandling\AnimatedSprite.vb" />
     <Compile Include="src\SpriteHandling\Animation.vb" />
     <Compile Include="src\SpriteHandling\Sprite.vb" />
@@ -121,6 +122,13 @@
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Runtime" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Sounds\Characters\Player\" />
+    <Folder Include="Content\Sounds\Music\" />
+    <Folder Include="Content\Sounds\Weapons\AR\" />
+    <Folder Include="Content\Sounds\Weapons\Pistol\" />
+    <Folder Include="Content\Sounds\World\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
