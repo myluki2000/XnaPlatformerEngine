@@ -33,7 +33,23 @@ Public Class LevelLoader
                 Next
             Next
 
-            MsgBox("Load complete")
+
+            ' Load technical objects
+            For Each xele In XElement.Load(dlgLoad.FileName).Element("TechnicalObjects").Elements
+                Select Case xele.Attribute("Name").Value
+                    Case "PlayerSpawn"
+                        Dim tObj As New PlayerSpawn
+                        tObj.Name = xele.Attribute("Name").Value
+                        tObj.rect.X = CInt(xele.Element("X").Value)
+                        tObj.rect.Y = CInt(xele.Element("Y").Value)
+
+                        _placedObjects.Add(tObj)
+
+
+                End Select
+            Next
+
+            MsgBox("Level has been loaded." & vbNewLine & _placedObjects.Count & " objects have been loaded.")
             Return _placedObjects
         Else
             Return LoadLevel()

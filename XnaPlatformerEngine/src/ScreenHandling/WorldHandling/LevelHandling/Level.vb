@@ -11,7 +11,7 @@ Public Class Level
 
     Public Sub LoadContent(_content As ContentManager)
         For Each _wObj In PlacedObjects
-            If _wObj IsNot Nothing Then
+            If _wObj IsNot Nothing AndAlso _wObj.GetType() = GetType(WorldObject) Then
                 _wObj.LoadContent(_content)
             End If
         Next

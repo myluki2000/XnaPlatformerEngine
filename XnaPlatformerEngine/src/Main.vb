@@ -46,7 +46,6 @@ Public Class Main
         spriteBatch = New SpriteBatch(GraphicsDevice)
 
         TestWorld1.Levels.Add(New Level(LevelLoader.LoadLevel()))
-
         TestWorld1.LoadContent(Content)
         TestWorld1.SetSelectedLevel(0)
 

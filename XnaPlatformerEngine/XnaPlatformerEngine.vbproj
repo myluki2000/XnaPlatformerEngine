@@ -84,6 +84,11 @@
     <Compile Include="src\ScreenHandling\Screen.vb" />
     <Compile Include="src\ScreenHandling\ScreenHandler.vb" />
     <Compile Include="src\ScreenHandling\Screens\TestScreen.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\TechnicalObjects\ParticleSpawner.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\TechnicalObjects\PlayerSpawn.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\TechnicalObjects\PlayerTrigger.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\TechnicalObjects\Spawner.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\TechnicalObjects\TechnicalObject.vb" />
     <Compile Include="src\SoundSystem\Sounds.vb" />
     <Compile Include="src\SpriteHandling\AnimatedSprite.vb" />
     <Compile Include="src\SpriteHandling\Animation.vb" />
