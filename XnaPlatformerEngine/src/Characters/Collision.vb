@@ -94,6 +94,7 @@ Partial Public Class Character
                 Return False
             End If
         Catch ex As IndexOutOfRangeException
+            Return False
         End Try
     End Function
 
@@ -133,7 +134,7 @@ Partial Public Class Character
                 Return False ' If sideway velocity is 0 it can't collide on sides
             End If
         Catch ex As IndexOutOfRangeException
-
+            Return False
         End Try
     End Function
 End Class
