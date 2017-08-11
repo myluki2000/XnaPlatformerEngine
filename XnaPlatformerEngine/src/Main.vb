@@ -56,7 +56,7 @@ Public Class Main
         FontKoot = Content.Load(Of SpriteFont)("Koot")
         DevPurple = Content.Load(Of Texture2D)("devpurple")
 
-
+        Sounds.LoadSounds(Content)
     End Sub
 
     ''' <summary>

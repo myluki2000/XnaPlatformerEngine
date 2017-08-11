@@ -1,4 +1,6 @@
-﻿Public Class Sounds
+﻿Imports Microsoft.Xna.Framework.Content
+
+Public Class Sounds
     Public Class World
 
     End Class
@@ -22,4 +24,8 @@
 
         End Class
     End Class
+
+    Public Shared Sub LoadSounds(Content As ContentManager)
+
+    End Sub
 End Class
