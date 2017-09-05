@@ -1,6 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Content
+Imports Microsoft.Xna.Framework.Graphics
 
 Public Class Level
     Public PlacedObjects(,,) As WorldObject
@@ -14,6 +15,32 @@ Public Class Level
             If _wObj IsNot Nothing AndAlso _wObj.GetType() = GetType(WorldObject) Then
                 _wObj.LoadContent(_content)
             End If
+        Next
+    End Sub
+
+    Public Sub Draw(ByRef sb As SpriteBatch, ByRef Player As Player)
+        For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
+            For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
+                For z As Integer = 0 To 50
+                    Dim _object = PlacedObjects(x, y, z)
+                    If _object IsNot Nothing Then
+                        _object.Draw(sb)
+                    End If
+                Next
+            Next
+        Next
+
+        Player.Draw(sb)
+
+        For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
+            For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
+                For z As Integer = 51 To 100
+                    Dim _object = PlacedObjects(x, y, z)
+                    If _object IsNot Nothing Then
+                        _object.Draw(sb)
+                    End If
+                Next
+            Next
         Next
     End Sub
 

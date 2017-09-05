@@ -44,43 +44,21 @@ Public Class World
         Return SelectedLevel
     End Function
 
-    Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
+    Public Overrides Sub Draw(sb As SpriteBatch)
 
-        theSpriteBatch.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+        sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
 
         If SelectedLevel IsNot Nothing Then
-            For x As Integer = 0 To SelectedLevel.PlacedObjects.GetUpperBound(0)
-                For y As Integer = 0 To SelectedLevel.PlacedObjects.GetUpperBound(1)
-                    For z As Integer = 0 To 50
-                        Dim _object = SelectedLevel.PlacedObjects(x, y, z)
-                        If _object IsNot Nothing Then
-                            _object.Draw(theSpriteBatch)
-                        End If
-                    Next
-                Next
-            Next
-
-            Player.Draw(theSpriteBatch)
-
-            For x As Integer = 0 To SelectedLevel.PlacedObjects.GetUpperBound(0)
-                For y As Integer = 0 To SelectedLevel.PlacedObjects.GetUpperBound(1)
-                    For z As Integer = 51 To 100
-                        Dim _object = SelectedLevel.PlacedObjects(x, y, z)
-                        If _object IsNot Nothing Then
-                            _object.Draw(theSpriteBatch)
-                        End If
-                    Next
-                Next
-            Next
+            SelectedLevel.Draw(sb, Player)
         End If
-        theSpriteBatch.End()
+        sb.End()
 
 
-        theSpriteBatch.Begin()
+        sb.Begin()
 
-        DrawUI(theSpriteBatch)
+        DrawUI(sb)
 
-        theSpriteBatch.End()
+        sb.End()
 
         CameraFocusOnObject(Player)
     End Sub
