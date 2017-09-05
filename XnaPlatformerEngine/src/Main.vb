@@ -56,6 +56,8 @@ Public Class Main
         DevPurple = Content.Load(Of Texture2D)("devpurple")
 
         Sounds.LoadSounds(Content)
+
+
     End Sub
 
     ''' <summary>

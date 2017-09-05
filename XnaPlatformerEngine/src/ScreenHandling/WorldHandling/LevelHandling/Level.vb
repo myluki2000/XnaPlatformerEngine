@@ -25,7 +25,7 @@ Public Class Level
         Next
     End Sub
 
-    Public Sub explode(_centerPos As Vector2, _radius As Integer)
+    Public Sub Explode(_centerPos As Vector2, _radius As Integer)
         For x As Integer = CInt(_centerPos.X / 30 - _radius) To CInt(_centerPos.X / 30 + _radius)
             For y As Integer = CInt(_centerPos.Y / 30 - _radius) To CInt(_centerPos.Y / 30 + _radius)
                 ' Get distance of center of block to center of explosion

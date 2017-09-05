@@ -1,18 +1,19 @@
 ﻿Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
 
-Public Class Bullet
+Public Class Projectile
     Inherits Sprite
 
     Public Position As Vector2
     Public Velocity As Vector2
+    Public Acceleration As New Vector2(0, 0)
     Public Damage As Integer
     Public Existing As Boolean = True
     Public Landed As Boolean = False
     Public WithEvents ps As ParticleSystem
     Dim Rotation As Single
 
-    Public Event BulletImpact(ByRef sender As Bullet)
+    Public Event ProjectileImpact(ByRef sender As Projectile)
 
     Sub New(_pos As Vector2, _vel As Vector2, _dmg As Integer)
         Position = _pos
@@ -23,12 +24,17 @@ Public Class Bullet
 
     Dim counter As Integer = 0
     Public Overrides Sub Update(gameTime As GameTime)
+        Diagnostics.Debug.WriteLine(Velocity.ToString)
+
         If Not Landed Then
+            Velocity.Y += Acceleration.Y * CSng(gameTime.ElapsedGameTime.TotalSeconds)
+            Velocity.X = (Math.Abs(Velocity.X) + Acceleration.X * CSng(gameTime.ElapsedGameTime.TotalSeconds)) * Math.Sign(Velocity.X)
+
             Position += Velocity * CSng(gameTime.ElapsedGameTime.TotalSeconds)
             If CheckCollision() Then
                 Landed = True
 
-                RaiseEvent BulletImpact(Me)
+                RaiseEvent ProjectileImpact(Me)
 
                 ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 700, .PossibleTextures = {Textures.ParticleSpark},
                     .ParticleVelocityLowest = New Point(-20, -20), .ParticleVelocityHighest = New Point(20, 20)}
@@ -66,7 +72,7 @@ Public Class Bullet
         End Try
     End Function
 
-    Private Sub DeleteBullet() Handles ps.ParticlesDespawned
+    Private Sub DeleteProjectile() Handles ps.ParticlesDespawned
         If Landed Then
             Existing = False
         End If

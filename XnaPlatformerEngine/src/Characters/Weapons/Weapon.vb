@@ -4,28 +4,30 @@ Imports Microsoft.Xna.Framework.Graphics
 
 Public Class Weapon
 
-    Public Bullets As New List(Of Bullet)
+    Public Projectiles As New List(Of Projectile)
     Public BulletCooldown As Integer = 200
     Public BulletDamage As Integer = 5
-    Public BulletSpeed As Integer = 200
+    Public Projectilespeed As Integer = 200
     Public Position As Vector2
-    Public BulletsInMag As Integer
-    Public BulletsMagMax As Integer = 20
+    Public ProjectilesInMag As Integer
+    Public ProjectilesMagMax As Integer = 20
     Public ReloadTime As Integer = 2000
 
     Public CurrentlyReloading As Boolean = False
 
+    Public Event ReloadStarted()
+    Public Event ShotFired()
 
     Sub New()
-        BulletsInMag = BulletsMagMax
+        ProjectilesInMag = ProjectilesMagMax
     End Sub
 
     Public Overridable Sub Update(gameTime As GameTime)
-        For Each _bul In Bullets
+        For Each _bul In Projectiles
             _bul.Update(gameTime)
         Next
 
-        Bullets.RemoveAll(Function(x) x.Existing = False)
+        Projectiles.RemoveAll(Function(x) x.Existing = False)
 
         BulletCooldownCounter += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
     End Sub
@@ -33,15 +35,21 @@ Public Class Weapon
     Dim BulletCooldownCounter As Integer = 0
     Public Sub ShootAt(_target As Vector2)
         If BulletCooldownCounter > BulletCooldown Then
-            If BulletsInMag > 0 Then
-                Bullets.Add(New Bullet(Position, Vector2.Normalize(_target - Position) * BulletSpeed, 10))
-                BulletsInMag -= 1
+            If ProjectilesInMag > 0 Then
+                RaiseEvent ShotFired()
 
-                AddHandler Bullets(Bullets.Count - 1).BulletImpact, AddressOf OnBulletImpact
+                SpawnBullet(Position, Vector2.Normalize(_target - Position) * Projectilespeed, 10)
+                ProjectilesInMag -= 1
+
+                AddHandler Projectiles(Projectiles.Count - 1).ProjectileImpact, AddressOf OnProjectileImpact
 
                 BulletCooldownCounter = 0
             End If
         End If
+    End Sub
+
+    Public Overridable Sub SpawnBullet(_position As Vector2, _velocity As Vector2, _damage As Integer)
+        Projectiles.Add(New Projectile(_position, _velocity, _damage))
     End Sub
 
     Public Overridable Sub Draw(_sb As SpriteBatch, Optional _parent As Character = Nothing)
@@ -55,21 +63,24 @@ Public Class Weapon
             End If
         End If
 
-        For Each _bul In Bullets
+        For Each _bul In Projectiles
             _bul.Draw(_sb)
         Next
     End Sub
 
-    Public Overridable Sub OnBulletImpact(ByRef sender As Bullet)
+    Public Overridable Sub OnProjectileImpact(ByRef sender As Projectile)
     End Sub
 
     Dim ReloadCounter As Integer = 0
     Public Sub ReloadWeapon(gameTime As GameTime)
         If ReloadCounter >= ReloadTime Then
             ReloadCounter = 0
-            BulletsInMag = BulletsMagMax
+            ProjectilesInMag = ProjectilesMagMax
             CurrentlyReloading = False
         Else
+            If Not CurrentlyReloading Then
+                RaiseEvent ReloadStarted()
+            End If
             ReloadCounter += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
             CurrentlyReloading = True
         End If

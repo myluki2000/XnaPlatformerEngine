@@ -1,4 +1,5 @@
-﻿Imports Microsoft.Xna.Framework.Content
+﻿Imports Microsoft.Xna.Framework.Audio
+Imports Microsoft.Xna.Framework.Content
 
 Public Class Sounds
     Public Class World
@@ -21,11 +22,13 @@ Public Class Sounds
         End Class
 
         Public Class Pistol
-
+            Public Shared Reload As SoundEffect
+            Public Shared Shoot As SoundEffect
         End Class
     End Class
 
     Public Shared Sub LoadSounds(Content As ContentManager)
-
+        Weapons.Pistol.Reload = Content.Load(Of SoundEffect)("Sounds/Weapons/Pistol/Pistol_Reload")
+        Weapons.Pistol.Shoot = Content.Load(Of SoundEffect)("Sounds/Weapons/Pistol/Pistol_Shoot")
     End Sub
 End Class

@@ -65,12 +65,13 @@
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="src\Characters\Weapons\Bullet.vb" />
     <Compile Include="src\Characters\Character.vb" />
     <Compile Include="src\Characters\Collision.vb" />
     <Compile Include="src\Characters\Player.vb" />
     <Compile Include="src\Characters\Weapons\AR.vb" />
+    <Compile Include="src\Characters\Weapons\GrenadeLauncher.vb" />
     <Compile Include="src\Characters\Weapons\Pistol.vb" />
+    <Compile Include="src\Characters\Weapons\Projectiles\Projectile.vb" />
     <Compile Include="src\Characters\Weapons\Weapon.vb" />
     <Compile Include="src\GlobalVariables.vb" />
     <Compile Include="src\Main.vb" />
@@ -122,6 +123,12 @@
     <None Include="Content\Koot.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Sounds\Weapons\Pistol\Pistol_Reload.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Sounds\Weapons\Pistol\Pistol_Shoot.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -132,7 +139,6 @@
     <Folder Include="Content\Sounds\Characters\Player\" />
     <Folder Include="Content\Sounds\Music\" />
     <Folder Include="Content\Sounds\Weapons\AR\" />
-    <Folder Include="Content\Sounds\Weapons\Pistol\" />
     <Folder Include="Content\Sounds\World\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

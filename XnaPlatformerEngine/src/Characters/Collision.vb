@@ -29,7 +29,6 @@ Partial Public Class Character
     Private Function CheckCollidingVertical(displacement As Vector2) As Boolean
         Try
             Dim SelectedLevel As Level = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel
-            Diagnostics.Debug.WriteLine(Velocity.Y)
             If displacement.Y < 0 Then
                 IsGrounded = False
                 Dim _rect = New Rectangle(getTrueRect.X, CInt(getTrueRect.Y + displacement.Y - 1), getTrueRect.Width, getTrueRect.Height)

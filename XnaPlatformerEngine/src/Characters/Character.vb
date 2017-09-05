@@ -1,7 +1,5 @@
-﻿Imports System.Collections.Generic
-Imports Microsoft.Xna.Framework
+﻿Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
-Imports Microsoft.Xna.Framework.Input
 
 Partial Public Class Character
     Inherits AnimatedSprite
@@ -12,7 +10,7 @@ Partial Public Class Character
     Public IsGrounded As Boolean = True
     Public Alive As Boolean = True
 
-    Public Weapon As New AR
+    Public Weapon As Weapon = New GrenadeLauncher
 
     Sub New(_frmWidth As Integer, _rect As Rectangle)
         MyBase.New(_frmWidth, _rect)
