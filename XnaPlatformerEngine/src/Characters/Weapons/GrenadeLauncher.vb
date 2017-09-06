@@ -14,6 +14,6 @@ Public Class GrenadeLauncher
     End Sub
 
     Public Overrides Sub OnProjectileImpact(ByRef sender As Projectile)
-        DirectCast(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.Explode(sender.Position, 50)
+        ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.Explode(sender.Position, 50)
     End Sub
 End Class

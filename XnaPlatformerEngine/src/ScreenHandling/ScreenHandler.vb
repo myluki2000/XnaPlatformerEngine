@@ -1,10 +1,18 @@
-﻿Imports System.Collections.Generic
-Imports Microsoft.Xna.Framework
+﻿Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
 
 Public Class ScreenHandler
-    Shared SelectedScreen As Screen
+    Shared _SelectedScreen As Screen
 
+    Public Shared Property SelectedScreen As Screen
+        Get
+            Return _SelectedScreen
+        End Get
+        Set(value As Screen)
+            _SelectedScreen = value
+            InitializeSelectedScreen()
+        End Set
+    End Property
 
     Shared Sub InitializeSelectedScreen()
         If SelectedScreen IsNot Nothing Then
@@ -23,13 +31,4 @@ Public Class ScreenHandler
             SelectedScreen.Draw(theSpriteBatch)
         End If
     End Sub
-
-    Public Shared Sub SetSelectedScreen(_screen As Screen)
-        SelectedScreen = _screen
-        InitializeSelectedScreen()
-    End Sub
-
-    Public Shared Function GetSelectedScreen() As Screen
-        Return SelectedScreen
-    End Function
 End Class

@@ -5,6 +5,7 @@ Imports Microsoft.Xna.Framework.Graphics
 
 Public Class Level
     Public PlacedObjects(,,) As WorldObject
+    Public NPCs As New List(Of Character)
 
     Sub New(_placedObjs As List(Of WorldObject))
         PlacedObjects = Misc.WObjListTo3DArray(_placedObjs)

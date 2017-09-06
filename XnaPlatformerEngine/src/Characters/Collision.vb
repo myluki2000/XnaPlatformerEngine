@@ -7,7 +7,7 @@ Partial Public Class Character
         Acceleration.Y += CSng(320 * gameTime.ElapsedGameTime.TotalSeconds + 0.01)
         Velocity += Acceleration * CSng(gameTime.ElapsedGameTime.TotalSeconds)
 
-        If ScreenHandler.GetSelectedScreen.GetType() = GetType(World) Then
+        If ScreenHandler.SelectedScreen.GetType() = GetType(World) Then
             Dim colBot As Boolean = CheckCollidingVertical(displacement)
 
 
@@ -28,7 +28,7 @@ Partial Public Class Character
 
     Private Function CheckCollidingVertical(displacement As Vector2) As Boolean
         Try
-            Dim SelectedLevel As Level = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel
+            Dim SelectedLevel As Level = ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel
             If displacement.Y < 0 Then
                 IsGrounded = False
                 Dim _rect = New Rectangle(getTrueRect.X, CInt(getTrueRect.Y + displacement.Y - 1), getTrueRect.Width, getTrueRect.Height)
@@ -101,8 +101,8 @@ Partial Public Class Character
         Try
             If displacement.X < 0 Then
                 Dim _rect = New Rectangle(CInt(getTrueRect.X + displacement.X - 1), getTrueRect.Y, getTrueRect.Width, getTrueRect.Height)
-                For ind As Integer = 0 To CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects.GetLength(1) - 1
-                    Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Left / 30)), ind, 50) ' Z = 50 because z-index = 0 is 50 in the array
+                For ind As Integer = 0 To ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects.GetLength(1) - 1
+                    Dim _wObj As WorldObject = ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Left / 30)), ind, 50) ' Z = 50 because z-index = 0 is 50 in the array
                     If _wObj IsNot Nothing AndAlso _wObj.GetType = GetType(WorldObject) Then
                         If _rect.Intersects(_wObj.getTrueRect) AndAlso _wObj.zIndex = 0 Then
                             Position.X = _wObj.getTrueRect.X + _wObj.getTrueRect.Width
@@ -116,8 +116,8 @@ Partial Public Class Character
 
             ElseIf displacement.X > 0 Then
                 Dim _rect = New Rectangle(CInt(getTrueRect.X + displacement.X + 1), getTrueRect.Y, getTrueRect.Width, getTrueRect.Height)
-                For ind As Integer = 0 To CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects.GetLength(1) - 1
-                    Dim _wObj As WorldObject = CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Right / 30)), ind, 50) ' Z = 50 because z-index = 0 is 50 in the array
+                For ind As Integer = 0 To ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects.GetLength(1) - 1
+                    Dim _wObj As WorldObject = ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Right / 30)), ind, 50) ' Z = 50 because z-index = 0 is 50 in the array
                     If _wObj IsNot Nothing AndAlso _wObj.GetType = GetType(WorldObject) Then
                         If _rect.Intersects(_wObj.getTrueRect) AndAlso _wObj.zIndex = 0 Then
                             Position.X = _wObj.getTrueRect.X - getTrueRect.Width

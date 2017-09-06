@@ -19,4 +19,8 @@ Public MustInherit Class Screen
         theSpriteBatch.DrawString(FontKoot, "Default Screen", New Vector2(100, 100), Color.Black)
         theSpriteBatch.End()
     End Sub
+
+    Public Function ToWorld() As World
+        Return DirectCast(Me, World)
+    End Function
 End Class

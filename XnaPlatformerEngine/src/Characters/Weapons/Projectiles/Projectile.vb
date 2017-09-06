@@ -61,7 +61,7 @@ Public Class Projectile
 
     Private Function CheckCollision() As Boolean
         Try
-            If CType(ScreenHandler.GetSelectedScreen, World).GetSelectedLevel.PlacedObjects(CInt(Math.Floor(Position.X / 30)), CInt(Math.Floor(Position.Y / 30)), 50) IsNot Nothing Then
+            If ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects(CInt(Math.Floor(Position.X / 30)), CInt(Math.Floor(Position.Y / 30)), 50) IsNot Nothing Then
                 ' check if block at position in level
                 Return True
             Else

@@ -7,10 +7,9 @@
 
     Sub New()
         Name = "Spawner"
-        Throw New NotImplementedException
     End Sub
 
     Public Sub SpawnEnemy()
-        Throw New NotImplementedException
+        ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.NPCs.Add(New Enemy())
     End Sub
 End Class

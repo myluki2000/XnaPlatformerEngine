@@ -32,7 +32,7 @@ Public Class Main
         IsMouseVisible = True
 
 
-        ScreenHandler.SetSelectedScreen(TestWorld1)
+        ScreenHandler.SelectedScreen = TestWorld1
 
         MyBase.Initialize()
     End Sub
