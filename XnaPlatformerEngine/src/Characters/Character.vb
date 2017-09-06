@@ -10,7 +10,7 @@ Partial Public Class Character
     Public IsGrounded As Boolean = True
     Public Alive As Boolean = True
 
-    Public Weapon As Weapon = New GrenadeLauncher
+    Public Weapon As Weapon = New AR
 
     Sub New(_frmWidth As Integer, _rect As Rectangle)
         MyBase.New(_frmWidth, _rect)
