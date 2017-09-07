@@ -1,12 +1,11 @@
-﻿Imports System.Collections.Generic
-Imports Microsoft.Xna.Framework
+﻿Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Content
 Imports Microsoft.Xna.Framework.Graphics
 
 Public Class AnimatedSprite
     Inherits Sprite
 
-    Public Animations As New List(Of Animation)
+    Public Animations As AnimationSet
     Protected srcRect As New Rectangle(0, 0, 0, 0)
     Protected SelectedAnimation As Animation
     Protected FrameWidth As Integer
@@ -18,7 +17,7 @@ Public Class AnimatedSprite
     End Sub
 
     Public Overrides Sub LoadContent(_content As ContentManager)
-        For Each _anim In Animations
+        For Each _anim In Animations.Animations
             _anim.LoadContent(_content)
         Next
     End Sub
@@ -50,7 +49,7 @@ Public Class AnimatedSprite
     End Sub
 
     Public Sub SetSelectedAnimation(_animName As String)
-        For Each _anim In Animations
+        For Each _anim In Animations.Animations
             If _anim.Name = _animName Then
                 SelectedAnimation = _anim
             End If
@@ -58,7 +57,7 @@ Public Class AnimatedSprite
     End Sub
 
     Public Function getTextureSize() As Vector2
-        Return New Vector2(FrameWidth, Animations(0).Texture.Height)
+        Return New Vector2(FrameWidth, Animations.Animations(0).Texture.Height)
     End Function
 End Class
 

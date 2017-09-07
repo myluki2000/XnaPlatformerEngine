@@ -92,8 +92,10 @@
     <Compile Include="src\ScreenHandling\WorldHandling\TechnicalObjects\Spawner.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\TechnicalObjects\TechnicalObject.vb" />
     <Compile Include="src\SoundSystem\Sounds.vb" />
-    <Compile Include="src\SpriteHandling\AnimatedSprite.vb" />
-    <Compile Include="src\SpriteHandling\Animation.vb" />
+    <Compile Include="src\SpriteHandling\AnimatedSprite\AnimatedSprite.vb" />
+    <Compile Include="src\SpriteHandling\AnimatedSprite\Animation.vb" />
+    <Compile Include="src\SpriteHandling\AnimatedSprite\AnimationSet.vb" />
+    <Compile Include="src\SpriteHandling\AnimatedSprite\AnimationSets.vb" />
     <Compile Include="src\SpriteHandling\Sprite.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Level.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\LevelLoader.vb" />
