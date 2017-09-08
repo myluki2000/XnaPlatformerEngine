@@ -10,6 +10,6 @@
     End Sub
 
     Public Sub SpawnEnemy()
-        ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.NPCs.Add(New Enemy())
+        'ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.NPCs.Add(New Enemy())
     End Sub
 End Class

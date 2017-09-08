@@ -67,6 +67,14 @@ Public Class Projectile
             Else
                 Return False
             End If
+
+            For Each character As Character In ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.NPCs
+                Dim rect As New Rectangle(Position.X, Position.Y, Texture.Width, Texture.Height)
+                If rect.Intersects(character.getTrueRect) Then
+                    character.HealthPoints -= Me.Damage
+                    Return True
+                End If
+            Next
         Catch ex As IndexOutOfRangeException
             Return True ' When bullet flies out of level return true so it gets deleted
         End Try

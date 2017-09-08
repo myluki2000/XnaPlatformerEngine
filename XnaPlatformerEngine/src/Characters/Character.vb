@@ -10,6 +10,8 @@ Partial Public Class Character
     Public IsGrounded As Boolean = True
     Public Alive As Boolean = True
 
+    Public HealthPoints As Integer = 100
+
     Public Weapon As Weapon = New AR
 
     Sub New(_frmWidth As Integer, _rect As Rectangle)
