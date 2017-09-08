@@ -69,7 +69,7 @@ Public Class Projectile
             End If
 
             For Each character As Character In ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.NPCs
-                Dim rect As New Rectangle(Position.X, Position.Y, Texture.Width, Texture.Height)
+                Dim rect As New Rectangle(CInt(Position.X), CInt(Position.Y), Texture.Width, Texture.Height)
                 If rect.Intersects(character.getTrueRect) Then
                     character.HealthPoints -= Me.Damage
                     Return True
