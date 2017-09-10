@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Xna.Framework
+Imports Microsoft.Xna.Framework.Graphics
 
 Public Class Enemy
     Inherits Character
@@ -9,5 +10,9 @@ Public Class Enemy
 
     Public Overrides Sub Update(gameTime As GameTime)
         MyBase.Update(gameTime)
+    End Sub
+
+    Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
+        MyBase.Draw(theSpriteBatch)
     End Sub
 End Class

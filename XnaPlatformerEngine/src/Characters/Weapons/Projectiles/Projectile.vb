@@ -24,8 +24,6 @@ Public Class Projectile
 
     Dim counter As Integer = 0
     Public Overrides Sub Update(gameTime As GameTime)
-        Diagnostics.Debug.WriteLine(Velocity.ToString)
-
         If Not Landed Then
             Velocity.Y += Acceleration.Y * CSng(gameTime.ElapsedGameTime.TotalSeconds)
             Velocity.X = (Math.Abs(Velocity.X) + Acceleration.X * CSng(gameTime.ElapsedGameTime.TotalSeconds)) * Math.Sign(Velocity.X)
@@ -61,23 +59,28 @@ Public Class Projectile
 
     Private Function CheckCollision() As Boolean
         Try
-            If ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects(CInt(Math.Floor(Position.X / 30)), CInt(Math.Floor(Position.Y / 30)), 50) IsNot Nothing Then
+            Dim _wObj As WorldObject = ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects(CInt(Math.Floor(Position.X / 30)), CInt(Math.Floor(Position.Y / 30)), 50)
+            If _wObj IsNot Nothing AndAlso _wObj.GetType Is GetType(WorldObject) Then
                 ' check if block at position in level
                 Return True
-            Else
-                Return False
             End If
 
-            For Each character As Character In ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.NPCs
-                Dim rect As New Rectangle(CInt(Position.X), CInt(Position.Y), Texture.Width, Texture.Height)
-                If rect.Intersects(character.getTrueRect) Then
-                    character.HealthPoints -= Me.Damage
-                    Return True
-                End If
-            Next
+
+
         Catch ex As IndexOutOfRangeException
             Return True ' When bullet flies out of level return true so it gets deleted
         End Try
+
+
+        For Each character As Character In ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.NPCs
+            Dim rect As New Rectangle(CInt(Position.X), CInt(Position.Y), Textures.Bullet.Width, Textures.Bullet.Height)
+            If rect.Intersects(character.getTrueRect) Then
+                character.HealthPoints -= Me.Damage
+                Return True
+            End If
+        Next
+
+        Return False
     End Function
 
     Private Sub DeleteProjectile() Handles ps.ParticlesDespawned

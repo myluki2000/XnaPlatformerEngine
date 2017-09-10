@@ -33,6 +33,10 @@ Public Class Level
 
         Player.Draw(sb)
 
+        For Each NPC In NPCs
+            NPC.Draw(sb)
+        Next
+
         For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
             For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
                 For z As Integer = 51 To 100
@@ -48,9 +52,18 @@ Public Class Level
     Public Sub Update(gameTime As GameTime)
         For Each _wObj In PlacedObjects
             If _wObj IsNot Nothing Then
+                If _wObj.rect.Location = New Point(20, 12) Then
+                End If
+
                 _wObj.Update(gameTime)
             End If
         Next
+
+        For Each NPC In NPCs
+            NPC.Update(gameTime)
+        Next
+
+        NPCs.RemoveAll(Function(x) x.Alive = False)
     End Sub
 
     Public Sub Explode(_centerPos As Vector2, _radius As Integer)

@@ -35,6 +35,10 @@ Partial Public Class Character
         Weapon.Position = Position
         Weapon.Update(gameTime)
 
+        If HealthPoints < 1 Then
+            Alive = False
+        End If
+
     End Sub
 
     Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)

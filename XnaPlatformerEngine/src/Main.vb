@@ -45,6 +45,9 @@ Public Class Main
         ' Create a new SpriteBatch, which can be used to draw textures.
         spriteBatch = New SpriteBatch(GraphicsDevice)
 
+        AnimationSets.LoadContent(Content)
+
+
         TestWorld1.Levels.Add(New Level(LevelLoader.LoadLevel()))
         TestWorld1.LoadContent(Content)
         TestWorld1.SetSelectedLevel(0)

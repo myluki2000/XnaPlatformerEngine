@@ -45,6 +45,14 @@ Public Class LevelLoader
 
                         _placedObjects.Add(tObj)
 
+                    Case "Spawner"
+                        Dim tObj As New Spawner
+                        tObj.Name = xele.Attribute("Name").Value
+                        tObj.rect.X = CInt(xele.Element("X").Value)
+                        tObj.rect.Y = CInt(xele.Element("Y").Value)
+                        tObj.ID = xele.Element("ID").Value
+
+                        _placedObjects.Add(tObj)
 
                 End Select
             Next

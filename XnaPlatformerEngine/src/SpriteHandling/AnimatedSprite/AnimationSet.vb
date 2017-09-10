@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports Microsoft.Xna.Framework.Content
 
 Public Class AnimationSet
     Public _Animations As New List(Of Animation)
@@ -21,5 +22,11 @@ Public Class AnimationSet
 
     Public Sub AddAnimation(anim As Animation)
         Animations.Add(anim)
+    End Sub
+
+    Public Sub LoadContent(Content As ContentManager)
+        For Each _anim In Animations
+            _anim.LoadContent(Content)
+        Next
     End Sub
 End Class

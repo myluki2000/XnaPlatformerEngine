@@ -14,12 +14,10 @@ Public Class World
         Matrix.CreateTranslation(0, 0, 0, LevelCameraMatrix)
     End Sub
 
-    Public Sub LoadContent(_content As ContentManager)
+    Public Sub LoadContent(Content As ContentManager)
         For Each _level In Levels
-            _level.LoadContent(_content)
+            _level.LoadContent(Content)
         Next
-
-        Player.LoadContent(_content)
 
         PostContentLoad()
     End Sub
