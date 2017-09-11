@@ -65,6 +65,11 @@ Public Class World
         If SelectedLevel IsNot Nothing Then
             SelectedLevel.Update(gameTime)
             Player.Update(gameTime)
+
+            If Player.HealthPoints < 1 Then
+                MsgBox("omae wa shindeiru")
+                End
+            End If
         End If
     End Sub
 
