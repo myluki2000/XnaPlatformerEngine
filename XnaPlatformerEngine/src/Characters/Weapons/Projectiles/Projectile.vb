@@ -11,15 +11,22 @@ Public Class Projectile
     Public Existing As Boolean = True
     Public Landed As Boolean = False
     Public WithEvents ps As ParticleSystem
+
+    Public Origin As Character.CharacterTypes
+
     Dim Rotation As Single
 
     Public Event ProjectileImpact(ByRef sender As Projectile)
 
-    Sub New(_pos As Vector2, _vel As Vector2, _dmg As Integer)
+
+
+
+    Sub New(_pos As Vector2, _vel As Vector2, _dmg As Integer, _origin As Character.CharacterTypes)
         Position = _pos
         Velocity = _vel
         Damage = _dmg
         Rotation = CSng(Math.Atan2(Velocity.Y, Velocity.X))
+        Origin = _origin
     End Sub
 
     Dim counter As Integer = 0
@@ -72,13 +79,24 @@ Public Class Projectile
         End Try
 
 
-        For Each character As Character In ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.NPCs
-            Dim rect As New Rectangle(CInt(Position.X), CInt(Position.Y), Textures.Bullet.Width, Textures.Bullet.Height)
-            If rect.Intersects(character.getTrueRect) Then
-                character.HealthPoints -= Me.Damage
-                Return True
-            End If
-        Next
+        Dim rect As New Rectangle(CInt(Position.X), CInt(Position.Y), Textures.Bullet.Width, Textures.Bullet.Height)
+        Select Case Origin
+            Case Character.CharacterTypes.Player
+                For Each character As Character In ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.NPCs
+                    If rect.Intersects(character.getTrueRect) Then
+                        character.HealthPoints -= Me.Damage
+                        Return True
+                    End If
+                Next
+
+            Case Character.CharacterTypes.Enemy
+                Dim Player As Player = ScreenHandler.SelectedScreen.ToWorld.Player
+
+                If rect.Intersects(Player.getTrueRect) Then
+                    Player.HealthPoints -= Me.Damage
+                    Return True
+                End If
+        End Select
 
         Return False
     End Function

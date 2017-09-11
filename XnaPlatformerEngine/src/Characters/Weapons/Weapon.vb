@@ -13,13 +13,17 @@ Public Class Weapon
     Public ProjectilesMagMax As Integer = 20
     Public ReloadTime As Integer = 2000
 
+    Public CharacterType As Character.CharacterTypes
+
     Public CurrentlyReloading As Boolean = False
 
     Public Event ReloadStarted()
     Public Event ShotFired()
 
-    Sub New()
+    Sub New(_cType As Character.CharacterTypes)
         ProjectilesInMag = ProjectilesMagMax
+
+        CharacterType = _cType
     End Sub
 
     Public Overridable Sub Update(gameTime As GameTime)
@@ -49,7 +53,7 @@ Public Class Weapon
     End Sub
 
     Public Overridable Sub SpawnBullet(_position As Vector2, _velocity As Vector2, _damage As Integer)
-        Projectiles.Add(New Projectile(_position, _velocity, _damage))
+        Projectiles.Add(New Projectile(_position, _velocity, _damage, CharacterType))
     End Sub
 
     Public Overridable Sub Draw(_sb As SpriteBatch, Optional _parent As Character = Nothing)

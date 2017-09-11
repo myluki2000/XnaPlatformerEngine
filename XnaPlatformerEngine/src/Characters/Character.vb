@@ -10,13 +10,22 @@ Partial Public Class Character
     Public IsGrounded As Boolean = True
     Public Alive As Boolean = True
 
+    Public CharacterType As CharacterTypes
+
     Public HealthPoints As Integer = 100
 
-    Public Weapon As Weapon = New AR
+    Public Weapon As Weapon
 
-    Sub New(_frmWidth As Integer, _rect As Rectangle)
+    Public Enum CharacterTypes
+        Player
+        Enemy
+    End Enum
+
+    Sub New(_frmWidth As Integer, _rect As Rectangle, _cType As CharacterTypes)
         MyBase.New(_frmWidth, _rect)
 
+        CharacterType = _cType
+        Weapon = New AR(CharacterType)
     End Sub
 
     Public Sub Jump()

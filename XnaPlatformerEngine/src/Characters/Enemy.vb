@@ -5,7 +5,7 @@ Public Class Enemy
     Inherits Character
 
     Sub New(_frmWidth As Integer, _rect As Rectangle)
-        MyBase.New(_frmWidth, _rect)
+        MyBase.New(_frmWidth, _rect, CharacterTypes.Enemy)
     End Sub
 
     Public Overrides Sub Update(gameTime As GameTime)
