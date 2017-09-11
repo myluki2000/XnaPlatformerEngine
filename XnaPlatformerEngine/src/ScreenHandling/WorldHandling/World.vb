@@ -67,7 +67,7 @@ Public Class World
             Player.Update(gameTime)
 
             If Player.HealthPoints < 1 Then
-                MsgBox("omae wa shindeiru")
+                MsgBox("Omae Wa Mou Shindeiru")
                 End
             End If
         End If
