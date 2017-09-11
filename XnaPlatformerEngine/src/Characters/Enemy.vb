@@ -10,6 +10,8 @@ Public Class Enemy
 
     Public Overrides Sub Update(gameTime As GameTime)
         MyBase.Update(gameTime)
+
+        Weapon.ShootAt(ScreenHandler.SelectedScreen.ToWorld.Player.Position)
     End Sub
 
     Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
