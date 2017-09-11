@@ -31,6 +31,10 @@ Public Class Weapon
             _bul.Update(gameTime)
         Next
 
+        If CurrentlyReloading Then
+            ReloadWeapon(gameTime)
+        End If
+
         Projectiles.RemoveAll(Function(x) x.Existing = False)
 
         BulletCooldownCounter += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
@@ -48,6 +52,8 @@ Public Class Weapon
                 AddHandler Projectiles(Projectiles.Count - 1).ProjectileImpact, AddressOf OnProjectileImpact
 
                 BulletCooldownCounter = 0
+            Else
+                CurrentlyReloading = True
             End If
         End If
     End Sub
