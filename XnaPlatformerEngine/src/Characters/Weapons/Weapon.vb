@@ -58,6 +58,14 @@ Public Class Weapon
         End If
     End Sub
 
+    Public Sub ShootLeft()
+        ShootAt(Position + New Vector2(-1, 0))
+    End Sub
+
+    Public Sub ShootRight()
+        ShootAt(Position + New Vector2(1, 0))
+    End Sub
+
     Public Overridable Sub SpawnBullet(_position As Vector2, _velocity As Vector2, _damage As Integer)
         Projectiles.Add(New Projectile(_position, _velocity, _damage, CharacterType))
     End Sub

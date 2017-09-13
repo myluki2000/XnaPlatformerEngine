@@ -9,6 +9,7 @@ Partial Public Class Character
     Friend Acceleration As New Vector2(0, 0)
     Public IsGrounded As Boolean = True
     Public Alive As Boolean = True
+    Public ViewDirection As ViewDirections = ViewDirections.Right
 
     Public CharacterType As CharacterTypes
 
@@ -19,6 +20,11 @@ Partial Public Class Character
     Public Enum CharacterTypes
         Player
         Enemy
+    End Enum
+
+    Public Enum ViewDirections
+        Left
+        Right
     End Enum
 
     Sub New(_frmWidth As Integer, _rect As Rectangle, _cType As CharacterTypes)
@@ -65,4 +71,13 @@ Partial Public Class Character
     Public Overrides Function getScreenRect() As Rectangle
         Return New Rectangle(Position.ToPoint - New Point(CInt(LevelCameraMatrix.Translation.X), CInt(LevelCameraMatrix.Translation.Y)), getTextureSize.ToPoint)
     End Function
+
+    Public Sub SwitchViewDirection()
+        Select Case ViewDirection
+            Case ViewDirections.Left
+                ViewDirection = ViewDirections.Right
+            Case ViewDirections.Right
+                ViewDirection = ViewDirections.Left
+        End Select
+    End Sub
 End Class
