@@ -41,7 +41,7 @@ Public Class Enemy
 
         Select Case ViewDirection
             Case ViewDirections.Left
-                _viewRect = New Rectangle(PlayerReference.Position.X, CInt(Position.Y), CInt(Position.X - PlayerReference.Position.X), 32)
+                _viewRect = New Rectangle(CInt(PlayerReference.Position.X), CInt(Position.Y), CInt(Position.X - PlayerReference.Position.X), 32)
 
             Case ViewDirections.Right
                 _viewRect = New Rectangle(CInt(Position.X), CInt(Position.Y), CInt(PlayerReference.Position.X - Position.X), 32)
