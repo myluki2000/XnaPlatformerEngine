@@ -4,7 +4,7 @@ Imports Microsoft.Xna.Framework.Graphics
 Public Class Enemy
     Inherits Character
 
-    Dim PlayerReference As Player = ScreenHandler.SelectedScreen.ToWorld.Player
+    Dim Player As Player = ScreenHandler.SelectedScreen.ToWorld.Player
 
     Sub New(_frmWidth As Integer, _rect As Rectangle)
         MyBase.New(_frmWidth, _rect, CharacterTypes.Enemy)
@@ -24,6 +24,7 @@ Public Class Enemy
                     Weapon.ShootRight()
             End Select
 
+            viewDirectionCounter = 0
         Else
             If viewDirectionCounter > 1999 Then
                 SwitchViewDirection()
@@ -37,15 +38,17 @@ Public Class Enemy
 
     Dim _viewRect As Rectangle
     Public Function IsPlayerInSight() As Boolean
-
+        If Math.Abs(Player.Position.X - Position.X) > 300 Then
+            Return False
+        End If
 
         Select Case ViewDirection
             Case ViewDirections.Left
-                _viewRect = New Rectangle(CInt(PlayerReference.Position.X), CInt(Position.Y), CInt(Position.X - PlayerReference.Position.X), 32)
+                    _viewRect = New Rectangle(CInt(Player.Position.X), CInt(Position.Y), CInt(Position.X - Player.Position.X), 32)
 
-            Case ViewDirections.Right
-                _viewRect = New Rectangle(CInt(Position.X), CInt(Position.Y), CInt(PlayerReference.Position.X - Position.X), 32)
-        End Select
+                Case ViewDirections.Right
+                    _viewRect = New Rectangle(CInt(Position.X), CInt(Position.Y), CInt(Player.Position.X - Position.X), 32)
+            End Select
 
         For x As Integer = 0 To ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects.GetUpperBound(0)
             For y As Integer = 0 To ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects.GetUpperBound(1)
@@ -59,16 +62,14 @@ Public Class Enemy
             Next
         Next
 
-        If PlayerReference.getTrueRect.Intersects(_viewRect) Then
-            Return True
-        End If
+            If Player.getTrueRect.Intersects(_viewRect) Then
+                Return True
+            End If
 
-        Return False
+            Return False
     End Function
 
     Public Overrides Sub Draw(sb As SpriteBatch)
         MyBase.Draw(sb)
-
-        Misc.DrawRectangle(sb, _viewRect, Color.Red)
     End Sub
 End Class
