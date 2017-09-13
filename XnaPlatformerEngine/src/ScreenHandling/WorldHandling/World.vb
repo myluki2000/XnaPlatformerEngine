@@ -68,7 +68,7 @@ Public Class World
 
             If Player.HealthPoints < 1 Then
                 MsgBox("Omae Wa Mou Shindeiru")
-                End
+
             End If
         End If
     End Sub
