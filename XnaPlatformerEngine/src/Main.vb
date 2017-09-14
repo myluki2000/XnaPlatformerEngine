@@ -72,8 +72,6 @@ Public Class Main
         DevPurple = Content.Load(Of Texture2D)("devpurple")
 
         Sounds.LoadSounds(Content)
-
-        Threading.Thread.Sleep(5000)
     End Sub
 
     ''' <summary>
