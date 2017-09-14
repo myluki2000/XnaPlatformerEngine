@@ -14,8 +14,6 @@ Public Class Enemy
     Public Overrides Sub Update(gameTime As GameTime)
         MyBase.Update(gameTime)
 
-        Diagnostics.Debug.WriteLine(IsPlayerInSight)
-
         If IsPlayerInSight() Then
             Select Case ViewDirection
                 Case ViewDirections.Left
