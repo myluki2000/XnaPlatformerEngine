@@ -98,9 +98,7 @@ Public Class Main
         Else ' if not do normal game update
             ScreenHandler.Update(gameTime)
         End If
-        'If Mouse.GetState.LeftButton = ButtonState.Pressed Then
-        '    TestWorld1.GetSelectedLevel.explode(Misc.ScreenPosToWorldPos(Mouse.GetState.Position), 5 * 30)
-        'End If
+
 
         MyBase.Update(gameTime)
     End Sub
