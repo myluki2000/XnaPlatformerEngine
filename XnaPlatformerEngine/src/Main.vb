@@ -15,6 +15,7 @@ Public Class Main
     Private spriteBatch As SpriteBatch
 
     Dim TestWorld1 As New World
+    Dim LoadingThread As Threading.Thread
 
     Public Sub New()
         MyBase.New()
@@ -45,22 +46,34 @@ Public Class Main
         ' Create a new SpriteBatch, which can be used to draw textures.
         spriteBatch = New SpriteBatch(GraphicsDevice)
 
+        ' Load important stuff before we switch to the background loading thread
+        TestWorld1.Levels.Add(New Level(LevelLoader.LoadLevel()))
+        FontKoot = Content.Load(Of SpriteFont)("Koot")
+
+
+        LoadingThread = New Threading.Thread(AddressOf LoadContentBackground)
+        LoadingThread.IsBackground = True
+
+        LoadingThread.Start()
+    End Sub
+
+    Private Sub LoadContentBackground()
         AnimationSets.LoadContent(Content)
 
 
-        TestWorld1.Levels.Add(New Level(LevelLoader.LoadLevel()))
+
         TestWorld1.LoadContent(Content)
         TestWorld1.SetSelectedLevel(0)
 
         Textures.Bullet = Content.Load(Of Texture2D)("Textures/Bullet")
         Textures.ParticleSpark = Content.Load(Of Texture2D)("Textures/Spark")
 
-        FontKoot = Content.Load(Of SpriteFont)("Koot")
+
         DevPurple = Content.Load(Of Texture2D)("devpurple")
 
         Sounds.LoadSounds(Content)
 
-
+        Threading.Thread.Sleep(5000)
     End Sub
 
     ''' <summary>
@@ -81,8 +94,12 @@ Public Class Main
             [Exit]()
         End If
 
-        ScreenHandler.Update(gameTime)
+        If LoadingThread.IsAlive Then ' if thread is loading
 
+
+        Else ' if not do normal game update
+            ScreenHandler.Update(gameTime)
+        End If
         'If Mouse.GetState.LeftButton = ButtonState.Pressed Then
         '    TestWorld1.GetSelectedLevel.explode(Misc.ScreenPosToWorldPos(Mouse.GetState.Position), 5 * 30)
         'End If
@@ -97,7 +114,15 @@ Public Class Main
     Protected Overrides Sub Draw(gameTime As GameTime)
         GraphicsDevice.Clear(Color.CornflowerBlue)
 
-        ScreenHandler.Draw(spriteBatch)
+        If LoadingThread.IsAlive Then ' If thread is loading
+            spriteBatch.Begin()
+
+            spriteBatch.DrawString(FontKoot, "Loading...", New Vector2(100, 100), Color.Black)
+
+            spriteBatch.End()
+        Else ' Else do normal game draw
+            ScreenHandler.Draw(spriteBatch)
+        End If
 
         MyBase.Draw(gameTime)
     End Sub
