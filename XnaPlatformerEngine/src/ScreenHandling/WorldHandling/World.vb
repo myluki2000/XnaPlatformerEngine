@@ -31,6 +31,12 @@ Public Class World
         End Set
     End Property
 
+    Public Sub LoadLevel(path As String)
+        Levels.Add(New Level(LevelLoader.LoadLevel()))
+
+        ' TODO: This is only temporary, change it later so it loads levels without a file dialog
+    End Sub
+
     Public Sub LoadContent(Content As ContentManager)
         For Each _level In Levels
             _level.LoadContent(Content)
@@ -70,10 +76,6 @@ Public Class World
 
     Private Sub CameraFocusOnObject(_obj As Sprite)
         LevelCameraMatrix.Translation = New Vector3(-CInt(_obj.getTrueRect.X - graphics.PreferredBackBufferWidth / 2), -CInt(_obj.getTrueRect.Y - graphics.PreferredBackBufferHeight / 2), 0)
-    End Sub
-
-    Public Sub LoadLevel()
-
     End Sub
 
     Public Sub DrawUI(_sb As SpriteBatch)

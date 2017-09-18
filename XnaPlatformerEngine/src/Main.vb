@@ -47,7 +47,7 @@ Public Class Main
         spriteBatch = New SpriteBatch(GraphicsDevice)
 
         ' Load important stuff before we switch to the background loading thread
-        TestWorld1.Levels.Add(New Level(LevelLoader.LoadLevel()))
+        TestWorld1.LoadLevel("whatever")
         FontKoot = Content.Load(Of SpriteFont)("Koot")
 
 
