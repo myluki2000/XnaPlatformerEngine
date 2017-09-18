@@ -48,9 +48,9 @@ Public Class Enemy
                     _viewRect = New Rectangle(CInt(Position.X), CInt(Position.Y), CInt(Player.Position.X - Position.X), 32)
             End Select
 
-        For x As Integer = 0 To ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects.GetUpperBound(0)
-            For y As Integer = 0 To ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects.GetUpperBound(1)
-                Dim _wObj As WorldObject = ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects(x, y, 50)
+        For x As Integer = 0 To ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.PlacedObjects.GetUpperBound(0)
+            For y As Integer = 0 To ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.PlacedObjects.GetUpperBound(1)
+                Dim _wObj As WorldObject = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.PlacedObjects(x, y, 50)
                 If _wObj IsNot Nothing AndAlso _wObj.GetType Is GetType(WorldObject) Then
                     If _viewRect.Intersects(_wObj.getTrueRect) Then
                         Return False
@@ -60,7 +60,7 @@ Public Class Enemy
             Next
         Next
 
-            If Player.getTrueRect.Intersects(_viewRect) Then
+        If Player.getTrueRect.Intersects(_viewRect) Then
                 Return True
             End If
 

@@ -66,7 +66,7 @@ Public Class Projectile
 
     Private Function CheckCollision() As Boolean
         Try
-            Dim _wObj As WorldObject = ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.PlacedObjects(CInt(Math.Floor(Position.X / 30)), CInt(Math.Floor(Position.Y / 30)), 50)
+            Dim _wObj As WorldObject = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.PlacedObjects(CInt(Math.Floor(Position.X / 30)), CInt(Math.Floor(Position.Y / 30)), 50)
             If _wObj IsNot Nothing AndAlso _wObj.GetType Is GetType(WorldObject) Then
                 ' check if block at position in level
                 Return True
@@ -82,7 +82,7 @@ Public Class Projectile
         Dim rect As New Rectangle(CInt(Position.X), CInt(Position.Y), Textures.Bullet.Width, Textures.Bullet.Height)
         Select Case Origin
             Case Character.CharacterTypes.Player
-                For Each character As Character In ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.NPCs
+                For Each character As Character In ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.NPCs
                     If rect.Intersects(character.getTrueRect) Then
                         character.HealthPoints -= Me.Damage
                         Return True

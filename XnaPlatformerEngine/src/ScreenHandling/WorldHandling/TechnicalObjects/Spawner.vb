@@ -26,6 +26,6 @@ Public Class Spawner
         Dim _e As New Enemy(32, New Rectangle(0, 0, 32, 32)) With {.Position = Me.getTrueRect.Location.ToVector2, .Animations = AnimationSets.Player}
         _e.SetSelectedAnimation("idle")
 
-        ScreenHandler.SelectedScreen.ToWorld.GetSelectedLevel.NPCs.Add(_e)
+        ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.NPCs.Add(_e)
     End Sub
 End Class
