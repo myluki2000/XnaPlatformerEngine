@@ -85,7 +85,10 @@
     <Compile Include="Properties\AssemblyInfo.vb" />
     <Compile Include="src\ScreenHandling\Screen.vb" />
     <Compile Include="src\ScreenHandling\ScreenHandler.vb" />
+    <Compile Include="src\ScreenHandling\Screens\MainMenu.vb" />
     <Compile Include="src\ScreenHandling\Screens\TestScreen.vb" />
+    <Compile Include="src\ScreenHandling\UI\Button.vb" />
+    <Compile Include="src\ScreenHandling\UI\UIElement.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\TechnicalObjects\ParticleSpawner.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\TechnicalObjects\PlayerSpawn.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\TechnicalObjects\PlayerTrigger.vb" />

@@ -142,4 +142,13 @@ Public Class Misc
         Dim rand As New Random
         Return rand.Next(0, _arr.GetLength(0))
     End Function
+
+    Public Shared Function SubtractColors(color1 As Color, color2 As Color) As Color
+        Dim returnColor As New Color
+        returnColor.B = color1.B - color2.B
+        returnColor.G = color1.G - color2.G
+        returnColor.R = color1.R - color2.R
+        returnColor.A = color1.A
+        Return returnColor
+    End Function
 End Class

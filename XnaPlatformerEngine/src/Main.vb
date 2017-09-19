@@ -15,8 +15,11 @@ Public Class Main
     Private spriteBatch As SpriteBatch
 
     Dim TestWorld1 As New World
-    Dim LoadingThread As Threading.Thread
-    Dim worldFilePath As String = ""
+
+    Dim LoadingThread As New Threading.Thread(AddressOf LoadWorldContentBackground)
+    Public Shared worldFilePath As String = ""
+
+    Public Shared LoadWorldOnNextUpdate As Boolean = False
 
     Public Sub New()
         MyBase.New()
@@ -34,15 +37,7 @@ Public Class Main
     Protected Overrides Sub Initialize()
         IsMouseVisible = True
 
-        Dim ofdWorld As New Windows.Forms.OpenFileDialog
-        ofdWorld.Filter = "World Files | *.pwrld"
-        ofdWorld.Multiselect = False
-
-        While ofdWorld.FileName = ""
-            ofdWorld.ShowDialog()
-        End While
-
-        worldFilePath = ofdWorld.FileName
+        ScreenHandler.SelectedScreen = New MainMenu
 
 
 
@@ -62,13 +57,10 @@ Public Class Main
         FontKoot = Content.Load(Of SpriteFont)("Koot")
 
 
-        LoadingThread = New Threading.Thread(AddressOf LoadContentBackground)
-        LoadingThread.IsBackground = True
 
-        LoadingThread.Start()
     End Sub
 
-    Private Sub LoadContentBackground()
+    Private Sub LoadWorldContentBackground()
         TestWorld1 = WorldLoader.LoadWorld(worldFilePath)
 
 
@@ -104,6 +96,14 @@ Public Class Main
             [Exit]()
         End If
 
+        If LoadWorldOnNextUpdate Then
+            LoadWorldOnNextUpdate = False
+
+            LoadingThread.IsBackground = True
+
+            LoadingThread.Start()
+        End If
+
         If LoadingThread.IsAlive Then ' if thread is loading
 
 
@@ -134,5 +134,4 @@ Public Class Main
 
         MyBase.Draw(gameTime)
     End Sub
-
 End Class

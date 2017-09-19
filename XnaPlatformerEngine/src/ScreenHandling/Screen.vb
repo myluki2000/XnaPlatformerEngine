@@ -3,15 +3,9 @@ Imports Microsoft.Xna.Framework.Graphics
 
 Public MustInherit Class Screen
     Public Overridable Sub Inititialize()
-
-    End Sub
-
-    Public Overridable Sub PostContentLoad()
-
     End Sub
 
     Public Overridable Sub Update(gameTime As GameTime)
-
     End Sub
 
     Public Overridable Sub Draw(theSpriteBatch As SpriteBatch)
