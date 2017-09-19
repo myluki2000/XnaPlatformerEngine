@@ -52,7 +52,6 @@ Public Class LevelLoader
             End Select
         Next
 
-        MsgBox("Level has been loaded." & vbNewLine & _placedObjects.Count & " objects have been loaded.")
         Return _placedObjects
     End Function
 
