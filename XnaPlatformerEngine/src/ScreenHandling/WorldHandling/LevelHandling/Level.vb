@@ -4,6 +4,7 @@ Imports Microsoft.Xna.Framework.Content
 Imports Microsoft.Xna.Framework.Graphics
 
 Public Class Level
+    Public Name As String = ""
     Public PlacedObjects(,,) As WorldObject
     Public NPCs As New List(Of Character)
 

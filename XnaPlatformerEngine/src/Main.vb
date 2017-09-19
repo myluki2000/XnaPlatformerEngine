@@ -16,6 +16,7 @@ Public Class Main
 
     Dim TestWorld1 As New World
     Dim LoadingThread As Threading.Thread
+    Dim worldFilePath As String = ""
 
     Public Sub New()
         MyBase.New()
@@ -29,11 +30,22 @@ Public Class Main
     ''' related content.  Calling base.Initialize will enumerate through any components
     ''' and initialize them as well.
     ''' </summary>
+    ''' 
     Protected Overrides Sub Initialize()
         IsMouseVisible = True
 
+        Dim ofdWorld As New Windows.Forms.OpenFileDialog
+        ofdWorld.Filter = "World Files | *.pwrld"
+        ofdWorld.Multiselect = False
 
-        ScreenHandler.SelectedScreen = TestWorld1
+        While ofdWorld.FileName = ""
+            ofdWorld.ShowDialog()
+        End While
+
+        worldFilePath = ofdWorld.FileName
+
+
+
 
         MyBase.Initialize()
     End Sub
@@ -47,7 +59,6 @@ Public Class Main
         spriteBatch = New SpriteBatch(GraphicsDevice)
 
         ' Load important stuff before we switch to the background loading thread
-        TestWorld1.LoadLevel("whatever")
         FontKoot = Content.Load(Of SpriteFont)("Koot")
 
 
@@ -58,18 +69,19 @@ Public Class Main
     End Sub
 
     Private Sub LoadContentBackground()
-        AnimationSets.LoadContent(Content)
-
+        TestWorld1 = WorldLoader.LoadWorld(worldFilePath)
 
 
         TestWorld1.LoadContent(Content)
         TestWorld1.SelectedLevel = TestWorld1.Levels(0)
-
-        Textures.Bullet = Content.Load(Of Texture2D)("Textures/Bullet")
-        Textures.ParticleSpark = Content.Load(Of Texture2D)("Textures/Spark")
+        ScreenHandler.SelectedScreen = TestWorld1
 
 
-        DevPurple = Content.Load(Of Texture2D)("devpurple")
+
+
+        AnimationSets.LoadContent(Content)
+
+        Textures.LoadTextures(Content)
 
         Sounds.LoadSounds(Content)
     End Sub

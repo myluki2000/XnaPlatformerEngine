@@ -31,10 +31,8 @@ Public Class World
         End Set
     End Property
 
-    Public Sub LoadLevel(path As String)
-        Levels.Add(New Level(LevelLoader.LoadLevel()))
-
-        ' TODO: This is only temporary, change it later so it loads levels without a file dialog
+    Public Sub LoadLevel(_path As String, _name As String)
+        Levels.Add(New Level(LevelLoader.LoadLevel(_path)) With {.Name = _name})
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)

@@ -100,6 +100,7 @@
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Level.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\LevelLoader.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\World.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\WorldLoader.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\WorldObject.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -113,12 +114,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\devpurple.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\devbrick.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
