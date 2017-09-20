@@ -38,6 +38,8 @@ Public Class Weapon
         Projectiles.RemoveAll(Function(x) x.Existing = False)
 
         BulletCooldownCounter += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
+
+        Diagnostics.Debug.WriteLine(ReloadCounter)
     End Sub
 
     Dim BulletCooldownCounter As Integer = 0
@@ -91,15 +93,15 @@ Public Class Weapon
 
     Dim ReloadCounter As Integer = 0
     Public Sub ReloadWeapon(gameTime As GameTime)
+        If ReloadCounter = 0 Then
+            RaiseEvent ReloadStarted()
+        End If
         If ReloadCounter >= ReloadTime Then
-            ReloadCounter = 0
-            ProjectilesInMag = ProjectilesMagMax
-            CurrentlyReloading = False
-        Else
-            If Not CurrentlyReloading Then
-                RaiseEvent ReloadStarted()
-            End If
-            ReloadCounter += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
+                ReloadCounter = 0
+                ProjectilesInMag = ProjectilesMagMax
+                CurrentlyReloading = False
+            Else
+                ReloadCounter += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
             CurrentlyReloading = True
         End If
     End Sub

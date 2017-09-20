@@ -29,7 +29,7 @@ Public Class Player
             ShootAtMouse()
         End If
 
-        If Keyboard.GetState.IsKeyDown(Keys.R) Then
+        If Keyboard.GetState.IsKeyDown(Keys.R) AndAlso Not Weapon.CurrentlyReloading AndAlso Weapon.ProjectilesInMag < Weapon.ProjectilesMagMax Then
             Weapon.ReloadWeapon(gameTime)
         End If
 
