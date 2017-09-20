@@ -18,6 +18,9 @@ Public Class WorldObject
 
     End Sub
 
+    Public Overridable Sub Interaction()
+    End Sub
+
     Public Function ShallowCopy() As WorldObject
         Return DirectCast(Me.MemberwiseClone, WorldObject)
     End Function

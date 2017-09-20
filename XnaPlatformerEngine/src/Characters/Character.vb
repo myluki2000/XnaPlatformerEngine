@@ -72,6 +72,10 @@ Partial Public Class Character
         Return New Rectangle(Position.ToPoint - New Point(CInt(LevelCameraMatrix.Translation.X), CInt(LevelCameraMatrix.Translation.Y)), getTextureSize.ToPoint)
     End Function
 
+    Public Overridable Sub Interaction()
+
+    End Sub
+
     Public Sub SwitchViewDirection()
         Select Case ViewDirection
             Case ViewDirections.Left
