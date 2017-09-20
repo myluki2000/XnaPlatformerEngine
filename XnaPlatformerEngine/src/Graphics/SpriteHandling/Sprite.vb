@@ -5,13 +5,12 @@ Imports Microsoft.Xna.Framework.Graphics
 Public MustInherit Class Sprite
     Public Name As String
     Public Texture As Texture2D
-    Public TexturePath As String
     Public rect As Rectangle
     Public Scale As Integer = 1
     Public Hitbox As Polygon
 
-    Sub New(ByRef _name As String, ByRef _texturePath As String)
-        TexturePath = _texturePath
+    Sub New(ByRef _name As String, ByRef _texture As Texture2D)
+        Texture = _texture
         Name = _name
     End Sub
 
@@ -27,10 +26,6 @@ Public MustInherit Class Sprite
             'theSpriteBatch.DrawString(FontKoot, Name, getScreenRect.Location.ToVector2, Color.Red)
             'Misc.DrawOutline(theSpriteBatch, getScreenRect, Color.Gold, 2)
         End If
-    End Sub
-
-    Public Overridable Sub LoadContent(_content As ContentManager)
-        Texture = _content.Load(Of Texture2D)(TexturePath)
     End Sub
 
     Public Overridable Function getScreenRect() As Rectangle

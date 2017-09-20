@@ -6,8 +6,8 @@ Public Class WorldObject
 
     Public zIndex As Integer = 0
 
-    Sub New(ByRef _name As String, ByRef _texturePath As String)
-        MyBase.New(_name, _texturePath)
+    Sub New(ByRef _name As String, ByRef _texture As Texture2D)
+        MyBase.New(_name, _texture)
     End Sub
 
     Sub New()

@@ -78,6 +78,7 @@
     <Compile Include="src\Main.vb" />
     <Compile Include="src\Misc\Misc.vb" />
     <Compile Include="src\Misc\Polygon.vb" />
+    <Compile Include="src\ResourceHandling\TextureObject.vb" />
     <Compile Include="src\ResourceHandling\Textures.vb" />
     <Compile Include="src\Graphics\ParticleSystem\Particle.vb" />
     <Compile Include="src\Graphics\ParticleSystem\ParticleSystem.vb" />

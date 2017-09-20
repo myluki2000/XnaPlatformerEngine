@@ -1,7 +1,11 @@
 ﻿Imports System.Collections.Generic
 Imports System.Xml.Linq
+Imports Microsoft.Xna.Framework.Content
+Imports Microsoft.Xna.Framework.Graphics
 
 Public Class LevelLoader
+    Shared TextureObjs As List(Of TextureObject)
+
     Public Shared Function LoadLevel(_path As String) As List(Of WorldObject)
         Dim _placedObjects As New List(Of WorldObject)
 
@@ -19,11 +23,10 @@ Public Class LevelLoader
             _placedObjects.Add(_placedObj)
         Next
 
-        Dim _worldObjs = LoadTextures()
-        For Each _pObj In _placedObjects
-            For Each _wObj In _worldObjs
-                If _pObj.Name = _wObj.Name Then
-                    _pObj.TexturePath = _wObj.TexturePath
+        For Each _wObj In _placedObjects
+            For Each _tObj In TextureObjs
+                If _wObj.Name = _tObj.Name Then
+                    _wObj.Texture = _tObj.Texture
                 End If
             Next
         Next
@@ -55,15 +58,15 @@ Public Class LevelLoader
         Return _placedObjects
     End Function
 
-    Shared Function LoadTextures() As List(Of WorldObject)
-        Dim _objs As New List(Of WorldObject)
+    Shared Sub LoadTextures(Content As ContentManager)
+        Dim resultObjs As New List(Of TextureObject)
 
         'Load WorldObjects from XML
         Dim xele As XElement = XElement.Load("tes.xml")
-        For Each _wObj In xele.Elements
-            _objs.Add(New WorldObject(_wObj.Attribute("Name").Value, _wObj.Element("TexturePath").Value))
+        For Each _tObj In xele.Elements
+            resultObjs.Add(New TextureObject(_tObj.Attribute("Name").Value, Content.Load(Of Texture2D)(_tObj.Element("TexturePath").Value)))
         Next
 
-        Return _objs
-    End Function
+        TextureObjs = resultObjs
+    End Sub
 End Class

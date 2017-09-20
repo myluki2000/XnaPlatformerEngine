@@ -12,12 +12,8 @@ Public Class Level
         PlacedObjects = Misc.WObjListTo3DArray(_placedObjs)
     End Sub
 
-    Public Sub LoadContent(_content As ContentManager)
-        For Each _wObj In PlacedObjects
-            If _wObj IsNot Nothing AndAlso _wObj.GetType() = GetType(WorldObject) Then
-                _wObj.LoadContent(_content)
-            End If
-        Next
+    Public Sub LoadContent(Content As ContentManager)
+
     End Sub
 
     Public Sub Draw(ByRef sb As SpriteBatch, ByRef Player As Player)

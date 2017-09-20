@@ -61,6 +61,8 @@ Public Class Main
     End Sub
 
     Private Sub LoadWorldContentBackground()
+        LevelLoader.LoadTextures(Content)
+
         TestWorld1 = WorldLoader.LoadWorld(worldFilePath)
 
 

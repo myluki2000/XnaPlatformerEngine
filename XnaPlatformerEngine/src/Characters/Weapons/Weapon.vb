@@ -38,8 +38,6 @@ Public Class Weapon
         Projectiles.RemoveAll(Function(x) x.Existing = False)
 
         BulletCooldownCounter += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
-
-        Diagnostics.Debug.WriteLine(ReloadCounter)
     End Sub
 
     Dim BulletCooldownCounter As Integer = 0
