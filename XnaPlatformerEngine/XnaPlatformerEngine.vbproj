@@ -74,6 +74,7 @@
     <Compile Include="src\Characters\Weapons\Pistol.vb" />
     <Compile Include="src\Characters\Weapons\Projectiles\Projectile.vb" />
     <Compile Include="src\Characters\Weapons\Weapon.vb" />
+    <Compile Include="src\Graphics\BitmapFont.vb" />
     <Compile Include="src\Misc\GlobalVariables.vb" />
     <Compile Include="src\Main.vb" />
     <Compile Include="src\Misc\Misc.vb" />
