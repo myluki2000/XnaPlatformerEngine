@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports System.IO
 Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
 
@@ -28,15 +29,15 @@ Public Class MainMenu
 
 #Region "Event Handlers"
     Private Sub btnLoadWorld_Click() Handles btnLoadWorld.Click
-        Dim ofdWorld As New Windows.Forms.OpenFileDialog
-        ofdWorld.Filter = "World Files | *.pwrld"
-        ofdWorld.Multiselect = False
+        'Dim ofdWorld As New Windows.Forms.OpenFileDialog
+        'ofdWorld.Filter = "World Files | *.pwrld"
+        'ofdWorld.Multiselect = False
 
-        While ofdWorld.FileName = ""
-            ofdWorld.ShowDialog()
-        End While
+        'While ofdWorld.FileName = ""
+        '    ofdWorld.ShowDialog()
+        'End While
 
-        Main.worldFilePath = ofdWorld.FileName
+        Main.worldFilePath = Path.Combine(Directory.GetCurrentDirectory, "\PlatformerWorld1\testworld.pwrld")
         Main.LoadWorldOnNextUpdate = True
     End Sub
 #End Region

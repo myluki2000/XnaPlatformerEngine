@@ -8,7 +8,7 @@ Public NotInheritable Class Program
     ''' <summary>
     ''' The main entry point for the application.
     ''' </summary>
-    <STAThread> _
+    <STAThread>
     Friend Shared Sub Main()
         Using game As New Main()
             game.Run()
