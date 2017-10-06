@@ -86,6 +86,7 @@
     <Compile Include="Properties\AssemblyInfo.vb" />
     <Compile Include="src\ScreenHandling\Screen.vb" />
     <Compile Include="src\ScreenHandling\ScreenHandler.vb" />
+    <Compile Include="src\ScreenHandling\Screens\LoadingScreen.vb" />
     <Compile Include="src\ScreenHandling\Screens\MainMenu.vb" />
     <Compile Include="src\ScreenHandling\Screens\TestScreen.vb" />
     <Compile Include="src\ScreenHandling\UI\Button.vb" />

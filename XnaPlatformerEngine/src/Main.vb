@@ -16,6 +16,8 @@ Public Class Main
 
     Dim TestWorld1 As New World
 
+    Dim LoadingScreen As New LoadingScreen
+
     Dim LoadingThread As New Threading.Thread(AddressOf LoadWorldContentBackground)
     Public Shared worldFilePath As String = ""
 
@@ -40,7 +42,9 @@ Public Class Main
         ScreenHandler.SelectedScreen = New MainMenu
 
 
-
+        graphics.PreferredBackBufferHeight = 720
+        graphics.PreferredBackBufferWidth = 1280
+        graphics.ApplyChanges()
 
         MyBase.Initialize()
     End Sub
@@ -56,7 +60,7 @@ Public Class Main
         ' Load important stuff before we switch to the background loading thread
         FontKoot = Content.Load(Of SpriteFont)("Koot")
 
-
+        LoadingScreen.LoadContent(Content)
 
     End Sub
 
@@ -107,7 +111,7 @@ Public Class Main
         End If
 
         If LoadingThread.IsAlive Then ' if thread is loading
-
+            LoadingScreen.Update(gameTime)
 
         Else ' if not do normal game update
             ScreenHandler.Update(gameTime)
@@ -122,15 +126,15 @@ Public Class Main
     ''' </summary>
     ''' <param name="gameTime">Provides a snapshot of timing values.</param>
     Protected Overrides Sub Draw(gameTime As GameTime)
-        GraphicsDevice.Clear(Color.CornflowerBlue)
 
         If LoadingThread.IsAlive Then ' If thread is loading
-            spriteBatch.Begin()
+            GraphicsDevice.Clear(Color.White)
 
-            spriteBatch.DrawString(FontKoot, "Loading...", New Vector2(100, 100), Color.Black)
+            LoadingScreen.Draw(spriteBatch)
 
-            spriteBatch.End()
         Else ' Else do normal game draw
+            GraphicsDevice.Clear(Color.CornflowerBlue)
+
             ScreenHandler.Draw(spriteBatch)
         End If
 

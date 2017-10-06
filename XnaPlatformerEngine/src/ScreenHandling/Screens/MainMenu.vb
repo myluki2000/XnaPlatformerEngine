@@ -37,7 +37,7 @@ Public Class MainMenu
         '    ofdWorld.ShowDialog()
         'End While
 
-        Main.worldFilePath = Path.Combine(Directory.GetCurrentDirectory, "\PlatformerWorld1\testworld.pwrld")
+        Main.worldFilePath = Directory.GetCurrentDirectory & "\PlatformerWorld1\testworld.pwrld"
         Main.LoadWorldOnNextUpdate = True
     End Sub
 #End Region
