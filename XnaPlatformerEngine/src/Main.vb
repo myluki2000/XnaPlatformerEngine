@@ -59,6 +59,7 @@ Public Class Main
 
         ' Load important stuff before we switch to the background loading thread
         FontKoot = Content.Load(Of SpriteFont)("Koot")
+        FontHand.LoadContent(Content, "Fonts\FontSheet", 70)
 
         LoadingScreen.LoadContent(Content)
 

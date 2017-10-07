@@ -44,8 +44,8 @@ Public Class BitmapFont
 
         Else
             Select Case character
-                Case "!"c
-
+                Case "."c
+                    Return 62
 
                 Case Else
 
