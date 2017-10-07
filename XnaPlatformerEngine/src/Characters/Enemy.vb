@@ -6,8 +6,8 @@ Public Class Enemy
 
     Dim Player As Player = ScreenHandler.SelectedScreen.ToWorld.Player
 
-    Sub New(_frmWidth As Integer, _rect As Rectangle)
-        MyBase.New(_frmWidth, _rect, CharacterTypes.Enemy)
+    Sub New(_frmWidth As Integer)
+        MyBase.New(_frmWidth, CharacterTypes.Enemy)
     End Sub
 
     Dim viewDirectionCounter As Integer = 0

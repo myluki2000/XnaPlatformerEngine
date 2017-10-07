@@ -5,7 +5,7 @@ Public Class Player
     Inherits Character
 
     Sub New()
-        MyBase.New(32, New Rectangle(0, 0, 32, 32), CharacterTypes.Player)
+        MyBase.New(32, CharacterTypes.Player)
 
         Animations = AnimationSets.Player
 

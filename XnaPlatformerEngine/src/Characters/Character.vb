@@ -5,7 +5,6 @@ Partial Public Class Character
     Inherits AnimatedSprite
 
     Friend Velocity As New Vector2(0, 0)
-    Friend Position As New Vector2(300, 320)
     Friend Acceleration As New Vector2(0, 0)
     Public IsGrounded As Boolean = True
     Public Alive As Boolean = True
@@ -27,8 +26,8 @@ Partial Public Class Character
         Right
     End Enum
 
-    Sub New(_frmWidth As Integer, _rect As Rectangle, _cType As CharacterTypes)
-        MyBase.New(_frmWidth, _rect)
+    Sub New(_frmWidth As Integer, _cType As CharacterTypes)
+        MyBase.New(_frmWidth)
 
         CharacterType = _cType
         Weapon = New AR(CharacterType)

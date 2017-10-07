@@ -4,7 +4,6 @@ Imports Microsoft.Xna.Framework.Graphics
 Public Class Projectile
     Inherits Sprite
 
-    Public Position As Vector2
     Public Velocity As Vector2
     Public Acceleration As New Vector2(0, 0)
     Public Damage As Integer

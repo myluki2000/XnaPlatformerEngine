@@ -4,7 +4,6 @@ Imports Microsoft.Xna.Framework.Graphics
 Public Class Particle
     Inherits Sprite
 
-    Public Position As Vector2
     Public Velocity As Vector2
     Public LifetimeCounter As Integer
     Public Lifetime As Integer

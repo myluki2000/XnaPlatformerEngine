@@ -11,14 +11,16 @@ Public Class AnimatedSprite
     Protected FrameWidth As Integer
     Private ElapsedTime As Integer = 0
 
-    Sub New(_frmWidth As Integer, _rect As Rectangle)
+    Sub New(_frmWidth As Integer)
         FrameWidth = _frmWidth
-        rect = _rect
     End Sub
 
     Public Overrides Sub Draw(sb As SpriteBatch)
         If SelectedAnimation IsNot Nothing Then
-            sb.Draw(SelectedAnimation.Texture, New Rectangle(CInt(rect.X * 30), CInt(rect.Y * 30), CInt(rect.Width * Scale), CInt(rect.Height * Scale)), srcRect, Color.White)
+            sb.Draw(texture:=SelectedAnimation.Texture,
+                    position:=Position,
+                    sourceRectangle:=srcRect,
+                    scale:=New Vector2(Scale, Scale))
         End If
     End Sub
 
