@@ -18,6 +18,10 @@ Public Class Main
 
     Dim LoadingScreen As New LoadingScreen
 
+
+    Dim testDialogue As New Dialogue
+
+
     Dim LoadingThread As New Threading.Thread(AddressOf LoadWorldContentBackground)
     Public Shared worldFilePath As String = ""
 
@@ -63,6 +67,8 @@ Public Class Main
 
         LoadingScreen.LoadContent(Content)
 
+
+        testDialogue.Segments = {New DialogueSegment With {.FaceSprite = Content.Load(Of Texture2D)("Characters\Girl\Dialogue\idle"), .Text = "Are you alright?"}}
     End Sub
 
     Private Sub LoadWorldContentBackground()
@@ -138,6 +144,10 @@ Public Class Main
 
             ScreenHandler.Draw(spriteBatch)
         End If
+
+        spriteBatch.Begin()
+        testDialogue.Draw(spriteBatch)
+        spriteBatch.End()
 
         MyBase.Draw(gameTime)
     End Sub
