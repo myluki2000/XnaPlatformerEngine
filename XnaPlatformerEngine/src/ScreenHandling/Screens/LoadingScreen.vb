@@ -21,8 +21,8 @@ Public Class LoadingScreen
         DisplayLogoCounter += gameTime.ElapsedGameTime.TotalMilliseconds
     End Sub
 
-    Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
-        theSpriteBatch.Begin()
+    Public Overrides Sub Draw(sb As SpriteBatch)
+        sb.Begin()
 
         If DisplayLogoCounter < 3000 Then
             Dim transparency As Single
@@ -32,7 +32,7 @@ Public Class LoadingScreen
                 transparency = (2800 - DisplayLogoCounter) / 800
             End If
 
-            theSpriteBatch.Draw(texture:=Logo,
+            sb.Draw(texture:=Logo,
                                 position:=New Vector2(graphics.PreferredBackBufferWidth / 2 - Logo.Width / 2 * 0.3, graphics.PreferredBackBufferHeight / 2 - Logo.Height / 2 * 0.3),
                                 scale:=New Vector2(0.3, 0.3),
                                 color:=Color.White * transparency)
@@ -41,31 +41,31 @@ Public Class LoadingScreen
             Dim transparency As Single
             transparency = (5500 - DisplayLogoCounter) / 2000
 
-            theSpriteBatch.Draw(texture:=CassetteReel,
+            sb.Draw(texture:=CassetteReel,
                                 destinationRectangle:=New Rectangle(graphics.PreferredBackBufferWidth / 2 - 141, graphics.PreferredBackBufferHeight / 2 + 15, 294 * 0.3, 294 * 0.3),
                                 rotation:=ReelRoation,
                                 origin:=New Vector2(294 / 2, 294 / 2))
 
-            theSpriteBatch.Draw(texture:=CassetteReel,
+            sb.Draw(texture:=CassetteReel,
                                 destinationRectangle:=New Rectangle(graphics.PreferredBackBufferWidth / 2 + 150, graphics.PreferredBackBufferHeight / 2 + 15, 294 * 0.3, 294 * 0.3),
                                 rotation:=ReelRoation + 1,
                                 origin:=New Vector2(294 / 2, 294 / 2))
 
-            theSpriteBatch.Draw(texture:=Cassette,
+            sb.Draw(texture:=Cassette,
                                 position:=New Vector2(CSng(graphics.PreferredBackBufferWidth / 2 - Cassette.Width / 2 * 0.3), CSng(graphics.PreferredBackBufferHeight / 2 - Cassette.Height / 2 * 0.3)),
                                 scale:=New Vector2(0.3, 0.3))
 
 
             ' Using white rect overlay instead of making textures transparent because otherwise the reel parts that are normally behind the cassette are visible when blending in
-            Misc.DrawRectangle(theSpriteBatch, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White * transparency)
+            Misc.DrawRectangle(sb, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White * transparency)
 
-            'Misc.DrawRectangle(theSpriteBatch, New Rectangle(graphics.PreferredBackBufferWidth / 2 - 182, graphics.PreferredBackBufferHeight / 2 - 25, 270 * 0.3, 270 * 0.3), Color.Red * 0.5F)
-            'Misc.DrawRectangle(theSpriteBatch, New Rectangle(graphics.PreferredBackBufferWidth / 2 + 110, graphics.PreferredBackBufferHeight / 2 - 25, 270 * 0.3, 270 * 0.3), Color.Red * 0.5F)
+            'Misc.DrawRectangle(sb, New Rectangle(graphics.PreferredBackBufferWidth / 2 - 182, graphics.PreferredBackBufferHeight / 2 - 25, 270 * 0.3, 270 * 0.3), Color.Red * 0.5F)
+            'Misc.DrawRectangle(sb, New Rectangle(graphics.PreferredBackBufferWidth / 2 + 110, graphics.PreferredBackBufferHeight / 2 - 25, 270 * 0.3, 270 * 0.3), Color.Red * 0.5F)
 
 
         End If
 
-        theSpriteBatch.End()
+        sb.End()
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)

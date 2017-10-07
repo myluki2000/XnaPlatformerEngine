@@ -26,9 +26,9 @@ Public Class ScreenHandler
         End If
     End Sub
 
-    Public Shared Sub Draw(theSpriteBatch As SpriteBatch)
+    Public Shared Sub Draw(sb As SpriteBatch)
         If SelectedScreen IsNot Nothing Then
-            SelectedScreen.Draw(theSpriteBatch)
+            SelectedScreen.Draw(sb)
         End If
     End Sub
 End Class

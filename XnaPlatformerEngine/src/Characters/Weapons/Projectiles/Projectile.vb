@@ -54,13 +54,13 @@ Public Class Projectile
         End If
     End Sub
 
-    Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
+    Public Overrides Sub Draw(sb As SpriteBatch)
         If Not Landed Then
-            theSpriteBatch.Draw(Textures.Bullet, Position, Nothing, Color.White, Rotation, New Vector2(CSng(Textures.Bullet.Width / 2), CSng(Textures.Bullet.Height / 2)), 1, Nothing, Nothing)
+            sb.Draw(Textures.Bullet, Position, Nothing, Color.White, Rotation, New Vector2(CSng(Textures.Bullet.Width / 2), CSng(Textures.Bullet.Height / 2)), 1, Nothing, Nothing)
         End If
 
         If ps IsNot Nothing Then
-            ps.Draw(theSpriteBatch)
+            ps.Draw(sb)
         End If
     End Sub
 

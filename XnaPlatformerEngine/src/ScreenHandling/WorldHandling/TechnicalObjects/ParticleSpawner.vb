@@ -11,7 +11,7 @@ Public Class ParticleSpawner
         Throw New NotImplementedException
     End Sub
 
-    Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
+    Public Overrides Sub Draw(sb As SpriteBatch)
         Throw New NotImplementedException
     End Sub
 End Class

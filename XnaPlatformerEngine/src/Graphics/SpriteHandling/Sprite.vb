@@ -19,12 +19,12 @@ Public MustInherit Class Sprite
 
     Public MustOverride Sub Update(gameTime As GameTime)
 
-    Public Overridable Sub Draw(theSpriteBatch As SpriteBatch)
+    Public Overridable Sub Draw(sb As SpriteBatch)
         If Texture IsNot Nothing Then
-            theSpriteBatch.Draw(Texture, New Rectangle(CInt(rect.X * 30), CInt(rect.Y * 30), CInt(rect.Width * Scale), CInt(rect.Height * Scale)), Color.White)
+            sb.Draw(Texture, New Rectangle(CInt(rect.X * 30), CInt(rect.Y * 30), CInt(rect.Width * Scale), CInt(rect.Height * Scale)), Color.White)
         Else
-            'theSpriteBatch.DrawString(FontKoot, Name, getScreenRect.Location.ToVector2, Color.Red)
-            'Misc.DrawOutline(theSpriteBatch, getScreenRect, Color.Gold, 2)
+            'sb.DrawString(FontKoot, Name, getScreenRect.Location.ToVector2, Color.Red)
+            'Misc.DrawOutline(sb, getScreenRect, Color.Gold, 2)
         End If
     End Sub
 

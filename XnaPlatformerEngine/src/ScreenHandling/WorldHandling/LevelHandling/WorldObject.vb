@@ -25,7 +25,7 @@ Public Class WorldObject
         Return DirectCast(Me.MemberwiseClone, WorldObject)
     End Function
 
-    Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
-        MyBase.Draw(theSpriteBatch)
+    Public Overrides Sub Draw(sb As SpriteBatch)
+        MyBase.Draw(sb)
     End Sub
 End Class

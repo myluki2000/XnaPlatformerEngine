@@ -16,9 +16,9 @@ Public Class AnimatedSprite
         rect = _rect
     End Sub
 
-    Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
+    Public Overrides Sub Draw(sb As SpriteBatch)
         If SelectedAnimation IsNot Nothing Then
-            theSpriteBatch.Draw(SelectedAnimation.Texture, New Rectangle(CInt(rect.X * 30), CInt(rect.Y * 30), CInt(rect.Width * Scale), CInt(rect.Height * Scale)), srcRect, Color.White)
+            sb.Draw(SelectedAnimation.Texture, New Rectangle(CInt(rect.X * 30), CInt(rect.Y * 30), CInt(rect.Width * Scale), CInt(rect.Height * Scale)), srcRect, Color.White)
         End If
     End Sub
 

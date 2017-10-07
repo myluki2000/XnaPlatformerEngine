@@ -3,5 +3,5 @@
     Public Visible As Boolean
     Public srcRect As Microsoft.Xna.Framework.Rectangle
 
-    Public MustOverride Sub Draw(theSpriteBatch As Microsoft.Xna.Framework.Graphics.SpriteBatch)
+    Public MustOverride Sub Draw(sb As Microsoft.Xna.Framework.Graphics.SpriteBatch)
 End Class

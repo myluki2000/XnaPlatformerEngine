@@ -16,18 +16,18 @@ Public Class Polygon
         corners.Add(New Vector2(_rect.Left, _rect.Bottom))
     End Sub
 
-    Public Sub DrawOutline(theSpriteBatch As SpriteBatch, _drawCorners As Boolean)
+    Public Sub DrawOutline(sb As SpriteBatch, _drawCorners As Boolean)
         For i As Integer = 0 To corners.Count - 1
             If i < corners.Count - 1 Then
-                Misc.DrawLine(theSpriteBatch, corners(i), corners(i + 1))
+                Misc.DrawLine(sb, corners(i), corners(i + 1))
             Else
-                Misc.DrawLine(theSpriteBatch, corners(i), corners(0))
+                Misc.DrawLine(sb, corners(i), corners(0))
             End If
         Next
 
         If _drawCorners Then
             For Each _corner In corners
-                Misc.DrawRectangle(theSpriteBatch, New Rectangle(_corner.ToPoint - New Point(3, 3), New Point(6, 6)), Color.Red)
+                Misc.DrawRectangle(sb, New Rectangle(_corner.ToPoint - New Point(3, 3), New Point(6, 6)), Color.Red)
             Next
         End If
     End Sub

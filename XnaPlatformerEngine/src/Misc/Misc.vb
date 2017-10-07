@@ -10,30 +10,30 @@ Public Class Misc
         dummyTexture.SetData(New Color() {Color.White})
     End Sub
 
-    Public Shared Sub DrawRectangle(theSpriteBatch As SpriteBatch, destRect As Rectangle, color As Color)
-        theSpriteBatch.Draw(dummyTexture, destRect, color)
+    Public Shared Sub DrawRectangle(sb As SpriteBatch, destRect As Rectangle, color As Color)
+        sb.Draw(dummyTexture, destRect, color)
     End Sub
 
-    Public Shared Sub DrawRectangle(theSpriteBatch As SpriteBatch, destRect As Rectangle, color As Color, colorOutline As Color, thicknessOutline As Integer)
-        DrawRectangle(theSpriteBatch, destRect, color) ' Main Rect
-        DrawRectangle(theSpriteBatch, New Rectangle(destRect.X, destRect.Y, destRect.Width, thicknessOutline), colorOutline) ' Outline Top
-        DrawRectangle(theSpriteBatch, New Rectangle(destRect.X, destRect.Y + destRect.Height - thicknessOutline, destRect.Width, thicknessOutline), colorOutline) ' Outline Bottom
-        DrawRectangle(theSpriteBatch, New Rectangle(destRect.X, destRect.Y, thicknessOutline, destRect.Height), colorOutline) ' Outline Left
-        DrawRectangle(theSpriteBatch, New Rectangle(destRect.X + destRect.Width - thicknessOutline, destRect.Y, thicknessOutline, destRect.Height), colorOutline) ' Outline Right
+    Public Shared Sub DrawRectangle(sb As SpriteBatch, destRect As Rectangle, color As Color, colorOutline As Color, thicknessOutline As Integer)
+        DrawRectangle(sb, destRect, color) ' Main Rect
+        DrawRectangle(sb, New Rectangle(destRect.X, destRect.Y, destRect.Width, thicknessOutline), colorOutline) ' Outline Top
+        DrawRectangle(sb, New Rectangle(destRect.X, destRect.Y + destRect.Height - thicknessOutline, destRect.Width, thicknessOutline), colorOutline) ' Outline Bottom
+        DrawRectangle(sb, New Rectangle(destRect.X, destRect.Y, thicknessOutline, destRect.Height), colorOutline) ' Outline Left
+        DrawRectangle(sb, New Rectangle(destRect.X + destRect.Width - thicknessOutline, destRect.Y, thicknessOutline, destRect.Height), colorOutline) ' Outline Right
     End Sub
 
-    Public Shared Sub DrawRectangle(theSpriteBatch As SpriteBatch, destRect As Rectangle, sourceRect As Rectangle, origin As Vector2, Rotation As Single, Color As Color)
-        theSpriteBatch.Draw(dummyTexture, destRect, sourceRect, Color, Rotation, origin, Nothing, 0)
+    Public Shared Sub DrawRectangle(sb As SpriteBatch, destRect As Rectangle, sourceRect As Rectangle, origin As Vector2, Rotation As Single, Color As Color)
+        sb.Draw(dummyTexture, destRect, sourceRect, Color, Rotation, origin, Nothing, 0)
     End Sub
 
-    Public Shared Sub DrawOutline(theSpriteBatch As SpriteBatch, destRect As Rectangle, colorOutline As Color, thicknessOutline As Integer)
-        DrawRectangle(theSpriteBatch, New Rectangle(destRect.X, destRect.Y, destRect.Width, thicknessOutline), colorOutline) ' Outline Top
-        DrawRectangle(theSpriteBatch, New Rectangle(destRect.X, destRect.Y + destRect.Height - thicknessOutline, destRect.Width, thicknessOutline), colorOutline) ' Outline Bottom
-        DrawRectangle(theSpriteBatch, New Rectangle(destRect.X, destRect.Y, thicknessOutline, destRect.Height), colorOutline) ' Outline Left
-        DrawRectangle(theSpriteBatch, New Rectangle(destRect.X + destRect.Width - thicknessOutline, destRect.Y, thicknessOutline, destRect.Height), colorOutline) ' Outline Right
+    Public Shared Sub DrawOutline(sb As SpriteBatch, destRect As Rectangle, colorOutline As Color, thicknessOutline As Integer)
+        DrawRectangle(sb, New Rectangle(destRect.X, destRect.Y, destRect.Width, thicknessOutline), colorOutline) ' Outline Top
+        DrawRectangle(sb, New Rectangle(destRect.X, destRect.Y + destRect.Height - thicknessOutline, destRect.Width, thicknessOutline), colorOutline) ' Outline Bottom
+        DrawRectangle(sb, New Rectangle(destRect.X, destRect.Y, thicknessOutline, destRect.Height), colorOutline) ' Outline Left
+        DrawRectangle(sb, New Rectangle(destRect.X + destRect.Width - thicknessOutline, destRect.Y, thicknessOutline, destRect.Height), colorOutline) ' Outline Right
     End Sub
 
-    Public Shared Sub DrawLine(theSpriteBatch As SpriteBatch, _start As Vector2, _end As Vector2)
+    Public Shared Sub DrawLine(sb As SpriteBatch, _start As Vector2, _end As Vector2)
         Dim edge As Vector2 = _end - _start
         ' calculate angle to rotate line
         Dim angle As Single = CSng(Math.Atan2(edge.Y, edge.X))
@@ -45,7 +45,7 @@ Public Class Misc
         'colour of line
         'angle of line (calulated above)
         ' point in line about which to rotate
-        theSpriteBatch.Draw(dummyTexture, New Rectangle(CInt(_start.X), CInt(_start.Y), CInt(edge.Length()), 1), Nothing, Color.Red, angle, New Vector2(0, 0),
+        sb.Draw(dummyTexture, New Rectangle(CInt(_start.X), CInt(_start.Y), CInt(edge.Length()), 1), Nothing, Color.Red, angle, New Vector2(0, 0),
         SpriteEffects.None, 0)
 
     End Sub

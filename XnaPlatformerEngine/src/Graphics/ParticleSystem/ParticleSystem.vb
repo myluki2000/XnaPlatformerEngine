@@ -31,9 +31,9 @@ Public Class ParticleSystem
         Next
     End Sub
 
-    Public Sub Draw(theSpriteBatch As SpriteBatch)
+    Public Sub Draw(sb As SpriteBatch)
         For Each _par In Particles
-            _par.Draw(theSpriteBatch)
+            _par.Draw(sb)
         Next
     End Sub
 

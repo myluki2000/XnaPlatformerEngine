@@ -8,10 +8,10 @@ Public MustInherit Class Screen
     Public Overridable Sub Update(gameTime As GameTime)
     End Sub
 
-    Public Overridable Sub Draw(theSpriteBatch As SpriteBatch)
-        theSpriteBatch.Begin()
-        theSpriteBatch.DrawString(FontKoot, "Default Screen", New Vector2(100, 100), Color.Black)
-        theSpriteBatch.End()
+    Public Overridable Sub Draw(sb As SpriteBatch)
+        sb.Begin()
+        sb.DrawString(FontKoot, "Default Screen", New Vector2(100, 100), Color.Black)
+        sb.End()
     End Sub
 
     Public Function ToWorld() As World

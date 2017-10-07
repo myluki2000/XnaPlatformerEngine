@@ -56,12 +56,12 @@ Partial Public Class Character
 
     End Sub
 
-    Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
+    Public Overrides Sub Draw(sb As SpriteBatch)
         If SelectedAnimation IsNot Nothing Then
-            theSpriteBatch.Draw(SelectedAnimation.Texture, New Rectangle(CInt(Position.X), CInt(Position.Y), FrameWidth, SelectedAnimation.Texture.Height), srcRect, Color.White)
+            sb.Draw(SelectedAnimation.Texture, New Rectangle(CInt(Position.X), CInt(Position.Y), FrameWidth, SelectedAnimation.Texture.Height), srcRect, Color.White)
         End If
 
-        Weapon.Draw(theSpriteBatch, Me)
+        Weapon.Draw(sb, Me)
     End Sub
 
     Public Overrides Function getTrueRect() As Rectangle

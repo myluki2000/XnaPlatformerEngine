@@ -12,9 +12,9 @@ Public Class TestScreen
         Diagnostics.Debug.WriteLine("Update happened after " & gameTime.ElapsedGameTime.Milliseconds & " milliseconds")
     End Sub
 
-    Public Overrides Sub Draw(theSpriteBatch As SpriteBatch)
-        theSpriteBatch.Begin()
+    Public Overrides Sub Draw(sb As SpriteBatch)
+        sb.Begin()
 
-        theSpriteBatch.End()
+        sb.End()
     End Sub
 End Class
