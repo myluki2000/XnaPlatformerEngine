@@ -81,7 +81,7 @@ Public Class Main
         TestWorld1.SelectedLevel = TestWorld1.Levels(0)
         ScreenHandler.SelectedScreen = TestWorld1
 
-
+        Threading.Thread.Sleep(10000)
 
 
         AnimationSets.LoadContent(Content)
