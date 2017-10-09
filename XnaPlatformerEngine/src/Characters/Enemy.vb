@@ -2,7 +2,7 @@
 Imports Microsoft.Xna.Framework.Graphics
 
 Public Class Enemy
-    Inherits Character
+    Inherits NPC
 
     Dim Player As Player = ScreenHandler.SelectedScreen.ToWorld.Player
 

@@ -55,12 +55,17 @@ Public Class World
 
         DrawUI(sb)
 
+        Main.testDialogue.Draw(sb)
+
+
         sb.End()
 
         CameraFocusOnObject(Player)
     End Sub
 
     Public Overrides Sub Update(gameTime As GameTime)
+        Main.testDialogue.Update(gameTime)
+
         If SelectedLevel IsNot Nothing Then
             SelectedLevel.Update(gameTime)
             Player.Update(gameTime)

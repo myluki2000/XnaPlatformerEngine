@@ -19,7 +19,7 @@ Public Class Main
     Dim LoadingScreen As New LoadingScreen
 
 
-    Dim testDialogue As New Dialogue
+    Public Shared testDialogue As New Dialogue
 
 
     Dim LoadingThread As New Threading.Thread(AddressOf LoadWorldContentBackground)
@@ -87,6 +87,9 @@ Public Class Main
         Textures.LoadTextures(Content)
 
         Sounds.LoadSounds(Content)
+
+
+        Dialogue.SpeechBox = Content.Load(Of Texture2D)("UI\speech_box")
     End Sub
 
     ''' <summary>
@@ -107,6 +110,8 @@ Public Class Main
             [Exit]()
         End If
 
+
+
         If LoadWorldOnNextUpdate Then
             LoadWorldOnNextUpdate = False
 
@@ -121,7 +126,6 @@ Public Class Main
         Else ' if not do normal game update
             ScreenHandler.Update(gameTime)
         End If
-
 
         MyBase.Update(gameTime)
     End Sub
@@ -142,10 +146,6 @@ Public Class Main
 
             ScreenHandler.Draw(spriteBatch)
         End If
-
-        spriteBatch.Begin()
-        testDialogue.Draw(spriteBatch)
-        spriteBatch.End()
 
         MyBase.Draw(gameTime)
     End Sub

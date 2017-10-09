@@ -68,6 +68,7 @@
     <Compile Include="src\Characters\Character.vb" />
     <Compile Include="src\Characters\Collision.vb" />
     <Compile Include="src\Characters\Enemy.vb" />
+    <Compile Include="src\Characters\NPC.vb" />
     <Compile Include="src\Characters\Player.vb" />
     <Compile Include="src\Characters\Weapons\AR.vb" />
     <Compile Include="src\Characters\Weapons\GrenadeLauncher.vb" />
@@ -135,6 +136,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\LoadingScreen\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\speech_box.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
