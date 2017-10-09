@@ -68,6 +68,7 @@
     <Compile Include="src\Characters\Character.vb" />
     <Compile Include="src\Characters\Collision.vb" />
     <Compile Include="src\Characters\Enemy.vb" />
+    <Compile Include="src\Characters\Friendly.vb" />
     <Compile Include="src\Characters\NPC.vb" />
     <Compile Include="src\Characters\Player.vb" />
     <Compile Include="src\Characters\Weapons\AR.vb" />
