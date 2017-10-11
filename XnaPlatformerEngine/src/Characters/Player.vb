@@ -4,6 +4,8 @@ Imports Microsoft.Xna.Framework.Input
 Public Class Player
     Inherits Character
 
+    Public IsInDialogue As Boolean = False
+
     Sub New()
         MyBase.New(32, CharacterTypes.Player)
 
@@ -14,30 +16,33 @@ Public Class Player
 
 
     Public Overrides Sub Update(gameTime As GameTime)
-        If Keyboard.GetState.IsKeyDown(Keys.A) Then
-            Velocity.X = -100
-        ElseIf Keyboard.GetState.IsKeyDown(Keys.D) Then
-            Velocity.X = 100
-        Else
-            Velocity.X = 0
-        End If
-        If Keyboard.GetState.IsKeyDown(Keys.Space) Then
-            Jump()
-        End If
+        If Not IsInDialogue Then
+            If Keyboard.GetState.IsKeyDown(Keys.A) Then
+                Velocity.X = -100
+            ElseIf Keyboard.GetState.IsKeyDown(Keys.D) Then
+                Velocity.X = 100
+            Else
+                Velocity.X = 0
+            End If
+            If Keyboard.GetState.IsKeyDown(Keys.Space) Then
+                Jump()
+            End If
 
-        If Keyboard.GetState.IsKeyDown(Keys.E) Then
-            Interact()
-        End If
+            If Keyboard.GetState.IsKeyDown(Keys.E) Then
+                Interact()
+            End If
 
-        If Mouse.GetState.LeftButton = ButtonState.Pressed AndAlso Not Weapon.CurrentlyReloading Then
-            ShootAtMouse()
-        End If
+            If Mouse.GetState.LeftButton = ButtonState.Pressed AndAlso Not Weapon.CurrentlyReloading Then
+                ShootAtMouse()
+            End If
 
-        If Keyboard.GetState.IsKeyDown(Keys.R) AndAlso Not Weapon.CurrentlyReloading AndAlso Weapon.ProjectilesInMag < Weapon.ProjectilesMagMax Then
-            Weapon.ReloadWeapon(gameTime)
-        End If
+            If Keyboard.GetState.IsKeyDown(Keys.R) AndAlso Not Weapon.CurrentlyReloading AndAlso Weapon.ProjectilesInMag < Weapon.ProjectilesMagMax Then
+                Weapon.ReloadWeapon(gameTime)
+            End If
 
-        MyBase.Update(gameTime)
+
+            MyBase.Update(gameTime)
+        End If
     End Sub
 
     Public Sub Interact()

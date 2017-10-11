@@ -1,7 +1,7 @@
 ﻿Public Class Friendly
     Inherits NPC
 
-    Sub New(_frmWidth As Integer, _cType As CharacterTypes)
-        MyBase.New(_frmWidth, _cType)
+    Sub New(_frmWidth As Integer)
+        MyBase.New(_frmWidth, CharacterTypes.Friendly)
     End Sub
 End Class

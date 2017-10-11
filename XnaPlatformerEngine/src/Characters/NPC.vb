@@ -13,19 +13,27 @@ Public Class NPC
     Public Overrides Sub Update(gameTime As GameTime)
         MyBase.Update(gameTime)
 
-        Dialogue.Update(gameTime)
+        If Dialogue IsNot Nothing Then
+            Dialogue.Update(gameTime)
+        End If
     End Sub
 
     Public Overrides Sub Draw(sb As SpriteBatch)
         MyBase.Draw(sb)
+    End Sub
 
-        Dialogue.Draw(sb)
+    Public Sub DrawDialogue(sb As SpriteBatch)
+        If Dialogue IsNot Nothing Then
+            Dialogue.Draw(sb)
+        End If
     End Sub
 
     Public Overrides Sub Interaction()
         MyBase.Interaction()
 
-        Dialogue.Active = True
-
+        If Dialogue IsNot Nothing Then
+            ScreenHandler.SelectedScreen.ToWorld.Player.IsInDialogue = True
+            Dialogue.Active = True
+        End If
     End Sub
 End Class

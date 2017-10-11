@@ -19,9 +19,6 @@ Public Class Main
     Dim LoadingScreen As New LoadingScreen
 
 
-    Public Shared testDialogue As New Dialogue
-
-
     Dim LoadingThread As New Threading.Thread(AddressOf LoadWorldContentBackground)
     Public Shared worldFilePath As String = ""
 
@@ -39,7 +36,6 @@ Public Class Main
     ''' related content.  Calling base.Initialize will enumerate through any components
     ''' and initialize them as well.
     ''' </summary>
-    ''' 
     Protected Overrides Sub Initialize()
         IsMouseVisible = True
 
@@ -66,13 +62,14 @@ Public Class Main
         FontHand.LoadContent(Content, "Fonts\FontSheet", 70)
 
         LoadingScreen.LoadContent(Content)
-
-
-        testDialogue.Segments = {New DialogueSegment With {.FaceSprite = Content.Load(Of Texture2D)("Characters\Girl\Dialogue\idle"), .Text = "Are you alright?"}}
     End Sub
 
     Private Sub LoadWorldContentBackground()
         LevelLoader.LoadTextures(Content)
+
+        InfoBox.Texture = Content.Load(Of Texture2D)("UI\info_box")
+
+        Dialogue.SpeechBox = Content.Load(Of Texture2D)("UI\speech_box")
 
         TestWorld1 = WorldLoader.LoadWorld(worldFilePath)
 
@@ -89,7 +86,6 @@ Public Class Main
         Sounds.LoadSounds(Content)
 
 
-        Dialogue.SpeechBox = Content.Load(Of Texture2D)("UI\speech_box")
     End Sub
 
     ''' <summary>
@@ -124,10 +120,13 @@ Public Class Main
             LoadingScreen.Update(gameTime)
 
         Else ' if not do normal game update
-            ScreenHandler.Update(gameTime)
+
+            If Not InfoBox.Active Then
+                ScreenHandler.Update(gameTime)
+            End If
         End If
 
-        MyBase.Update(gameTime)
+            MyBase.Update(gameTime)
     End Sub
 
     ''' <summary>
@@ -146,6 +145,10 @@ Public Class Main
 
             ScreenHandler.Draw(spriteBatch)
         End If
+
+        spriteBatch.Begin()
+        InfoBox.Draw(spriteBatch)
+        spriteBatch.End()
 
         MyBase.Draw(gameTime)
     End Sub

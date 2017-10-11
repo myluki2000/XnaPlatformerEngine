@@ -6,14 +6,25 @@ Imports Microsoft.Xna.Framework.Graphics
 Public Class Level
     Public Name As String = ""
     Public PlacedObjects(,,) As WorldObject
-    Public NPCs As New List(Of Character)
+    Public NPCs As New List(Of NPC)
 
     Sub New(_placedObjs As List(Of WorldObject))
         PlacedObjects = Misc.WObjListTo3DArray(_placedObjs)
+
+
+
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)
+        Dim f As New Friendly(32) With {.Position = New Vector2(250, 50), .Animations = AnimationSets.Player}
 
+        f.Dialogue = New Dialogue
+
+        f.Dialogue.Segments = {New DialogueSegment With {.FaceSprite = Content.Load(Of Texture2D)("Characters\Girl\Dialogue\idle"), .Text = "Hello"}, New DialogueSegment With {.Text = "test", .FaceSprite = Content.Load(Of Texture2D)("Characters\Girl\Dialogue\idle")}}
+        f.SetSelectedAnimation("idle")
+        NPCs.Add(f)
+
+        InfoBox.Show("You can interact" & vbNewLine & "with NPCs and" & vbNewLine & "objects using the " & vbNewLine & "'E' button")
     End Sub
 
     Public Sub Draw(ByRef sb As SpriteBatch, ByRef Player As Player)

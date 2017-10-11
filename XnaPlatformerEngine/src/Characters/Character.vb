@@ -19,6 +19,7 @@ Partial Public Class Character
     Public Enum CharacterTypes
         Player
         Enemy
+        Friendly
     End Enum
 
     Public Enum ViewDirections

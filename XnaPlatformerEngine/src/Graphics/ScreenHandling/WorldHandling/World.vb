@@ -55,7 +55,9 @@ Public Class World
 
         DrawUI(sb)
 
-        Main.testDialogue.Draw(sb)
+        For Each NPC In SelectedLevel.NPCs
+            NPC.DrawDialogue(sb)
+        Next
 
 
         sb.End()
@@ -64,8 +66,6 @@ Public Class World
     End Sub
 
     Public Overrides Sub Update(gameTime As GameTime)
-        Main.testDialogue.Update(gameTime)
-
         If SelectedLevel IsNot Nothing Then
             SelectedLevel.Update(gameTime)
             Player.Update(gameTime)
