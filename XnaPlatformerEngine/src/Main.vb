@@ -75,7 +75,7 @@ Public Class Main
 
 
         TestWorld1.LoadContent(Content)
-        TestWorld1.SelectedLevel = TestWorld1.Levels(0)
+        TestWorld1.SelectedLevel = TestWorld1.Levels(1)
         ScreenHandler.SelectedScreen = TestWorld1
 
 

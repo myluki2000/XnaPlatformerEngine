@@ -52,6 +52,14 @@ Public Class LevelLoader
 
                     _placedObjects.Add(tObj)
 
+                Case "InfoBoxDisplay"
+                    Dim tObj As New InfoBoxDisplay
+                    tObj.Name = xele.Attribute("Name").Value
+                    tObj.rect.X = CInt(xele.Element("X").Value)
+                    tObj.rect.Y = CInt(xele.Element("Y").Value)
+                    tObj.Text = xele.Element("Text").Value.Replace("\n", vbNewLine)
+
+                    _placedObjects.Add(tObj)
             End Select
         Next
 

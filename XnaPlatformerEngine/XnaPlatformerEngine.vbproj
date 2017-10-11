@@ -79,7 +79,7 @@
     <Compile Include="src\Dialogue\Dialogue.vb" />
     <Compile Include="src\Dialogue\DialogueSegment.vb" />
     <Compile Include="src\Graphics\BitmapFont.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\UI\InfoBox.vb" />
+    <Compile Include="src\ScreenHandling\UI\InfoBox.vb" />
     <Compile Include="src\Misc\GlobalVariables.vb" />
     <Compile Include="src\Main.vb" />
     <Compile Include="src\Misc\Misc.vb" />
@@ -90,29 +90,30 @@
     <Compile Include="src\Graphics\ParticleSystem\ParticleSystem.vb" />
     <Compile Include="src\Program.vb" />
     <Compile Include="Properties\AssemblyInfo.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\Screen.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\ScreenHandler.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\Screens\LoadingScreen.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\Screens\MainMenu.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\Screens\TestScreen.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\UI\Button.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\UI\UIElement.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\ParticleSpawner.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\PlayerSpawn.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\PlayerTrigger.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\Spawner.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\TechnicalObject.vb" />
+    <Compile Include="src\ScreenHandling\Screen.vb" />
+    <Compile Include="src\ScreenHandling\ScreenHandler.vb" />
+    <Compile Include="src\ScreenHandling\Screens\LoadingScreen.vb" />
+    <Compile Include="src\ScreenHandling\Screens\MainMenu.vb" />
+    <Compile Include="src\ScreenHandling\Screens\TestScreen.vb" />
+    <Compile Include="src\ScreenHandling\UI\Button.vb" />
+    <Compile Include="src\ScreenHandling\UI\UIElement.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\InfoBoxDisplay.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\ParticleSpawner.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\PlayerSpawn.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\PlayerTrigger.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\Spawner.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\TechnicalObject.vb" />
     <Compile Include="src\ResourceHandling\SoundSystem\Sounds.vb" />
     <Compile Include="src\Graphics\SpriteHandling\AnimatedSprite\AnimatedSprite.vb" />
     <Compile Include="src\Graphics\SpriteHandling\AnimatedSprite\Animation.vb" />
     <Compile Include="src\Graphics\SpriteHandling\AnimatedSprite\AnimationSet.vb" />
     <Compile Include="src\Graphics\SpriteHandling\AnimatedSprite\AnimationSets.vb" />
     <Compile Include="src\Graphics\SpriteHandling\Sprite.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\WorldHandling\LevelHandling\Level.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\WorldHandling\LevelHandling\LevelLoader.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\WorldHandling\World.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\WorldHandling\WorldLoader.vb" />
-    <Compile Include="src\Graphics\ScreenHandling\WorldHandling\LevelHandling\Objects\WorldObject.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Level.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\LevelLoader.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\World.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\WorldLoader.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\WorldObject.vb" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL">
