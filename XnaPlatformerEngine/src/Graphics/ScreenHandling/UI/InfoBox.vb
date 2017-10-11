@@ -7,22 +7,47 @@ Public Class InfoBox
     Public Shared ReadOnly Property Active As Boolean = False
     Shared Text As String
 
+    Public Shared BoxRT As New RenderTarget2D(graphics.GraphicsDevice, 400, 600)
+
     Public Shared Sub Show(_text As String)
         Text = _text
         _Active = True
     End Sub
 
+    Shared Opacity As Single = 0.0F
     Shared SpacePressedLast As Boolean = False
-    Public Shared Sub Draw(sb As SpriteBatch)
-        If Active Then
-            sb.Draw(Texture, New Rectangle(CInt(graphics.PreferredBackBufferWidth / 2 - 200), CInt(graphics.PreferredBackBufferHeight / 2 - 300), 400, 600), Color.White)
-            FontHand.DrawString(sb, New Vector2(CSng(graphics.PreferredBackBufferWidth / 2 - 150), CSng(graphics.PreferredBackBufferHeight / 2 - 250)), Text, 0.2)
 
-            If SpacePressedLast AndAlso Keyboard.GetState.IsKeyUp(Keys.Space) Then
-                _Active = False
+    Public Shared Sub DrawRT(sb As SpriteBatch)
+        graphics.GraphicsDevice.SetRenderTarget(BoxRT)
+        graphics.GraphicsDevice.Clear(Color.Transparent)
+
+        sb.Begin()
+        If Opacity > 0.0F OrElse Active Then
+
+            sb.Draw(Texture, New Rectangle(0, 0, 400, 600), Color.White)
+            FontHand.DrawString(sb, New Vector2(60, 60), Text, Color.White, 0.2)
+
+            If Active Then
+                If Opacity < 1.0F Then
+                    Opacity += 0.1F
+                End If
+
+                If SpacePressedLast AndAlso Keyboard.GetState.IsKeyUp(Keys.Space) Then
+                    _Active = False
+                End If
+
+                SpacePressedLast = Keyboard.GetState.IsKeyDown(Keys.Space)
+            Else
+                Opacity += -0.1F
             End If
-
-            SpacePressedLast = Keyboard.GetState.IsKeyDown(Keys.Space)
         End If
+        sb.End()
+        graphics.GraphicsDevice.SetRenderTarget(Nothing)
+    End Sub
+
+    Public Shared Sub Draw(sb As SpriteBatch)
+        sb.Begin()
+        sb.Draw(BoxRT, New Rectangle(CInt(graphics.PreferredBackBufferWidth / 2 - 200), CInt(graphics.PreferredBackBufferHeight / 2 - 300), 400, 600), Color.White * Opacity)
+        sb.End()
     End Sub
 End Class

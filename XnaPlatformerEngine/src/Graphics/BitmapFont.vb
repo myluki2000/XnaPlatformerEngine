@@ -12,16 +12,17 @@ Public Class BitmapFont
     End Sub
 
     Dim displacementIndex As Vector2
-    Public Sub DrawString(sb As SpriteBatch, position As Vector2, text As String, Optional scale As Single = 1)
+    Public Sub DrawString(sb As SpriteBatch, position As Vector2, text As String, color As Color, Optional scale As Single = 1)
         displacementIndex = Vector2.Zero
 
         For Each character In text.ToCharArray
             If character <> Convert.ToChar(vbCr) Then
                 If character <> Convert.ToChar(vbLf) Then
                     sb.Draw(texture:=TextureSheet,
-                    position:=position + New Vector2(displacementIndex.X * FrameWidth * scale, displacementIndex.Y * TextureSheet.Height * scale),
-                    sourceRectangle:=New Rectangle(FrameWidth * GetCharacterIndex(character), 0, 70, TextureSheet.Height),
-                    scale:=New Vector2(scale, scale))
+                        position:=position + New Vector2(displacementIndex.X * FrameWidth * scale, displacementIndex.Y * TextureSheet.Height * scale),
+                        sourceRectangle:=New Rectangle(FrameWidth * GetCharacterIndex(character), 0, 70, TextureSheet.Height),
+                        scale:=New Vector2(scale, scale),
+                        color:=color)
 
                     displacementIndex.X += 1
                 Else

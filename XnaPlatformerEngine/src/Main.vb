@@ -134,6 +134,7 @@ Public Class Main
     ''' </summary>
     ''' <param name="gameTime">Provides a snapshot of timing values.</param>
     Protected Overrides Sub Draw(gameTime As GameTime)
+        InfoBox.DrawRT(spriteBatch)
 
         If LoadingThread.IsAlive Then ' If thread is loading
             GraphicsDevice.Clear(Color.White)
@@ -146,9 +147,7 @@ Public Class Main
             ScreenHandler.Draw(spriteBatch)
         End If
 
-        spriteBatch.Begin()
         InfoBox.Draw(spriteBatch)
-        spriteBatch.End()
 
         MyBase.Draw(gameTime)
     End Sub

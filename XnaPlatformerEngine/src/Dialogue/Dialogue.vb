@@ -69,7 +69,7 @@ Public Class Dialogue
 
 
             If srcRect.Y = 4000 Then
-                FontHand.DrawString(sb, New Vector2(450, graphics.PreferredBackBufferHeight - 220), Segments(SegmentIndex).Text, 0.3)
+                FontHand.DrawString(sb, New Vector2(450, graphics.PreferredBackBufferHeight - 220), Segments(SegmentIndex).Text, Color.White, 0.3)
             End If
         End If
     End Sub
