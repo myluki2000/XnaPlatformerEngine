@@ -20,7 +20,7 @@ Public Class Level
 
         f.Dialogue = New Dialogue
 
-        f.Dialogue.Segments = {New DialogueSegment With {.FaceSprite = Content.Load(Of Texture2D)("Characters\Girl\Dialogue\idle"), .Text = "Hello"}, New DialogueSegment With {.Text = "test", .FaceSprite = Content.Load(Of Texture2D)("Characters\Girl\Dialogue\idle")}}
+        f.Dialogue.Segments = {New DialogueSegment With {.FaceSprite = Content.Load(Of Texture2D)("Textures\Characters\Girl\Dialogue\idle"), .Text = "Hello"}, New DialogueSegment With {.Text = "This is an awesome" & vbNewLine & "and wholesome text", .FaceSprite = Content.Load(Of Texture2D)("Textures\Characters\Girl\Dialogue\idle")}}
         f.SetSelectedAnimation("idle")
         NPCs.Add(f)
 

@@ -13,6 +13,8 @@ Public Class Dialogue
 
     Dim KeyboardLastState As KeyboardState
 
+    Dim DisplayingTextLength As Single = 0.0F
+
     Public Property Active As Boolean
         Get
             Return _Active
@@ -35,8 +37,10 @@ Public Class Dialogue
 
                     If Segments(SegmentIndex).ResetAfterSegment Then
                         SegmentIndex = 0
+                        DisplayingTextLength = 0
                     Else
                         SegmentIndex += 1
+                        DisplayingTextLength = 0
                     End If
 
                 Else
@@ -44,12 +48,17 @@ Public Class Dialogue
                     ScreenHandler.SelectedScreen.ToWorld.Player.IsInDialogue = False
                     Active = False
                     SegmentIndex = 0
+                    DisplayingTextLength = 0
                 End If
             End If
 
             If srcRect.Y < 4000 AndAlso counter > 30 Then
                 srcRect.Y += 800
             End If
+        End If
+
+        If DisplayingTextLength < Segments(SegmentIndex).Text.Length AndAlso srcRect.Y = 4000 Then
+            DisplayingTextLength += CSng(30.0F * gameTime.ElapsedGameTime.TotalSeconds)
         End If
 
         If counter > 30 Then
@@ -69,7 +78,7 @@ Public Class Dialogue
 
 
             If srcRect.Y = 4000 Then
-                FontHand.DrawString(sb, New Vector2(450, graphics.PreferredBackBufferHeight - 220), Segments(SegmentIndex).Text, Color.White, 0.3)
+                FontHand.DrawString(sb, New Vector2(450, graphics.PreferredBackBufferHeight - 220), Segments(SegmentIndex).Text.Substring(0, CInt(Math.Floor(DisplayingTextLength))), Color.White, 0.3)
             End If
         End If
     End Sub

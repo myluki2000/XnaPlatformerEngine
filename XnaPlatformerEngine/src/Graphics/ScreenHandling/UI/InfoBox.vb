@@ -17,7 +17,7 @@ Public Class InfoBox
     Shared Opacity As Single = 0.0F
     Shared SpacePressedLast As Boolean = False
 
-    Public Shared Sub DrawRT(sb As SpriteBatch)
+    Public Shared Sub DrawRT(sb As SpriteBatch, gameTime As GameTime)
         graphics.GraphicsDevice.SetRenderTarget(BoxRT)
         graphics.GraphicsDevice.Clear(Color.Transparent)
 
@@ -29,7 +29,7 @@ Public Class InfoBox
 
             If Active Then
                 If Opacity < 1.0F Then
-                    Opacity += 0.1F
+                    Opacity += CSng(2.0F * gameTime.ElapsedGameTime.TotalSeconds)
                 End If
 
                 If SpacePressedLast AndAlso Keyboard.GetState.IsKeyUp(Keys.Space) Then
@@ -38,7 +38,7 @@ Public Class InfoBox
 
                 SpacePressedLast = Keyboard.GetState.IsKeyDown(Keys.Space)
             Else
-                Opacity += -0.1F
+                Opacity += CSng(-2.0F * gameTime.ElapsedGameTime.TotalSeconds)
             End If
         End If
         sb.End()
