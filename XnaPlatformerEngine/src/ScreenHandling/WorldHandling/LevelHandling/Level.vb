@@ -23,8 +23,6 @@ Public Class Level
         f.Dialogue.Segments = {New DialogueSegment With {.FaceSprite = Content.Load(Of Texture2D)("Textures\Characters\Girl\Dialogue\idle"), .Text = "Hello"}, New DialogueSegment With {.Text = "This is an awesome" & vbNewLine & "and wholesome text", .FaceSprite = Content.Load(Of Texture2D)("Textures\Characters\Girl\Dialogue\idle")}}
         f.SetSelectedAnimation("idle")
         NPCs.Add(f)
-
-        InfoBox.Show("You can interact" & vbNewLine & "with NPCs and" & vbNewLine & "objects using the " & vbNewLine & "'E' button")
     End Sub
 
     Public Sub Draw(ByRef sb As SpriteBatch, ByRef Player As Player)
