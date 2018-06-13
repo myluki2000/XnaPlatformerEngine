@@ -8,16 +8,33 @@ Public Class WorldObject
 
     Public zIndex As Integer = 0
 
+    Public IsPlayerInRange As Boolean = False
+
+    Public HasRandomTextureRotation As Boolean = False
+    Public IsFoliage As Boolean = False
+
+    Public Rotation As Single = 0
+
+
     Sub New(ByRef _name As String, ByRef _texture As Texture2D)
         MyBase.New(_name, _texture)
+
+        RotateRandomly()
+
     End Sub
 
     Sub New()
+        RotateRandomly()
 
     End Sub
 
-    Public Overrides Sub Update(gameTime As GameTime)
+    Public Sub RotateRandomly()
+        If HasRandomTextureRotation Then
+            Rotation = CSng(Random.Next(0, 4) * Math.PI / 2)
+        End If
+    End Sub
 
+    Public Overrides Sub Update(gameTime As GameTime)
     End Sub
 
     Public Overridable Sub Interaction()
@@ -25,7 +42,11 @@ Public Class WorldObject
 
     Public Overrides Sub Draw(sb As SpriteBatch)
         If Texture IsNot Nothing Then
-            sb.Draw(Texture, New Rectangle(CInt(rect.X * 30), CInt(rect.Y * 30), CInt(rect.Width * Scale), CInt(rect.Height * Scale)), Color.White)
+            ' Add 15 for destrect position because origin of sprite is in the center of it
+            sb.Draw(Texture, New Rectangle(CInt(rect.X * 30 + rect.Width / 2), CInt(rect.Y * 30 + rect.Height / 2), CInt(rect.Width * Scale), CInt(rect.Height * Scale)), Nothing, Color.White, Rotation, New Vector2(CSng(Texture.Width / 2), CSng(Texture.Height / 2)), Nothing, Nothing)
+            ' Misc.DrawOutline(sb, New Rectangle(CInt(rect.X * 30), CInt(rect.Y * 30), CInt(rect.Width * Scale), CInt(rect.Height * Scale)), Color.Red, 2)
+        Else
+            Misc.DrawOutline(sb, New Rectangle(CInt(rect.X * 30), CInt(rect.Y * 30), CInt(rect.Width * Scale), CInt(rect.Height * Scale)), Color.Red, 2)
         End If
     End Sub
 

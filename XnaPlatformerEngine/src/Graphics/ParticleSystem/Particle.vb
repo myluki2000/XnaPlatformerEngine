@@ -10,6 +10,7 @@ Public Class Particle
     Public Alive As Boolean = True
     Public Opacity As Single = 1
     Public FadeTime As Integer
+    Public GravityAffected As Boolean = True
 
     Sub New(_tex As Texture2D, _pos As Vector2, _vel As Vector2, _ltime As Integer, _fTime As Integer)
         Texture = _tex
@@ -21,6 +22,11 @@ Public Class Particle
 
     Public Overrides Sub Update(gameTime As GameTime)
         LifetimeCounter += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
+
+        If GravityAffected Then
+            Velocity.Y += CSng(15 * gameTime.ElapsedGameTime.TotalSeconds)
+        End If
+
         Position += Velocity * CSng(gameTime.ElapsedGameTime.TotalSeconds)
 
         If LifetimeCounter > Lifetime Then

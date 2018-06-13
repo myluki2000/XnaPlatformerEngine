@@ -6,9 +6,10 @@ Public Class Button
     Inherits UIElement
 
     Public Event Click(sender As Object)
-    Public text As String = "Button"
+    Public Text As String = ""
     Public BackgroundColor As Color = Color.Gray
-    Public BackgroundTexture As Texture2D
+    Public Texture As Texture2D
+    Public TextureHover As Texture2D
     Public ClickEffect As ClickEffects = ClickEffects.None
     Public ToggleButton As Boolean = False
     Public Checked As Boolean = False
@@ -55,33 +56,61 @@ Public Class Button
             If ToggleButton = True AndAlso Checked = True Then
                 Misc.DrawRectangle(sb, New Rectangle(rect.X - 2, rect.Y - 2, rect.Width + 4, rect.Height + 4), Color.Blue)
             End If
-            If rect.Contains(Mouse.GetState.Position) Then
-                Misc.DrawRectangle(sb, rect, Misc.SubtractColors(BackgroundColor, New Color(30, 30, 30)))
 
-                If Mouse.GetState.LeftButton = ButtonState.Pressed Then
-                    Misc.DrawRectangle(sb, rect, Misc.SubtractColors(BackgroundColor, New Color(90, 90, 90)))
+            If rect.Contains(Mouse.GetState.Position) Then ' When mouse in button
+
+                If Mouse.GetState.LeftButton = ButtonState.Pressed Then ' If pressed
+                    If Texture Is Nothing Then
+                        Misc.DrawRectangle(sb, rect, Misc.SubtractColors(BackgroundColor, New Color(90, 90, 90))) ' When texture not set draw rectangle
+                    Else
+                        If srcRect = Nothing Then
+                            sb.Draw(TextureHover, rect, Color.LightGray)
+                        Else
+                            sb.Draw(TextureHover, rect, srcRect, Color.LightGray)
+                        End If
+                    End If
+
+                Else ' If not pressed
+
+                    ' Draw hover texture if set else draw rect
+                    If TextureHover Is Nothing Then
+                        Misc.DrawRectangle(sb, rect, Misc.SubtractColors(BackgroundColor, New Color(30, 30, 30)))
+                    Else
+                        If srcRect = Nothing Then
+                            sb.Draw(TextureHover, rect, Color.White)
+                        Else
+                            sb.Draw(TextureHover, rect, srcRect, Color.White)
+                        End If
+                    End If
                 End If
+
             Else
-                Misc.DrawRectangle(sb, rect, BackgroundColor)
-            End If
-            ' Draw Background
-            If BackgroundTexture IsNot Nothing Then
-                If srcRect = Nothing Then
-                    sb.Draw(BackgroundTexture, rect, Color.White)
+
+                ' Draw button texture if set
+                If Texture IsNot Nothing Then
+                    If srcRect = Nothing Then
+                        sb.Draw(Texture, rect, Color.White)
+                    Else
+                        sb.Draw(Texture, rect, srcRect, Color.White)
+                    End If
                 Else
-                    sb.Draw(BackgroundTexture, rect, srcRect, Color.White)
+                    ' If not set draw rect
+                    Misc.DrawRectangle(sb, rect, BackgroundColor)
                 End If
             End If
-            ' Draw Button label
-            Select Case TextAlignment
-                Case Alignments.Center
-                    sb.DrawString(FontKoot, text, New Vector2(CSng(rect.X + rect.Width / 2 - FontKoot.MeasureString(text).X / 2), CSng(rect.Y + rect.Height / 2 - FontKoot.MeasureString(text).Y / 2)), Color.Black)
-                Case Alignments.Left
-                    sb.DrawString(FontKoot, text, New Vector2(rect.X + SidePadding, CSng(rect.Y + rect.Height / 2 - FontKoot.MeasureString(text).Y / 2)), Color.Black)
-                Case Alignments.Right
-                    sb.DrawString(FontKoot, text, New Vector2(rect.Right - FontKoot.MeasureString(text).X - SidePadding, CSng(rect.Y + rect.Height / 2 - FontKoot.MeasureString(text).Y / 2)), Color.Black)
-            End Select
         End If
+
+
+
+        ' Draw Button label
+        Select Case TextAlignment
+            Case Alignments.Center
+                sb.DrawString(FontKoot, Text, New Vector2(CSng(rect.X + rect.Width / 2 - FontKoot.MeasureString(Text).X / 2), CSng(rect.Y + rect.Height / 2 - FontKoot.MeasureString(Text).Y / 2)), Color.Black)
+            Case Alignments.Left
+                sb.DrawString(FontKoot, Text, New Vector2(rect.X + SidePadding, CSng(rect.Y + rect.Height / 2 - FontKoot.MeasureString(Text).Y / 2)), Color.Black)
+            Case Alignments.Right
+                sb.DrawString(FontKoot, Text, New Vector2(rect.Right - FontKoot.MeasureString(Text).X - SidePadding, CSng(rect.Y + rect.Height / 2 - FontKoot.MeasureString(Text).Y / 2)), Color.Black)
+        End Select
 
         MouseLastState = Mouse.GetState
     End Sub

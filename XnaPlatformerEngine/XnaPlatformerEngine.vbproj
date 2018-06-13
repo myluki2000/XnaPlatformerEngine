@@ -98,6 +98,7 @@
     <Compile Include="src\ScreenHandling\UI\Button.vb" />
     <Compile Include="src\ScreenHandling\UI\UIElement.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\InfoBoxDisplay.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\LoadingZone.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\ParticleSpawner.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\PlayerSpawn.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\PlayerTrigger.vb" />
@@ -144,10 +145,19 @@
     <Content Include="Content\LoadingScreen\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\UI\info_box.png">
+    <Content Include="Content\UI\Textures\Buttons\btnLoadGame.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\UI\speech_box.png">
+    <Content Include="Content\UI\Textures\Buttons\btnLoadGame_hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\Textures\info_box.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\Textures\interact_notification.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\Textures\speech_box.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

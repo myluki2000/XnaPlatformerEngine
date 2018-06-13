@@ -19,20 +19,21 @@ Public Class World
             Return _selectedLevel
         End Get
         Set(value As Level)
+
             _selectedLevel = value
 
             For x As Integer = 0 To SelectedLevel.PlacedObjects.GetLength(0) - 1
                 For y As Integer = 0 To SelectedLevel.PlacedObjects.GetLength(1) - 1
                     If SelectedLevel.PlacedObjects(x, y, 50) IsNot Nothing AndAlso SelectedLevel.PlacedObjects(x, y, 50).GetType = GetType(PlayerSpawn) Then
-                        Player.Position = SelectedLevel.PlacedObjects(x, y, 50).getTrueRect.Location.ToVector2
+                        Player.Position = SelectedLevel.PlacedObjects(x, y, 50).GetTrueRect.Location.ToVector2
                     End If
                 Next
             Next
         End Set
     End Property
 
-    Public Sub LoadLevel(_path As String, _name As String)
-        Levels.Add(New Level(LevelLoader.LoadLevel(_path)) With {.Name = _name})
+    Public Sub LoadLevel(_path As String, _name As String, Content As ContentManager)
+        Levels.Add(New Level(LevelLoader.LoadLevel(_path, Content)) With {.Name = _name})
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)
@@ -58,7 +59,6 @@ Public Class World
         For Each NPC In SelectedLevel.NPCs
             NPC.DrawDialogue(sb)
         Next
-
 
         sb.End()
 

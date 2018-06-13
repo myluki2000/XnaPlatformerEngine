@@ -6,11 +6,12 @@ Imports Microsoft.Xna.Framework.Graphics
 Public Class LevelLoader
     Shared TextureObjs As List(Of TextureObject)
 
-    Public Shared Function LoadLevel(_path As String) As List(Of WorldObject)
+    Public Shared Function LoadLevel(_path As String, Content As ContentManager) As List(Of WorldObject)
         Dim _placedObjects As New List(Of WorldObject)
 
+        Dim lvlXEle = XElement.Load(_path)
 
-        For Each xele In XElement.Load(_path).Element("WorldObjects").Elements
+        For Each xele In lvlXEle.Element("WorldObjects").Elements
             Dim _placedObj As New WorldObject
             _placedObj.Name = xele.Attribute("Name").Value
             _placedObj.rect.X = CInt(xele.Element("X").Value)
@@ -23,10 +24,17 @@ Public Class LevelLoader
             _placedObjects.Add(_placedObj)
         Next
 
-        For Each _wObj In _placedObjects
-            For Each _tObj In TextureObjs
-                If _wObj.Name = _tObj.Name Then
-                    _wObj.Texture = _tObj.Texture
+        LoadTextures(Content, lvlXEle)
+
+        For Each wObj In _placedObjects
+            For Each tObj In TextureObjs
+                If wObj.Name = tObj.Name Then
+                    wObj.Texture = tObj.Texture
+
+                    wObj.HasRandomTextureRotation = tObj.HasRandomTextureRotation
+                    wObj.IsFoliage = tObj.IsFoliage
+
+                    wObj.RotateRandomly()
                 End If
             Next
         Next
@@ -60,19 +68,31 @@ Public Class LevelLoader
                     tObj.Text = xele.Element("Text").Value.Replace("\n", vbNewLine)
 
                     _placedObjects.Add(tObj)
+
+                Case "LoadingZone"
+                    Dim tObj As New LoadingZone
+                    tObj.Name = xele.Attribute("Name").Value
+                    tObj.rect.X = CInt(xele.Element("X").Value)
+                    tObj.rect.Y = CInt(xele.Element("Y").Value)
+                    tObj.TargetLevelName = xele.Element("TargetLevelName").Value
+
+                    _placedObjects.Add(tObj)
             End Select
         Next
 
         Return _placedObjects
     End Function
 
-    Shared Sub LoadTextures(Content As ContentManager)
+    Shared Sub LoadTextures(Content As ContentManager, lvlXEle As XElement)
         Dim resultObjs As New List(Of TextureObject)
 
         'Load WorldObjects from XML
-        Dim xele As XElement = XElement.Load("tes.xml")
-        For Each _tObj In xele.Elements
-            resultObjs.Add(New TextureObject(_tObj.Attribute("Name").Value, Content.Load(Of Texture2D)(_tObj.Element("TexturePath").Value)))
+
+        For Each _tObj In lvlXEle.Element("Textures").Elements
+            resultObjs.Add(New TextureObject(_tObj.Element("Name").Value,
+                                             Content.Load(Of Texture2D)(_tObj.Element("TexturePath").Value),
+                                             Convert.ToBoolean(_tObj.Element("RandomTextureRotation").Value),
+                                             Convert.ToBoolean(_tObj.Element("IsFoliage").Value)))
         Next
 
         TextureObjs = resultObjs

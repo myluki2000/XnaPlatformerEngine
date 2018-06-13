@@ -18,8 +18,6 @@ Public Class Projectile
     Public Event ProjectileImpact(ByRef sender As Projectile)
 
 
-
-
     Sub New(_pos As Vector2, _vel As Vector2, _dmg As Integer, _origin As Character.CharacterTypes)
         Position = _pos
         Velocity = _vel
@@ -40,8 +38,17 @@ Public Class Projectile
 
                 RaiseEvent ProjectileImpact(Me)
 
-                ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 700, .PossibleTextures = {Textures.ParticleSpark},
-                    .ParticleVelocityLowest = New Point(-20, -20), .ParticleVelocityHighest = New Point(20, 20)}
+
+                ' Make it so particles don't spawn with the velocity in the direction of the wall
+                If Velocity.X > 0 Then
+                    ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 2000, .PossibleTextures = {Textures.ParticleSpark},
+                .ParticleVelocityLowest = New Point(-20, -20), .ParticleVelocityHighest = New Point(0, 20)}
+                Else
+                    ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 2000, .PossibleTextures = {Textures.ParticleSpark},
+                .ParticleVelocityLowest = New Point(0, -20), .ParticleVelocityHighest = New Point(20, 20)}
+                End If
+
+
                 ps.SpawnParticles(5)
             End If
         Else

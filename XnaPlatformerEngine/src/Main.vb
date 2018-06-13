@@ -15,7 +15,7 @@ Public Class Main
     Private spriteBatch As SpriteBatch
 
     Dim TestWorld1 As New World
-
+    Dim MainMenu As New MainMenu
     Dim LoadingScreen As New LoadingScreen
 
 
@@ -39,11 +39,12 @@ Public Class Main
     Protected Overrides Sub Initialize()
         IsMouseVisible = True
 
-        ScreenHandler.SelectedScreen = New MainMenu
+        ScreenHandler.SelectedScreen = MainMenu
 
 
-        graphics.PreferredBackBufferHeight = 720
-        graphics.PreferredBackBufferWidth = 1280
+        graphics.PreferredBackBufferHeight = 1080
+        graphics.PreferredBackBufferWidth = 1920
+        graphics.IsFullScreen = False
         graphics.ApplyChanges()
 
         MyBase.Initialize()
@@ -59,23 +60,22 @@ Public Class Main
 
         ' Load important stuff before we switch to the background loading thread
         FontKoot = Content.Load(Of SpriteFont)("Koot")
-        FontHand.LoadContent(Content, "Fonts\FontSheet", 70)
+        FontHand.LoadContent(Content, "Fonts/FontSheet", 70)
 
         LoadingScreen.LoadContent(Content)
+        MainMenu.LoadContent(Content)
     End Sub
 
     Private Sub LoadWorldContentBackground()
-        LevelLoader.LoadTextures(Content)
+        InfoBox.Texture = Content.Load(Of Texture2D)("UI/Textures/info_box")
 
-        InfoBox.Texture = Content.Load(Of Texture2D)("UI\info_box")
+        Dialogue.SpeechBox = Content.Load(Of Texture2D)("UI/Textures/speech_box")
 
-        Dialogue.SpeechBox = Content.Load(Of Texture2D)("UI\speech_box")
-
-        TestWorld1 = WorldLoader.LoadWorld(worldFilePath)
+        TestWorld1 = WorldLoader.LoadWorld(worldFilePath, Content)
 
 
         TestWorld1.LoadContent(Content)
-        TestWorld1.SelectedLevel = TestWorld1.Levels(1)
+        TestWorld1.SelectedLevel = TestWorld1.Levels(0)
         ScreenHandler.SelectedScreen = TestWorld1
 
 

@@ -16,14 +16,43 @@ Public Class Player
 
 
     Public Overrides Sub Update(gameTime As GameTime)
+        Dim maxSpeed = 150
+
         If Not IsInDialogue Then
             If Keyboard.GetState.IsKeyDown(Keys.A) Then
-                Velocity.X = -100
+                If Velocity.X > 0 Then
+                    Velocity.X += -16 ' Slowing down quicker if trying to move in opposite direction
+                ElseIf Velocity.X > -maxSpeed Then
+                    Velocity.X += -8
+                End If
             ElseIf Keyboard.GetState.IsKeyDown(Keys.D) Then
-                Velocity.X = 100
+                If Velocity.X < 0 Then
+                    Velocity.X += 16
+                ElseIf Velocity.X < maxSpeed Then
+                    Velocity.X += 8
+                End If
             Else
-                Velocity.X = 0
+                If IsGrounded Then
+                    If Velocity.X > 0 Then
+                        Velocity.X += -12
+                    ElseIf Velocity.X < 0 Then
+                        Velocity.X += 12
+                    End If
+
+                Else
+                    ' Less friction if in the air
+                    If Velocity.X > 0 Then
+                        Velocity.X += -2
+                    ElseIf Velocity.X < 0 Then
+                        Velocity.X += 2
+                    End If
+                End If
+
+                If Velocity.X < 13 AndAlso Velocity.X > -13 Then
+                    Velocity.X = 0 ' Make sure that character can stop completely and doesn't get stuck with a small velocity in some direction
+                End If
             End If
+
             If Keyboard.GetState.IsKeyDown(Keys.Space) Then
                 Jump()
             End If
@@ -40,9 +69,22 @@ Public Class Player
                 Weapon.ReloadWeapon(gameTime)
             End If
 
+            ActivateWorldObjectsInRange()
 
             MyBase.Update(gameTime)
         End If
+    End Sub
+
+    Public Sub ActivateWorldObjectsInRange()
+        For Each wObj In ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.PlacedObjects
+            If wObj IsNot Nothing Then
+                If Vector2.Distance(wObj.GetTrueRect.Location.ToVector2, Me.Position) < 10 Then
+                    wObj.IsPlayerInRange = True
+                Else
+                    wObj.IsPlayerInRange = False
+                End If
+            End If
+        Next
     End Sub
 
     Public Sub Interact()
@@ -58,7 +100,7 @@ Public Class Player
         For x As Integer = 0 To SelectedLevel.PlacedObjects.GetUpperBound(0)
             Dim _wObj As WorldObject = SelectedLevel.PlacedObjects(x, CInt(Me.getTrueRect.Center.Y / 30), 50)
 
-            If _wObj IsNot Nothing AndAlso _wObj.getTrueRect.Intersects(New Rectangle(Me.getTrueRect.Left - 10, Me.getTrueRect.Top, Me.getTrueRect.Width + 20, Me.getTrueRect.Height)) Then
+            If _wObj IsNot Nothing AndAlso _wObj.GetTrueRect.Intersects(New Rectangle(Me.getTrueRect.Left - 10, Me.getTrueRect.Top, Me.getTrueRect.Width + 20, Me.getTrueRect.Height)) Then
                 _wObj.Interaction()
                 Return
             End If
