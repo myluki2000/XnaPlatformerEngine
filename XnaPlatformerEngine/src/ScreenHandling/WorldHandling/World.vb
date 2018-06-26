@@ -44,12 +44,9 @@ Public Class World
 
     Public Overrides Sub Draw(sb As SpriteBatch)
 
-        sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
-
         If SelectedLevel IsNot Nothing Then
             SelectedLevel.Draw(sb, Player)
         End If
-        sb.End()
 
 
         sb.Begin()

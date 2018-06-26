@@ -2,11 +2,16 @@
 Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Content
 Imports Microsoft.Xna.Framework.Graphics
+Imports Microsoft.Xna.Framework.Input
 
 Public Class Level
     Public Name As String = ""
     Public PlacedObjects(,,) As WorldObject
     Public NPCs As New List(Of NPC)
+    '''<summary>
+    '''Represents the time of day. 0 = morning, 0.5 = noon, 1 = evening, 1.5 = midnight
+    '''</summary>
+    Public TimeOfDay As Single = 0
 
     Sub New(_placedObjs As List(Of WorldObject))
         PlacedObjects = Misc.WObjListTo3DArray(_placedObjs)
@@ -26,6 +31,22 @@ Public Class Level
     End Sub
 
     Public Sub Draw(ByRef sb As SpriteBatch, ByRef Player As Player)
+
+        sb.Begin(,, SamplerState.PointClamp,,,,)
+        ' Draw sky and sun
+        sb.Draw(Textures.SkyGradient, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), New Rectangle(TimeOfDay * 50, 0, 1, 1), Color.White)
+
+        Dim sunPos As New Point
+        sunPos.X = TimeOfDay * graphics.PreferredBackBufferWidth
+        sunPos.Y = ((TimeOfDay * 2 - 1) ^ 2 + 0.1) * graphics.PreferredBackBufferHeight
+
+        sb.Draw(Textures.Sun, New Rectangle(sunPos, New Point(100, 100)), Color.White)
+
+        sb.End()
+
+
+        sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+        ' Draw tiles behind the characters
         For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
             For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
                 For z As Integer = 0 To 50
@@ -43,6 +64,7 @@ Public Class Level
             NPC.Draw(sb)
         Next
 
+        ' Draw tiles in front of characters
         For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
             For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
                 For z As Integer = 51 To 100
@@ -53,6 +75,12 @@ Public Class Level
                 Next
             Next
         Next
+        sb.End()
+
+        If Keyboard.GetState.IsKeyDown(Keys.O) Then
+            TimeOfDay += 0.01F
+            TimeOfDay = TimeOfDay Mod 2
+        End If
     End Sub
 
     Public Sub Update(gameTime As GameTime)
@@ -78,7 +106,7 @@ Public Class Level
                 ' Get distance of center of block to center of explosion
                 If PlacedObjects.GetLowerBound(0) <= x AndAlso PlacedObjects.GetUpperBound(0) >= x AndAlso
                     PlacedObjects.GetLowerBound(1) <= y AndAlso PlacedObjects.GetUpperBound(1) >= y AndAlso PlacedObjects(x, y, 50) IsNot Nothing Then
-                    Dim _dist As Single = Vector2.Distance(PlacedObjects(x, y, 50).getTrueRect().Location.ToVector2, _centerPos)
+                    Dim _dist As Single = Vector2.Distance(PlacedObjects(x, y, 50).GetTrueRect().Location.ToVector2, _centerPos)
                     If _dist < _radius Then
                         PlacedObjects(x, y, 50) = Nothing
                     End If

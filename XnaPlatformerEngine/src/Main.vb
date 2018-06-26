@@ -23,6 +23,7 @@ Public Class Main
     Public Shared worldFilePath As String = ""
 
     Public Shared LoadWorldOnNextUpdate As Boolean = False
+    Public Shared BackColor As Color = Color.CornflowerBlue
 
     Public Sub New()
         MyBase.New()
@@ -142,7 +143,7 @@ Public Class Main
             LoadingScreen.Draw(spriteBatch)
 
         Else ' Else do normal game draw
-            GraphicsDevice.Clear(Color.CornflowerBlue)
+            GraphicsDevice.Clear(BackColor)
 
             ScreenHandler.Draw(spriteBatch)
         End If
