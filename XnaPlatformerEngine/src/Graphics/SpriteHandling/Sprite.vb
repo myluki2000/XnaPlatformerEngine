@@ -1,17 +1,26 @@
 ﻿Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
 
+''' <summary>
+''' A class which provides basic sprite drawing functionality
+''' </summary>
 Public Class Sprite
-    Public Name As String
+    ''' <summary>
+    ''' The texture of the sprite. It gets drawn when .draw is called
+    ''' </summary>
     Public Texture As Texture2D
+    ''' <summary>
+    ''' The position of the sprite
+    ''' </summary>
     Public Position As Vector2
+    ''' <summary>
+    ''' The scale of the sprite. Default = 1.0
+    ''' </summary>
     Public Scale As Single = 1.0F
+    ''' <summary>
+    ''' A polygon which represents the hitbox of the sprite. Currently unused
+    ''' </summary>
     Public Hitbox As Polygon
-
-    Sub New(ByRef _name As String, ByRef _texture As Texture2D)
-        Texture = _texture
-        Name = _name
-    End Sub
 
     Sub New()
     End Sub
@@ -25,9 +34,6 @@ Public Class Sprite
             sb.Draw(texture:=Texture,
                     position:=Position,
                     scale:=New Vector2(Scale, Scale))
-        Else
-            'sb.DrawString(FontKoot, Name, GetScreenRect.Location.ToVector2, Color.Red)
-            'Misc.DrawOutline(sb, GetScreenRect, Color.Gold, 2)
         End If
     End Sub
 

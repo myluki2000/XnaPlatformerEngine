@@ -5,24 +5,34 @@ Imports Microsoft.Xna.Framework.Graphics
 Imports Microsoft.Xna.Framework.Input
 
 Public Class Level
+    ''' <summary>
+    ''' The name of the level
+    ''' </summary>
     Public Name As String = ""
-    Public PlacedObjects(,,) As WorldObject
-    Public NPCs As New List(Of NPC)
 
-    Private Clouds(20) As Sprite
-    Private SkyColors(100) As Color
-    Private BackgroundGradient As New Texture2D(graphics.GraphicsDevice, 1, graphics.PreferredBackBufferHeight)
+    ''' <summary>
+    ''' A two-dimensional array (x, y) of all WorldObjects placed in the level
+    ''' </summary>
+    Public PlacedObjects(,,) As WorldObject
+
+    ''' <summary>
+    ''' A list of all NPCs present in the level
+    ''' </summary>
+    Public NPCs As New List(Of NPC)
 
     '''<summary>
     '''Represents the time of day. 0 = morning, 0.5 = noon, 1 = evening, 1.5 = midnight
     '''</summary>
     Public TimeOfDay As Single = 0
 
+    Private Clouds(20) As Sprite
+    Private SkyColors(100) As Color
+    Private BackgroundGradient As New Texture2D(graphics.GraphicsDevice, 1, graphics.PreferredBackBufferHeight)
+
+
+
     Sub New(_placedObjs As List(Of WorldObject))
         PlacedObjects = Misc.WObjListTo3DArray(_placedObjs)
-
-
-
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)

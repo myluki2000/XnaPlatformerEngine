@@ -15,14 +15,6 @@ Public Class WorldObject
 
     Public Rotation As Single = 0
 
-
-    Sub New(ByRef _name As String, ByRef _texture As Texture2D)
-        MyBase.New(_name, _texture)
-
-        RotateRandomly()
-
-    End Sub
-
     Sub New()
         RotateRandomly()
 
