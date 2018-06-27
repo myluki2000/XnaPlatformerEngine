@@ -145,10 +145,31 @@ Public Class Misc
 
     Public Shared Function SubtractColors(color1 As Color, color2 As Color) As Color
         Dim returnColor As New Color
-        returnColor.B = color1.B - color2.B
-        returnColor.G = color1.G - color2.G
-        returnColor.R = color1.R - color2.R
-        returnColor.A = color1.A
-        Return returnColor
+
+        If CInt(color1.R) - color2.R > 0 Then
+            returnColor.R = color1.R - color2.R
+        Else
+            returnColor.R = 0
+        End If
+
+        If CInt(color1.G) - color2.G > 0 Then
+            returnColor.G = color1.G - color2.G
+        Else
+            returnColor.G = 0
+        End If
+
+        If CInt(color1.B) - color2.B > 0 Then
+            returnColor.B = color1.B - color2.B
+        Else
+            returnColor.B = 0
+        End If
+
+        If CInt(color1.A) - color2.A > 0 Then
+            returnColor.A = color1.A - color2.A
+        Else
+            returnColor.A = 0
+        End If
+
+
     End Function
 End Class

@@ -8,6 +8,11 @@ Public Class Level
     Public Name As String = ""
     Public PlacedObjects(,,) As WorldObject
     Public NPCs As New List(Of NPC)
+
+    Private Clouds(20) As Sprite
+    Private SkyColors(100) As Color
+    Private BackgroundGradient As New Texture2D(graphics.GraphicsDevice, 1, graphics.PreferredBackBufferHeight)
+
     '''<summary>
     '''Represents the time of day. 0 = morning, 0.5 = noon, 1 = evening, 1.5 = midnight
     '''</summary>
@@ -28,22 +33,50 @@ Public Class Level
         f.Dialogue.Segments = {New DialogueSegment With {.FaceSprite = Content.Load(Of Texture2D)("Textures\Characters\Girl\Dialogue\idle"), .Text = "Hello"}, New DialogueSegment With {.Text = "This is an awesome" & vbNewLine & "and wholesome text", .FaceSprite = Content.Load(Of Texture2D)("Textures\Characters\Girl\Dialogue\idle")}}
         f.SetSelectedAnimation("idle")
         NPCs.Add(f)
+
+
+        Textures.SkyGradient.GetData(SkyColors)
+
+        For i As Integer = 0 To Clouds.Length - 1
+            Clouds(i) = New Sprite() With {
+                .Texture = Textures.Clouds(Random.Next(0, Textures.Clouds.Length)),
+                .Position = New Vector2(Random.Next(-200, graphics.PreferredBackBufferWidth), Random.Next(85, 115)),
+                .Scale = 0.5}
+        Next
     End Sub
 
     Public Sub Draw(ByRef sb As SpriteBatch, ByRef Player As Player)
 
         sb.Begin(,, SamplerState.PointClamp,,,,)
         ' Draw sky and sun
-        sb.Draw(Textures.SkyGradient, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), New Rectangle(TimeOfDay * 50, 0, 1, 1), Color.White)
+        Dim pixels(graphics.PreferredBackBufferHeight) As Color
+
+        For i As Integer = 0 To pixels.Length - 1
+            pixels(i) = Color.Lerp(Misc.SubtractColors(SkyColors(CInt(TimeOfDay * 50)), New Color(100, 100, 100)), SkyColors(CInt(TimeOfDay * 50)), CSng(i / graphics.PreferredBackBufferHeight))
+        Next
+
+        BackgroundGradient.SetData(pixels)
+
+        sb.Draw(BackgroundGradient, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White)
 
         Dim sunPos As New Point
-        sunPos.X = TimeOfDay * graphics.PreferredBackBufferWidth
-        sunPos.Y = ((TimeOfDay * 2 - 1) ^ 2 + 0.1) * graphics.PreferredBackBufferHeight
+        sunPos.X = CInt(TimeOfDay * graphics.PreferredBackBufferWidth)
+        sunPos.Y = CInt(((TimeOfDay * 2 - 1) ^ 2 + 0.1) * graphics.PreferredBackBufferHeight)
 
         sb.Draw(Textures.Sun, New Rectangle(sunPos, New Point(100, 100)), Color.White)
 
-        sb.End()
 
+        ' Draw clouds
+        For i As Integer = 0 To Clouds.Length - 1
+            Clouds(i).Draw(sb)
+            Clouds(i).Position.X += 0.2F
+
+            If Clouds(i).Position.X > graphics.PreferredBackBufferWidth Then
+                Clouds(i).Position.X = Random.Next(CInt(-Clouds(i).Texture.Width * Clouds(i).Scale * 2), CInt(-Clouds(i).Texture.Width * Clouds(i).Scale))
+                Clouds(i).Position.Y = Random.Next(85, 115)
+            End If
+        Next
+        sb.End()
 
         sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
         ' Draw tiles behind the characters
@@ -81,6 +114,15 @@ Public Class Level
             TimeOfDay += 0.01F
             TimeOfDay = TimeOfDay Mod 2
         End If
+
+        ' Draw overlay to darken world when it's nighttime
+        sb.Begin()
+        Dim alpha As Single = 1 - CSng(-(TimeOfDay * 2 - 1) ^ 6 + 1)
+        If alpha > 0.5 Then
+            alpha = 0.5
+        End If
+        Misc.DrawRectangle(sb, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.Black * alpha)
+        sb.End()
     End Sub
 
     Public Sub Update(gameTime As GameTime)

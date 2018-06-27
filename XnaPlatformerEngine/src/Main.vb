@@ -72,21 +72,18 @@ Public Class Main
 
         Dialogue.SpeechBox = Content.Load(Of Texture2D)("UI/Textures/speech_box")
 
-        TestWorld1 = WorldLoader.LoadWorld(worldFilePath, Content)
-
-
-        TestWorld1.LoadContent(Content)
-        TestWorld1.SelectedLevel = TestWorld1.Levels(0)
-        ScreenHandler.SelectedScreen = TestWorld1
-
+        Textures.LoadTextures(Content)
 
         AnimationSets.LoadContent(Content)
 
-        Textures.LoadTextures(Content)
-
         Sounds.LoadSounds(Content)
 
+        TestWorld1 = WorldLoader.LoadWorld(worldFilePath, Content)
 
+        TestWorld1.LoadContent(Content)
+        TestWorld1.SelectedLevel = TestWorld1.Levels(0)
+
+        ScreenHandler.SelectedScreen = TestWorld1
     End Sub
 
     ''' <summary>
@@ -104,7 +101,7 @@ Public Class Main
     ''' <param name="gameTime">Provides a snapshot of timing values.</param>
     Protected Overrides Sub Update(gameTime As GameTime)
         If Keyboard.GetState().IsKeyDown(Keys.Escape) Then
-            [Exit]()
+            End
         End If
 
 

@@ -1,11 +1,11 @@
 ﻿Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
 
-Public MustInherit Class Sprite
+Public Class Sprite
     Public Name As String
     Public Texture As Texture2D
     Public Position As Vector2
-    Public Scale As Integer = 1
+    Public Scale As Single = 1.0F
     Public Hitbox As Polygon
 
     Sub New(ByRef _name As String, ByRef _texture As Texture2D)
@@ -16,7 +16,9 @@ Public MustInherit Class Sprite
     Sub New()
     End Sub
 
-    Public MustOverride Sub Update(gameTime As GameTime)
+    Public Overridable Sub Update(gameTime As GameTime)
+
+    End Sub
 
     Public Overridable Sub Draw(sb As SpriteBatch)
         If Texture IsNot Nothing Then
@@ -24,8 +26,8 @@ Public MustInherit Class Sprite
                     position:=Position,
                     scale:=New Vector2(Scale, Scale))
         Else
-            'sb.DrawString(FontKoot, Name, getScreenRect.Location.ToVector2, Color.Red)
-            'Misc.DrawOutline(sb, getScreenRect, Color.Gold, 2)
+            'sb.DrawString(FontKoot, Name, GetScreenRect.Location.ToVector2, Color.Red)
+            'Misc.DrawOutline(sb, GetScreenRect, Color.Gold, 2)
         End If
     End Sub
 
