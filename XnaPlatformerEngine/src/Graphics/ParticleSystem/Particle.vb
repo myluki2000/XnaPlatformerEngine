@@ -39,6 +39,6 @@ Public Class Particle
     End Sub
 
     Public Overrides Sub Draw(sb As SpriteBatch)
-        sb.Draw(Texture, New Rectangle(Position.ToPoint, New Point(Texture.Width * Scale, Texture.Height * Scale)), Color.White * Opacity)
+        sb.Draw(Texture, New Rectangle(Position.ToPoint, New Point(CInt(Texture.Width * Scale), CInt(Texture.Height * Scale))), Color.White * Opacity)
     End Sub
 End Class
