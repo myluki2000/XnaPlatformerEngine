@@ -6,6 +6,10 @@ Imports Microsoft.Xna.Framework.Graphics
 ''' </summary>
 Public Class Sprite
     ''' <summary>
+    ''' The name of the sprite, a string
+    ''' </summary>
+    Public Name As String
+    ''' <summary>
     ''' The texture of the sprite. It gets drawn when .draw is called
     ''' </summary>
     Public Texture As Texture2D
