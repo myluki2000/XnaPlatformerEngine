@@ -33,7 +33,7 @@ Public Class Misc
         DrawRectangle(sb, New Rectangle(destRect.X + destRect.Width - thicknessOutline, destRect.Y, thicknessOutline, destRect.Height), colorOutline) ' Outline Right
     End Sub
 
-    Public Shared Sub DrawLine(sb As SpriteBatch, _start As Vector2, _end As Vector2)
+    Public Shared Sub DrawLine(sb As SpriteBatch, _start As Vector2, _end As Vector2, Color As Color)
         Dim edge As Vector2 = _end - _start
         ' calculate angle to rotate line
         Dim angle As Single = CSng(Math.Atan2(edge.Y, edge.X))
@@ -45,7 +45,7 @@ Public Class Misc
         'colour of line
         'angle of line (calulated above)
         ' point in line about which to rotate
-        sb.Draw(dummyTexture, New Rectangle(CInt(_start.X), CInt(_start.Y), CInt(edge.Length()), 1), Nothing, Color.Red, angle, New Vector2(0, 0),
+        sb.Draw(dummyTexture, New Rectangle(CInt(_start.X), CInt(_start.Y), CInt(edge.Length()), 1), Nothing, Color, angle, New Vector2(0, 0),
         SpriteEffects.None, 0)
 
     End Sub
@@ -170,6 +170,36 @@ Public Class Misc
             returnColor.A = 0
         End If
 
-
+        Return returnColor
     End Function
+
+    Public Shared Sub FloodFill(rt As RenderTarget2D, point As Point)
+        Dim colors(rt.Width * rt.Height) As Color
+        rt.GetData(colors)
+
+        Dim coordStack As New Stack(Of Point)
+
+        coordStack.Push(point)
+
+        While coordStack.Count > 0
+            Dim p As Point = coordStack.Pop
+
+            Try
+                If colors(p.Y * rt.Width + p.X) = New Color(0, 0, 0) Then
+
+                    colors(p.Y * rt.Width + p.X) = New Color(0, 0, 0, 0)
+
+                    coordStack.Push(p + New Point(1, 0))
+                    coordStack.Push(p + New Point(-1, 0))
+                    coordStack.Push(p + New Point(0, -1))
+                    coordStack.Push(p + New Point(0, 1))
+
+                End If
+            Catch ex As Exception
+
+            End Try
+        End While
+
+        rt.SetData(colors)
+    End Sub
 End Class

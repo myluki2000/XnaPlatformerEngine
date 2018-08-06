@@ -1,10 +1,12 @@
 ﻿Imports System.Collections.Generic
 Imports System.Xml.Linq
+Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Content
 Imports Microsoft.Xna.Framework.Graphics
 
 Public Class LevelLoader
     Shared TextureObjs As List(Of TextureObject)
+    Public Shared LightPolygons As List(Of Polygon)
 
     Public Shared Function LoadLevel(_path As String, Content As ContentManager) As List(Of WorldObject)
         Dim _placedObjects As New List(Of WorldObject)
@@ -25,6 +27,8 @@ Public Class LevelLoader
         Next
 
         LoadTextures(Content, lvlXEle)
+
+        LoadLightPolygons(lvlXEle.Element("LightPolygons"))
 
         For Each wObj In _placedObjects
             For Each tObj In TextureObjs
@@ -96,5 +100,20 @@ Public Class LevelLoader
         Next
 
         TextureObjs = resultObjs
+    End Sub
+
+    Shared Sub LoadLightPolygons(xelePolygons As XElement)
+        LightPolygons = New List(Of Polygon)
+
+        For Each xeleP In xelePolygons.Elements("Polygon")
+
+            Dim tmpPolygon As New Polygon
+
+            For Each xeleC In xeleP.Elements("Corner")
+                tmpPolygon.corners.Add(New Vector2(CInt(xeleC.Element("X")), CInt(xeleC.Element("Y"))))
+            Next
+
+            LightPolygons.Add(tmpPolygon)
+        Next
     End Sub
 End Class

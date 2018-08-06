@@ -8,7 +8,7 @@ Public Class World
 
     Public Levels As New List(Of Level)
     Private _selectedLevel As Level
-    Public Player As New Player With {.Scale = 2}
+    Public Player As New Player With {.Scale = 2, .Position = New Vector2(200, 0)}
 
     Sub New()
         Matrix.CreateTranslation(0, 0, 0, LevelCameraMatrix)
@@ -33,7 +33,7 @@ Public Class World
     End Property
 
     Public Sub LoadLevel(_path As String, _name As String, Content As ContentManager)
-        Levels.Add(New Level(LevelLoader.LoadLevel(_path, Content)) With {.Name = _name})
+        Levels.Add(New Level(LevelLoader.LoadLevel(_path, Content)) With {.Name = _name, .LightPolygons = LevelLoader.LightPolygons})
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)

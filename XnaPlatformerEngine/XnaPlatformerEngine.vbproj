@@ -79,6 +79,7 @@
     <Compile Include="src\Dialogue\Dialogue.vb" />
     <Compile Include="src\Dialogue\DialogueSegment.vb" />
     <Compile Include="src\Graphics\BitmapFont.vb" />
+    <Compile Include="src\Graphics\ShadowOverlayRenderer.vb" />
     <Compile Include="src\ScreenHandling\UI\InfoBox.vb" />
     <Compile Include="src\Misc\GlobalVariables.vb" />
     <Compile Include="src\Main.vb" />

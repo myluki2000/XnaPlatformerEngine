@@ -124,7 +124,7 @@ Public Class Main
             End If
         End If
 
-            MyBase.Update(gameTime)
+        MyBase.Update(gameTime)
     End Sub
 
     ''' <summary>

@@ -16,6 +16,11 @@ Public Class Level
     Public PlacedObjects(,,) As WorldObject
 
     ''' <summary>
+    ''' A list of polygons representing parts of the map that should be lit up
+    ''' </summary>
+    Public LightPolygons As New List(Of Polygon)
+
+    ''' <summary>
     ''' A list of all NPCs present in the level
     ''' </summary>
     Public NPCs As New List(Of NPC)
@@ -29,6 +34,7 @@ Public Class Level
     Private SkyColors(100) As Color
     Private BackgroundGradient As New Texture2D(graphics.GraphicsDevice, 1, graphics.PreferredBackBufferHeight)
 
+    Private ShadowOverlay As RenderTarget2D
 
 
     Sub New(_placedObjs As List(Of WorldObject))
@@ -44,18 +50,24 @@ Public Class Level
         f.SetSelectedAnimation("idle")
         NPCs.Add(f)
 
-
         Textures.SkyGradient.GetData(SkyColors)
 
         For i As Integer = 0 To Clouds.Length - 1
             Clouds(i) = New Sprite() With {
                 .Texture = Textures.Clouds(Random.Next(0, Textures.Clouds.Length)),
-                .Position = New Vector2(Random.Next(-200, graphics.PreferredBackBufferWidth), Random.Next(85, 115)),
                 .Scale = 0.5}
+            Clouds(i).Position = New Vector2(Random.Next(CInt(-Clouds(i).Texture.Width * Clouds(i).Scale * 2), graphics.PreferredBackBufferWidth), Random.Next(85, 115))
         Next
+
+
     End Sub
 
     Public Sub Draw(ByRef sb As SpriteBatch, ByRef Player As Player)
+        If ShadowOverlay Is Nothing Then
+            ShadowOverlay = New RenderTarget2D(graphics.GraphicsDevice, GetLevelSize().X, GetLevelSize().Y)
+            ShadowOverlayRenderer.RenderShadowOverlay(sb, ShadowOverlay, LightPolygons)
+        End If
+
 
         sb.Begin(,, SamplerState.PointClamp,,,,)
         ' Draw sky and sun
@@ -126,12 +138,18 @@ Public Class Level
         End If
 
         ' Draw overlay to darken world when it's nighttime
-        sb.Begin()
+        sb.Begin(,,,,,, LevelCameraMatrix)
         Dim alpha As Single = 1 - CSng(-(TimeOfDay * 2 - 1) ^ 6 + 1)
         If alpha > 0.5 Then
             alpha = 0.5
         End If
-        Misc.DrawRectangle(sb, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.Black * alpha)
+        sb.Draw(ShadowOverlay, New Vector2(0, 0), Color.White * alpha)
+
+        ' Draw parts of the overlay not in level boundries
+        Misc.DrawRectangle(sb, New Rectangle(GetLevelSize().X, 0, 5000, 5000), Color.Black * alpha) ' Right
+        Misc.DrawRectangle(sb, New Rectangle(0, -5000, 5000, 5000), Color.Black * alpha) ' Top
+        Misc.DrawRectangle(sb, New Rectangle(-5000, -5000, 5000, 10000), Color.Black * alpha) ' Left
+        Misc.DrawRectangle(sb, New Rectangle(0, GetLevelSize().Y, GetLevelSize().X, 5000), Color.Black * alpha) ' Bottom
         sb.End()
     End Sub
 
@@ -166,4 +184,12 @@ Public Class Level
             Next
         Next
     End Sub
+
+    Public Function GetLevelSize() As Point
+        Return New Point(PlacedObjects(PlacedObjects.GetUpperBound(0), PlacedObjects.GetUpperBound(1), 50).GetTrueRect().Right, PlacedObjects(PlacedObjects.GetUpperBound(0), PlacedObjects.GetUpperBound(1), 50).GetTrueRect().Bottom)
+    End Function
+
+    Public Function GetScreenRect() As Rectangle
+        Return New Rectangle(LevelCameraMatrix.Translation.X, LevelCameraMatrix.Translation.Y, GetLevelSize().X, GetLevelSize().Y)
+    End Function
 End Class
