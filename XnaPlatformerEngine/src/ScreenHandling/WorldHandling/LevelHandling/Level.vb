@@ -63,6 +63,52 @@ Public Class Level
     End Sub
 
     Public Sub Draw(ByRef sb As SpriteBatch, ByRef Player As Player)
+        DrawSky(sb)
+
+        sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+        ' Draw tiles behind the characters
+        For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
+            For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
+                For z As Integer = 0 To 50
+                    Dim _object = PlacedObjects(x, y, z)
+                    If _object IsNot Nothing Then
+                        _object.Draw(sb)
+                    End If
+                Next
+            Next
+        Next
+
+        Player.Draw(sb)
+
+        For Each NPC In NPCs
+            NPC.Draw(sb)
+        Next
+
+        ' Draw tiles in front of characters
+        For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
+            For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
+                For z As Integer = 51 To 100
+                    Dim _object = PlacedObjects(x, y, z)
+                    If _object IsNot Nothing Then
+                        _object.Draw(sb)
+                    End If
+                Next
+            Next
+        Next
+        sb.End()
+
+        DrawShadowOverlay(sb)
+
+
+
+        ' DEBUG FEATURE
+        If Keyboard.GetState.IsKeyDown(Keys.O) Then
+            TimeOfDay += 0.01F
+            TimeOfDay = TimeOfDay Mod 2
+        End If
+    End Sub
+
+    Public Sub DrawSky(sb As SpriteBatch)
         If ShadowOverlay Is Nothing Then
             ShadowOverlay = New RenderTarget2D(graphics.GraphicsDevice, GetLevelSize().X, GetLevelSize().Y)
             ShadowOverlayRenderer.RenderShadowOverlay(sb, ShadowOverlay, LightPolygons)
@@ -99,44 +145,9 @@ Public Class Level
             End If
         Next
         sb.End()
+    End Sub
 
-        sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
-        ' Draw tiles behind the characters
-        For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
-            For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
-                For z As Integer = 0 To 50
-                    Dim _object = PlacedObjects(x, y, z)
-                    If _object IsNot Nothing Then
-                        _object.Draw(sb)
-                    End If
-                Next
-            Next
-        Next
-
-        Player.Draw(sb)
-
-        For Each NPC In NPCs
-            NPC.Draw(sb)
-        Next
-
-        ' Draw tiles in front of characters
-        For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
-            For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
-                For z As Integer = 51 To 100
-                    Dim _object = PlacedObjects(x, y, z)
-                    If _object IsNot Nothing Then
-                        _object.Draw(sb)
-                    End If
-                Next
-            Next
-        Next
-        sb.End()
-
-        If Keyboard.GetState.IsKeyDown(Keys.O) Then
-            TimeOfDay += 0.01F
-            TimeOfDay = TimeOfDay Mod 2
-        End If
-
+    Public Sub DrawShadowOverlay(sb As SpriteBatch)
         ' Draw overlay to darken world when it's nighttime
         sb.Begin(,,,,,, LevelCameraMatrix)
         Dim alpha As Single = 1 - CSng(-(TimeOfDay * 2 - 1) ^ 6 + 1)
@@ -190,6 +201,6 @@ Public Class Level
     End Function
 
     Public Function GetScreenRect() As Rectangle
-        Return New Rectangle(LevelCameraMatrix.Translation.X, LevelCameraMatrix.Translation.Y, GetLevelSize().X, GetLevelSize().Y)
+        Return New Rectangle(CInt(LevelCameraMatrix.Translation.X), CInt(LevelCameraMatrix.Translation.Y), GetLevelSize().X, GetLevelSize().Y)
     End Function
 End Class
