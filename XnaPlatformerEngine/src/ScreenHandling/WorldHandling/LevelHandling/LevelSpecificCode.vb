@@ -1,12 +1,13 @@
 ﻿Imports System.Collections.Generic
 Imports Microsoft.Xna.Framework
+Imports Microsoft.Xna.Framework.Graphics
 
 Public Class LevelSpecificCode
 
     Shared counter As Integer
     Shared TrainX As Integer = 3
 
-    Public Shared Sub Execute(LevelName As String, Props As List(Of WorldObject), Player As Player, gameTime As GameTime)
+    Public Shared Sub ExecuteUpdate(LevelName As String, gameTime As GameTime, Props As List(Of WorldObject), Player As Player)
         counter += gameTime.ElapsedGameTime.Milliseconds
 
         Select Case LevelName
@@ -48,4 +49,12 @@ Public Class LevelSpecificCode
         End Select
     End Sub
 
+    Public Shared Sub ExecuteDraw(LevelName As String, sb As SpriteBatch, props As List(Of WorldObject), player As Player)
+        Select Case LevelName
+            Case "IntroCity"
+                sb.Begin()
+                Misc.DrawRectangle(sb, New Rectangle(0, graphics.PreferredBackBufferHeight - 100, 50000, 300), New Color(64, 64, 64))
+                sb.End()
+        End Select
+    End Sub
 End Class

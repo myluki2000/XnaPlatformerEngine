@@ -77,6 +77,9 @@ Public Class Level
     End Sub
 
     Public Sub Draw(ByRef sb As SpriteBatch, ByRef player As Player)
+        sb.Begin()
+        sb.Draw(BackgroundImage, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White)
+        sb.End()
 
 
         DrawSky(sb)
@@ -141,6 +144,8 @@ Public Class Level
                 Next
             Next
         Next
+
+        LevelSpecificCode.ExecuteDraw(Name, sb, Props, player)
 
 
         DrawShadowOverlay(sb)
@@ -212,7 +217,7 @@ Public Class Level
 
     Public Sub Update(gameTime As GameTime, player As Player)
 
-        LevelSpecificCode.Execute(Name, Props, player, gameTime)
+        LevelSpecificCode.ExecuteUpdate(Name, gameTime, Props, player)
 
         For Each _wObj In PlacedObjects
             If _wObj IsNot Nothing Then
