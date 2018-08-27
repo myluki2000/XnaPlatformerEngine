@@ -16,6 +16,11 @@ Public Class Level
     Public PlacedObjects(,,) As WorldObject
 
     ''' <summary>
+    ''' A list with WorldObjects with IsProp = True for faster access for level specific code
+    ''' </summary>
+    Public Props As New List(Of WorldObject)
+
+    ''' <summary>
     ''' A list of polygons representing parts of the map that should be lit up
     ''' </summary>
     Public LightPolygons As New List(Of Polygon)
@@ -29,6 +34,8 @@ Public Class Level
     '''Represents the time of day. 0 = morning, 0.5 = noon, 1 = evening, 1.5 = midnight
     '''</summary>
     Public TimeOfDay As Single = 0
+
+    Public BackgroundImage As Texture2D
 
     Private Clouds(20) As Sprite
     Private SkyColors(100) As Color
@@ -60,42 +67,81 @@ Public Class Level
         Next
 
 
+        ' Add all PlacedObjects with IsProp = True to the Props list
+        For Each obj In PlacedObjects
+            If obj IsNot Nothing AndAlso obj.IsProp Then
+                Props.Add(obj)
+            End If
+        Next
+
     End Sub
 
-    Public Sub Draw(ByRef sb As SpriteBatch, ByRef Player As Player)
+    Public Sub Draw(ByRef sb As SpriteBatch, ByRef player As Player)
+
+
         DrawSky(sb)
 
-        sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+
         ' Draw tiles behind the characters
-        For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
-            For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
-                For z As Integer = 0 To 50
-                    Dim _object = PlacedObjects(x, y, z)
-                    If _object IsNot Nothing Then
-                        _object.Draw(sb)
+        For z As Integer = 1 To 50
+            For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
+                For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
+
+                    Dim obj = PlacedObjects(x, y, z)
+                    If obj IsNot Nothing Then
+
+                        If obj.ParallaxMultiplier <> 1.0F Then
+                            ' If object is parallax then begin spritebatch with special matrix
+                            sb.Begin(Nothing, Nothing, SamplerState.PointClamp,
+                                     Nothing, Nothing, Nothing,
+                                     Matrix.CreateTranslation(LevelCameraMatrix.Translation.X / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Y / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Z / obj.ParallaxMultiplier))
+                        Else
+                            sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+                        End If
+
+                        obj.Draw(sb)
+
+                        sb.End()
                     End If
                 Next
             Next
         Next
 
-        Player.Draw(sb)
+        sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+
+        player.Draw(sb)
 
         For Each NPC In NPCs
             NPC.Draw(sb)
         Next
 
+        sb.End()
+
+
         ' Draw tiles in front of characters
         For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
             For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
                 For z As Integer = 51 To 100
-                    Dim _object = PlacedObjects(x, y, z)
-                    If _object IsNot Nothing Then
-                        _object.Draw(sb)
+                    Dim obj = PlacedObjects(x, y, z)
+                    If obj IsNot Nothing Then
+
+                        If obj.ParallaxMultiplier <> 1.0F Then
+                            ' If object is parallax then begin spritebatch with special matrix
+                            sb.Begin(Nothing, Nothing, SamplerState.PointClamp,
+                                     Nothing, Nothing, Nothing,
+                                     Matrix.CreateTranslation(LevelCameraMatrix.Translation.X / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Y / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Z / obj.ParallaxMultiplier))
+                        Else
+                            sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+                        End If
+
+                        obj.Draw(sb)
+
+                        sb.End()
                     End If
                 Next
             Next
         Next
-        sb.End()
+
 
         DrawShadowOverlay(sb)
 
@@ -164,7 +210,10 @@ Public Class Level
         sb.End()
     End Sub
 
-    Public Sub Update(gameTime As GameTime)
+    Public Sub Update(gameTime As GameTime, player As Player)
+
+        LevelSpecificCode.Execute(Name, Props, player, gameTime)
+
         For Each _wObj In PlacedObjects
             If _wObj IsNot Nothing Then
                 If _wObj.rect.Location = New Point(20, 12) Then
@@ -197,7 +246,8 @@ Public Class Level
     End Sub
 
     Public Function GetLevelSize() As Point
-        Return New Point(PlacedObjects(PlacedObjects.GetUpperBound(0), PlacedObjects.GetUpperBound(1), 50).GetTrueRect().Right, PlacedObjects(PlacedObjects.GetUpperBound(0), PlacedObjects.GetUpperBound(1), 50).GetTrueRect().Bottom)
+        'Return New Point(PlacedObjects(PlacedObjects.GetUpperBound(0), PlacedObjects.GetUpperBound(1), 50).GetTrueRect().Right, PlacedObjects(PlacedObjects.GetUpperBound(0), PlacedObjects.GetUpperBound(1), 50).GetTrueRect().Bottom)
+        Return New Point(1, 1)
     End Function
 
     Public Function GetScreenRect() As Rectangle

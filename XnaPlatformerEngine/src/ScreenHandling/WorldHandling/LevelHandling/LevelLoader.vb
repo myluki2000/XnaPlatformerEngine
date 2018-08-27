@@ -6,9 +6,8 @@ Imports Microsoft.Xna.Framework.Graphics
 
 Public Class LevelLoader
     Shared TextureObjs As List(Of TextureObject)
-    Public Shared LightPolygons As List(Of Polygon)
 
-    Public Shared Function LoadLevel(_path As String, Content As ContentManager) As List(Of WorldObject)
+    Public Shared Function LoadLevel(_path As String, Content As ContentManager) As Level
         Dim _placedObjects As New List(Of WorldObject)
 
         Dim lvlXEle = XElement.Load(_path)
@@ -22,13 +21,13 @@ Public Class LevelLoader
             _placedObj.rect.Height = CInt(xele.Element("Height").Value)
             _placedObj.Scale = CInt(xele.Element("Scale").Value)
             _placedObj.zIndex = CInt(xele.Element("Z-Index").Value)
+            _placedObj.ParallaxMultiplier = Single.Parse(xele.Element("ParallaxMultiplier").Value)
+            _placedObj.IsProp = Boolean.Parse(xele.Element("IsProp").Value)
 
             _placedObjects.Add(_placedObj)
         Next
 
         LoadTextures(Content, lvlXEle)
-
-        LoadLightPolygons(lvlXEle.Element("LightPolygons"))
 
         For Each wObj In _placedObjects
             For Each tObj In TextureObjs
@@ -84,7 +83,13 @@ Public Class LevelLoader
             End Select
         Next
 
-        Return _placedObjects
+        Dim lvl As New Level(_placedObjects)
+
+        lvl.BackgroundImage = Content.Load(Of Texture2D)(lvlXEle.Element("Properties").Element("BackgroundImagePath").Value)
+        lvl.LightPolygons = LoadLightPolygons(lvlXEle.Element("LightPolygons"))
+
+        Return lvl
+
     End Function
 
     Shared Sub LoadTextures(Content As ContentManager, lvlXEle As XElement)
@@ -102,8 +107,8 @@ Public Class LevelLoader
         TextureObjs = resultObjs
     End Sub
 
-    Shared Sub LoadLightPolygons(xelePolygons As XElement)
-        LightPolygons = New List(Of Polygon)
+    Shared Function LoadLightPolygons(xelePolygons As XElement) As List(Of Polygon)
+        Dim lightPolygons = New List(Of Polygon)
 
         For Each xeleP In xelePolygons.Elements("Polygon")
 
@@ -113,7 +118,9 @@ Public Class LevelLoader
                 tmpPolygon.corners.Add(New Vector2(CInt(xeleC.Element("X")), CInt(xeleC.Element("Y"))))
             Next
 
-            LightPolygons.Add(tmpPolygon)
+            lightPolygons.Add(tmpPolygon)
         Next
-    End Sub
+
+        Return lightPolygons
+    End Function
 End Class

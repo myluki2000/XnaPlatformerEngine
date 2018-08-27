@@ -9,6 +9,8 @@ Partial Public Class Character
     Public IsGrounded As Boolean = True
     Public Alive As Boolean = True
     Public ViewDirection As ViewDirections = ViewDirections.Right
+    Public Visible As Boolean = True
+    Public HasGravity As Boolean = True
 
     Public CharacterType As CharacterTypes
 
@@ -45,7 +47,9 @@ Partial Public Class Character
 
         Dim _newPos As Vector2 = Velocity * CSng(gameTime.ElapsedGameTime.TotalSeconds)
 
-        CollidingCheck(_newPos, gameTime)
+        If HasGravity Then
+            CollidingCheck(_newPos, gameTime)
+        End If
 
         Weapon.Position = Position
         Weapon.Update(gameTime)
@@ -57,11 +61,13 @@ Partial Public Class Character
     End Sub
 
     Public Overrides Sub Draw(sb As SpriteBatch)
-        If SelectedAnimation IsNot Nothing Then
-            sb.Draw(SelectedAnimation.Texture, New Rectangle(CInt(Position.X), CInt(Position.Y), FrameWidth, SelectedAnimation.Texture.Height), srcRect, Color.White)
-        End If
+        If Visible Then
+            If SelectedAnimation IsNot Nothing Then
+                sb.Draw(SelectedAnimation.Texture, New Rectangle(CInt(Position.X), CInt(Position.Y), FrameWidth, SelectedAnimation.Texture.Height), srcRect, Color.White)
+            End If
 
-        Weapon.Draw(sb, Me)
+            Weapon.Draw(sb, Me)
+        End If
     End Sub
 
     Public Overrides Function getTrueRect() As Rectangle

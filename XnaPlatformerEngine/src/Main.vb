@@ -42,6 +42,7 @@ Public Class Main
 
         ScreenHandler.SelectedScreen = MainMenu
 
+        Window.Position = New Point(0, 0)
 
         graphics.PreferredBackBufferHeight = 1080
         graphics.PreferredBackBufferWidth = 1920

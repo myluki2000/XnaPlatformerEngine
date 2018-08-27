@@ -33,7 +33,11 @@ Public Class World
     End Property
 
     Public Sub LoadLevel(_path As String, _name As String, Content As ContentManager)
-        Levels.Add(New Level(LevelLoader.LoadLevel(_path, Content)) With {.Name = _name, .LightPolygons = LevelLoader.LightPolygons})
+        'Levels.Add(New Level(LevelLoader.LoadLevel(_path, Content)) With {.Name = _name, .LightPolygons = LevelLoader.LightPolygons})
+        Dim lvl = LevelLoader.LoadLevel(_path, Content)
+        lvl.Name = _name
+
+        Levels.Add(lvl)
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)
@@ -64,7 +68,7 @@ Public Class World
 
     Public Overrides Sub Update(gameTime As GameTime)
         If SelectedLevel IsNot Nothing Then
-            SelectedLevel.Update(gameTime)
+            SelectedLevel.Update(gameTime, Player)
             Player.Update(gameTime)
 
             If Player.HealthPoints < 1 Then

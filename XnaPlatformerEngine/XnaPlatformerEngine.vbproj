@@ -98,6 +98,7 @@
     <Compile Include="src\ScreenHandling\Screens\TestScreen.vb" />
     <Compile Include="src\ScreenHandling\UI\Button.vb" />
     <Compile Include="src\ScreenHandling\UI\UIElement.vb" />
+    <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\LevelSpecificCode.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\InfoBoxDisplay.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\LoadingZone.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\Objects\TechnicalObjects\ParticleSpawner.vb" />
