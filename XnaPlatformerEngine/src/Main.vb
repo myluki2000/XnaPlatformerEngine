@@ -95,14 +95,20 @@ Public Class Main
         ' TODO: Unload any non ContentManager content here
     End Sub
 
-    ''' <summary>
-    ''' Allows the game to run logic such as updating the world,
-    ''' checking for collisions, gathering input, and playing audio.
-    ''' </summary>
-    ''' <param name="gameTime">Provides a snapshot of timing values.</param>
+
+    Dim frameCounter As Integer = 0
+    Dim elapsedTime As Single = 0
+
     Protected Overrides Sub Update(gameTime As GameTime)
         If Keyboard.GetState().IsKeyDown(Keys.Escape) Then
             End
+        End If
+
+        elapsedTime += CSng(gameTime.ElapsedGameTime.TotalMilliseconds)
+        If elapsedTime > 1000 Then
+            Window.Title = "FPS: " & frameCounter.ToString
+            elapsedTime = 0
+            frameCounter = 0
         End If
 
 
@@ -147,6 +153,8 @@ Public Class Main
         End If
 
         InfoBox.Draw(spriteBatch)
+
+        frameCounter += 1
 
         MyBase.Draw(gameTime)
     End Sub

@@ -71,31 +71,34 @@ Public Class Projectile
     End Sub
 
     Private Function CheckCollision() As Boolean
-        Try
-            Dim _wObj As WorldObject = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.PlacedObjects(CInt(Math.Floor(Position.X / 30)), CInt(Math.Floor(Position.Y / 30)), 50)
+        Dim selectedLevel = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel
+
+        ' Check if projectile is out of level bounds horizonally or vertically
+        If (CInt(Math.Floor(Position.X / 30)) > 0 AndAlso CInt(Math.Floor(Position.X / 30)) < selectedLevel.PlacedObjects.GetUpperBound(0)) AndAlso
+            (CInt(Math.Floor(Position.Y / 30)) > 0 AndAlso CInt(Math.Floor(Position.Y / 30)) < selectedLevel.PlacedObjects.GetUpperBound(1)) Then
+
+            Dim _wObj As WorldObject = selectedLevel.PlacedObjects(CInt(Math.Floor(Position.X / 30)), CInt(Math.Floor(Position.Y / 30)), 50)
             If _wObj IsNot Nothing AndAlso _wObj.GetType Is GetType(WorldObject) Then
                 ' check if block at position in level
                 Return True
             End If
 
-
-
-        Catch ex As IndexOutOfRangeException
-            Return True ' When bullet flies out of level return true so it gets deleted
-        End Try
+        Else
+            Return True
+        End If
 
 
         Dim rect As New Rectangle(CInt(Position.X), CInt(Position.Y), Textures.Bullet.Width, Textures.Bullet.Height)
         Select Case Origin
             Case Character.CharacterTypes.Player
-                For Each character As Character In ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.NPCs
-                    If rect.Intersects(character.getTrueRect) Then
-                        character.HealthPoints -= Me.Damage
-                        Return True
-                    End If
-                Next
+                    For Each character As Character In selectedLevel.NPCs
+                        If rect.Intersects(character.getTrueRect) Then
+                            character.HealthPoints -= Me.Damage
+                            Return True
+                        End If
+                    Next
 
-            Case Character.CharacterTypes.Enemy
+                Case Character.CharacterTypes.Enemy
                 Dim Player As Player = ScreenHandler.SelectedScreen.ToWorld.Player
 
                 If rect.Intersects(Player.getTrueRect) Then

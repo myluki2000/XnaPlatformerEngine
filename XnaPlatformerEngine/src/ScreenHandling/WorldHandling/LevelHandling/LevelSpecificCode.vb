@@ -32,15 +32,19 @@ Public Class LevelSpecificCode
                 If counter > 10 Then
                     counter = 0
 
-                    Train.Position.X += 2
-                    Player.Position = Train.Position
+                    If Train.Position.X < 1000 Then
+                        Train.Position.X += 2
+                        Player.Position = Train.Position
+                    Else
+                        Player.Visible = True
+                        Player.HasGravity = True
+                    End If
 
                     LevelCameraMatrix.Translation = New Vector3(-CInt(Train.Position.X), -CInt(Train.Position.Y - graphics.PreferredBackBufferHeight / 2) + 200, 0)
 
                     For Each o In Props.FindAll(Function(x) x.Name = "Overpass1")
-                        Diagnostics.Debug.WriteLine(Props.FindAll(Function(x) x.Name = "Overpass1")(0).GetScreenRect.X)
                         If o.GetScreenRect.Right < 0 Then
-                            o.Position.X += 1800
+                            o.Position.X += 3600
                         End If
                     Next
                 End If

@@ -32,6 +32,11 @@ Partial Public Class Character
         End If
     End Sub
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
+    ''' <param name="displacement"></param>
+    ''' <returns>True = Is Colliding, False = Is Not Colliding</returns>
     Private Function CheckCollidingVertical(displacement As Vector2) As Boolean
         Try
             Dim SelectedLevel As Level = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel

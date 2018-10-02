@@ -43,6 +43,8 @@ Public Class Level
 
     Private ShadowOverlay As RenderTarget2D
 
+    Private MinZIndex As Integer = 50
+    Private MaxZIndex As Integer = 50
 
     Sub New(_placedObjs As List(Of WorldObject))
         PlacedObjects = Misc.WObjListTo3DArray(_placedObjs)
@@ -69,24 +71,40 @@ Public Class Level
 
         ' Add all PlacedObjects with IsProp = True to the Props list
         For Each obj In PlacedObjects
-            If obj IsNot Nothing AndAlso obj.IsProp Then
-                Props.Add(obj)
+            If obj IsNot Nothing Then
+                ' Find the highest zindex of all objects
+                If obj.zIndex > 50 AndAlso obj.zIndex > MaxZIndex Then
+                    MaxZIndex = obj.zIndex
+                End If
+
+                ' Find the lowest zindex of all objects
+                If obj.zIndex <= 50 AndAlso obj.zIndex < MinZIndex Then
+                    MinZIndex = obj.zIndex
+                End If
+
+
+                ' Add all PlacedObjects with IsProp = True to the Props list
+                If obj.IsProp Then
+                    Props.Add(obj)
+                End If
             End If
         Next
 
     End Sub
 
     Public Sub Draw(ByRef sb As SpriteBatch, ByRef player As Player)
-        sb.Begin()
-        sb.Draw(BackgroundImage, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White)
-        sb.End()
+        If BackgroundImage IsNot Nothing Then
+            sb.Begin()
+            sb.Draw(BackgroundImage, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White)
+            sb.End()
+        End If
 
 
         DrawSky(sb)
 
 
         ' Draw tiles behind the characters
-        For z As Integer = 1 To 50
+        For z As Integer = 40 To 50
             For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
                 For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
 
@@ -124,7 +142,7 @@ Public Class Level
         ' Draw tiles in front of characters
         For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
             For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
-                For z As Integer = 51 To 100
+                For z As Integer = 51 To 60
                     Dim obj = PlacedObjects(x, y, z)
                     If obj IsNot Nothing Then
 
@@ -208,25 +226,35 @@ Public Class Level
         sb.Draw(ShadowOverlay, New Vector2(0, 0), Color.White * alpha)
 
         ' Draw parts of the overlay not in level boundries
-        Misc.DrawRectangle(sb, New Rectangle(GetLevelSize().X, 0, 5000, 5000), Color.Black * alpha) ' Right
-        Misc.DrawRectangle(sb, New Rectangle(0, -5000, 5000, 5000), Color.Black * alpha) ' Top
+        Misc.DrawRectangle(sb, New Rectangle(GetLevelSize().X, 0, 15000, 5000), Color.Black * alpha) ' Right
+        Misc.DrawRectangle(sb, New Rectangle(0, -5000, 15000, 5000), Color.Black * alpha) ' Top
         Misc.DrawRectangle(sb, New Rectangle(-5000, -5000, 5000, 10000), Color.Black * alpha) ' Left
         Misc.DrawRectangle(sb, New Rectangle(0, GetLevelSize().Y, GetLevelSize().X, 5000), Color.Black * alpha) ' Bottom
         sb.End()
     End Sub
 
+    Dim updatingWorldObjects As List(Of WorldObject)
+
     Public Sub Update(gameTime As GameTime, player As Player)
 
         LevelSpecificCode.ExecuteUpdate(Name, gameTime, Props, player)
 
-        For Each _wObj In PlacedObjects
-            If _wObj IsNot Nothing Then
-                If _wObj.rect.Location = New Point(20, 12) Then
-                End If
+        If updatingWorldObjects Is Nothing Then
+            updatingWorldObjects = New List(Of WorldObject)
 
-                _wObj.Update(gameTime)
-            End If
+            For Each wObj In PlacedObjects
+                If wObj IsNot Nothing Then
+                    ' TODO: Optimize this dumpster fire of a code, only add worldobjects with an update loop which isn't empty (i.e. TechnicalObjects) to the list
+
+                    updatingWorldObjects.Add(wObj)
+                End If
+            Next
+        End If
+
+        For Each wObj In updatingWorldObjects
+            wObj.Update(gameTime)
         Next
+
 
         For Each NPC In NPCs
             NPC.Update(gameTime)

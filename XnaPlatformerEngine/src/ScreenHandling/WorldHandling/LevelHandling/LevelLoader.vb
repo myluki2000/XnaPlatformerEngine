@@ -84,8 +84,9 @@ Public Class LevelLoader
         Next
 
         Dim lvl As New Level(_placedObjects)
-
-        lvl.BackgroundImage = Content.Load(Of Texture2D)(lvlXEle.Element("Properties").Element("BackgroundImagePath").Value)
+        If lvlXEle.Element("Properties").Element("BackgroundImagePath").Value <> "" Then
+            lvl.BackgroundImage = Content.Load(Of Texture2D)(lvlXEle.Element("Properties").Element("BackgroundImagePath").Value)
+        End If
         lvl.LightPolygons = LoadLightPolygons(lvlXEle.Element("LightPolygons"))
 
         Return lvl
