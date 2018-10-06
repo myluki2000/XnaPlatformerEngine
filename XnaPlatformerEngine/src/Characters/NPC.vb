@@ -16,6 +16,13 @@ Public Class NPC
         If Dialogue IsNot Nothing Then
             Dialogue.Update(gameTime)
         End If
+
+        If Acceleration.X = 0 Then
+            Velocity.X /= 2
+            If Velocity.X < 0.1 Then
+                Velocity.X = 0
+            End If
+        End If
     End Sub
 
     Public Overrides Sub Draw(sb As SpriteBatch)

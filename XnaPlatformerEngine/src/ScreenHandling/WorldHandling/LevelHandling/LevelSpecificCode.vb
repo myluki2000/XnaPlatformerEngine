@@ -6,6 +6,7 @@ Public Class LevelSpecificCode
 
     Shared counter As Integer
     Shared TrainX As Integer = 3
+    Shared TrainVelocityX As Single = 2.0F
 
     Public Shared Sub ExecuteUpdate(LevelName As String, gameTime As GameTime, Props As List(Of WorldObject), Player As Player)
         counter += gameTime.ElapsedGameTime.Milliseconds
@@ -33,11 +34,17 @@ Public Class LevelSpecificCode
                     counter = 0
 
                     If Train.Position.X < 1000 Then
-                        Train.Position.X += 2
+                        Train.Position.X += TrainVelocityX
                         Player.Position = Train.Position
                     Else
-                        Player.Visible = True
-                        Player.HasGravity = True
+                        If TrainVelocityX > 0 Then
+                            Train.Position.X += TrainVelocityX
+                            TrainVelocityX -= 0.02F
+                            Player.Position = Train.Position
+                        Else
+                            Player.HasGravity = True
+                            Player.Visible = True
+                        End If
                     End If
 
                     LevelCameraMatrix.Translation = New Vector3(-CInt(Train.Position.X), -CInt(Train.Position.Y - graphics.PreferredBackBufferHeight / 2) + 200, 0)

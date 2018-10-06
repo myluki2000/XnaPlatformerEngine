@@ -93,8 +93,9 @@ Public Class Projectile
             Case Character.CharacterTypes.Player
                     For Each character As Character In selectedLevel.NPCs
                         If rect.Intersects(character.getTrueRect) Then
-                            character.HealthPoints -= Me.Damage
-                            Return True
+                        character.HealthPoints -= Me.Damage
+                        character.Velocity += New Vector2(Math.Sign(Me.Velocity.X) * 150, 0)
+                        Return True
                         End If
                     Next
 
