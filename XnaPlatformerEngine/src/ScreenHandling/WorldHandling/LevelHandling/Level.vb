@@ -51,6 +51,10 @@ Public Class Level
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)
+        LevelSpecificCode.LevelSpecificCode.SetCurrentLevel(Name, Props)
+
+        LevelSpecificCode.LevelSpecificCode.ExecuteInitialization()
+
         Dim f As New Friendly(32) With {.Position = New Vector2(250, 50), .Animations = AnimationSets.Player}
 
         f.Dialogue = New Dialogue
@@ -90,6 +94,7 @@ Public Class Level
             End If
         Next
 
+        LevelSpecificCode.LevelSpecificCode.ExecuteLoadContent(Content)
     End Sub
 
     Public Sub Draw(ByRef sb As SpriteBatch, ByRef player As Player)
@@ -163,7 +168,7 @@ Public Class Level
             Next
         Next
 
-        LevelSpecificCode.ExecuteDraw(Name, sb, Props, player)
+        LevelSpecificCode.LevelSpecificCode.ExecuteDraw(sb)
 
 
         DrawShadowOverlay(sb)
@@ -237,7 +242,7 @@ Public Class Level
 
     Public Sub Update(gameTime As GameTime, player As Player)
 
-        LevelSpecificCode.ExecuteUpdate(Name, gameTime, Props, player)
+        LevelSpecificCode.LevelSpecificCode.ExecuteUpdate(gameTime)
 
         If updatingWorldObjects Is Nothing Then
             updatingWorldObjects = New List(Of WorldObject)

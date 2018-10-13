@@ -11,10 +11,10 @@ Public Class Textures
     Public Shared Sub LoadTextures(Content As ContentManager)
         Bullet = Content.Load(Of Texture2D)("Textures/bullet")
         ParticleSpark = Content.Load(Of Texture2D)("Textures/spark")
-        Sun = Content.Load(Of Texture2D)("Textures/Environment/sun")
-        SkyGradient = Content.Load(Of Texture2D)("Textures/Environment/sky_gradient")
-        Clouds(0) = Content.Load(Of Texture2D)("Textures/Environment/Clouds/cloud0")
-        Clouds(1) = Content.Load(Of Texture2D)("Textures/Environment/Clouds/cloud1")
+        Sun = Content.Load(Of Texture2D)("World/Textures/Environment/sun")
+        SkyGradient = Content.Load(Of Texture2D)("World/Textures/Environment/sky_gradient")
+        Clouds(0) = Content.Load(Of Texture2D)("World/Textures/Environment/Clouds/cloud0")
+        Clouds(1) = Content.Load(Of Texture2D)("World/Textures/Environment/Clouds/cloud1")
 
         LoadingZone.NotificationTexture = Content.Load(Of Texture2D)("UI/Textures/interact_notification")
     End Sub
