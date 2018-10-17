@@ -118,9 +118,16 @@ Public Class Level
 
                         If obj.ParallaxMultiplier <> 1.0F Then
                             ' If object is parallax then begin spritebatch with special matrix
+
+                            Dim parallaxMatrix As New Matrix
+                            parallaxMatrix = LevelCameraMatrix
+                            parallaxMatrix += Matrix.CreateTranslation(LevelCameraMatrix.Translation.X / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Y / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Z / obj.ParallaxMultiplier)
+
+
+
                             sb.Begin(Nothing, Nothing, SamplerState.PointClamp,
-                                     Nothing, Nothing, Nothing,
-                                     Matrix.CreateTranslation(LevelCameraMatrix.Translation.X / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Y / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Z / obj.ParallaxMultiplier))
+                                     Nothing, Nothing, Nothing, parallaxMatrix)
+
                         Else
                             sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
                         End If

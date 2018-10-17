@@ -2,6 +2,7 @@
 Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Content
 Imports Microsoft.Xna.Framework.Graphics
+Imports Microsoft.Xna.Framework.Input
 
 Namespace LevelSpecificCode
     Namespace Levels
@@ -17,7 +18,7 @@ Namespace LevelSpecificCode
             End Class
 
             Public Overrides Sub Initialize()
-                LevelCameraMatrix.Scale = New Vector3(1.75, 1.75, 1)
+                LevelCameraMatrix.Scale = New Vector3(1.4, 1.4, 1)
             End Sub
 
             Public Overrides Sub LoadContent(content As ContentManager)
@@ -28,10 +29,12 @@ Namespace LevelSpecificCode
             Dim Transparency As Single = -0.5
             Dim TrainCountdown As Integer = 8000
             Dim PassingTrainActivated As Boolean = False
+
+            Dim lastscroll As Integer = 0
             Public Overrides Sub Draw(sb As SpriteBatch)
                 sb.Begin(,,,,,, LevelCameraMatrix)
 
-                Misc.DrawRectangle(sb, New Rectangle(0, -1000, 1300, 3000), Color.Black)
+                Misc.DrawRectangle(sb, New Rectangle(0, -1000, 1600, 3000), Color.Black)
 
                 sb.End()
 
@@ -62,6 +65,17 @@ Namespace LevelSpecificCode
 
                 sb.End()
 
+                If Mouse.GetState.ScrollWheelValue Then
+                    Dim deltascroll = lastscroll - Mouse.GetState.ScrollWheelValue
+
+                    If deltascroll > 0 Then
+                        LevelCameraMatrix.Scale += New Vector3(0.1, 0.1, 0)
+                    ElseIf deltascroll < 0 Then
+                        LevelCameraMatrix.Scale += New Vector3(-0.1, -0.1, 0)
+                    End If
+
+                End If
+                lastscroll = Mouse.GetState.ScrollWheelValue
             End Sub
 
             Dim Counter As Integer = -5000
