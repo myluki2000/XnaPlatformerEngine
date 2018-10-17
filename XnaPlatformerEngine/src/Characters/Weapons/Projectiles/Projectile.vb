@@ -17,6 +17,14 @@ Public Class Projectile
 
     Public Event ProjectileImpact(ByRef sender As Projectile)
 
+    Public Enum Side
+        None
+        Top
+        Bottom
+        Left
+        Right
+        All
+    End Enum
 
     Sub New(_pos As Vector2, _vel As Vector2, _dmg As Integer, _origin As Character.CharacterTypes)
         Position = _pos
@@ -33,24 +41,78 @@ Public Class Projectile
             Velocity.X = (Math.Abs(Velocity.X) + Acceleration.X * CSng(gameTime.ElapsedGameTime.TotalSeconds)) * Math.Sign(Velocity.X)
 
             Position += Velocity * CSng(gameTime.ElapsedGameTime.TotalSeconds)
-            If CheckCollision() Then
-                Landed = True
+            'If CheckCollision() Then
+            '    Landed = True
 
-                RaiseEvent ProjectileImpact(Me)
+            '    RaiseEvent ProjectileImpact(Me)
 
 
-                ' Make it so particles don't spawn with the velocity in the direction of the wall
-                If Velocity.X > 0 Then
+            '    ' Make it so particles don't spawn with the velocity in the direction of the wall
+            '    If Velocity.X > 0 Then
+            '        ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 2000, .PossibleTextures = {Textures.ParticleSpark},
+            '    .ParticleVelocityLowest = New Point(-20, -20), .ParticleVelocityHighest = New Point(0, 20)}
+            '    Else
+            '        ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 2000, .PossibleTextures = {Textures.ParticleSpark},
+            '    .ParticleVelocityLowest = New Point(0, -20), .ParticleVelocityHighest = New Point(20, 20)}
+            '    End If
+
+
+            '    ps.SpawnParticles(5)
+            'End If
+
+            Dim col = CheckCollision()
+            Diagnostics.Debug.WriteLine(col.ToString)
+            Select Case col
+                Case Side.Left
+                    Landed = True
+
+                    RaiseEvent ProjectileImpact(Me)
+
                     ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 2000, .PossibleTextures = {Textures.ParticleSpark},
-                .ParticleVelocityLowest = New Point(-20, -20), .ParticleVelocityHighest = New Point(0, 20)}
-                Else
+                                                            .ParticleVelocityLowest = New Point(-20, -20), .ParticleVelocityHighest = New Point(0, 20)}
+
+                    ps.SpawnParticles(5)
+
+                Case Side.Right
+                    Landed = True
+
+                    RaiseEvent ProjectileImpact(Me)
+
                     ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 2000, .PossibleTextures = {Textures.ParticleSpark},
-                .ParticleVelocityLowest = New Point(0, -20), .ParticleVelocityHighest = New Point(20, 20)}
-                End If
+                                                            .ParticleVelocityLowest = New Point(0, -20), .ParticleVelocityHighest = New Point(20, 20)}
 
+                    ps.SpawnParticles(5)
 
-                ps.SpawnParticles(5)
-            End If
+                Case Side.Top
+                    Landed = True
+
+                    RaiseEvent ProjectileImpact(Me)
+
+                    ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 2000, .PossibleTextures = {Textures.ParticleSpark},
+                                                            .ParticleVelocityLowest = New Point(-20, -20), .ParticleVelocityHighest = New Point(20, 0)}
+
+                    ps.SpawnParticles(5)
+
+                Case Side.Bottom
+                    Landed = True
+
+                    RaiseEvent ProjectileImpact(Me)
+
+                    ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 2000, .PossibleTextures = {Textures.ParticleSpark},
+                                                            .ParticleVelocityLowest = New Point(-20, 0), .ParticleVelocityHighest = New Point(20, 20)}
+
+                    ps.SpawnParticles(5)
+
+                Case Side.All
+                    Landed = True
+
+                    RaiseEvent ProjectileImpact(Me)
+
+                    ps = New ParticleSystem(Position) With {.ParticleFadeTime = 200, .ParticleLifetime = 2000, .PossibleTextures = {Textures.ParticleSpark},
+                                                            .ParticleVelocityLowest = New Point(-20, -20), .ParticleVelocityHighest = New Point(20, 20)}
+
+                    ps.SpawnParticles(5)
+            End Select
         Else
             ps.Update(gameTime)
             counter += CInt(gameTime.ElapsedGameTime.TotalMilliseconds)
@@ -70,36 +132,49 @@ Public Class Projectile
         End If
     End Sub
 
-    Private Function CheckCollision() As Boolean
+    Private LastPosition As Vector2
+    Private Function CheckCollision() As Side
         Dim selectedLevel = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel
 
         ' Check if projectile is out of level bounds horizonally or vertically
         If (CInt(Math.Floor(Position.X / 30)) > 0 AndAlso CInt(Math.Floor(Position.X / 30)) < selectedLevel.PlacedObjects.GetUpperBound(0)) AndAlso
             (CInt(Math.Floor(Position.Y / 30)) > 0 AndAlso CInt(Math.Floor(Position.Y / 30)) < selectedLevel.PlacedObjects.GetUpperBound(1)) Then
 
-            Dim _wObj As WorldObject = selectedLevel.PlacedObjects(CInt(Math.Floor(Position.X / 30)), CInt(Math.Floor(Position.Y / 30)), 50)
-            If _wObj IsNot Nothing AndAlso _wObj.GetType Is GetType(WorldObject) Then
-                ' check if block at position in level
-                Return True
+            Dim wObj As WorldObject = selectedLevel.PlacedObjects(CInt(Math.Floor(Position.X / 30)), CInt(Math.Floor(Position.Y / 30)), 50)
+            If wObj IsNot Nothing AndAlso wObj.GetType Is GetType(WorldObject) Then ' check if block at position in level
+
+                ' Finds out from which side the projectile entered the block
+                If LastPosition.Y < wObj.rect.Y * 30 Then
+                    Return Side.Top
+                ElseIf LastPosition.Y > wObj.rect.Y * 30 + wObj.rect.Height Then
+                    Return Side.Bottom
+                ElseIf LastPosition.X < wObj.rect.X * 30 Then
+                    Return Side.Left
+                ElseIf LastPosition.X > wObj.rect.X * 30 + wObj.rect.Width Then
+                    Return Side.Right
+                Else
+                    Return Side.All
+                End If
+
             End If
 
         Else
-            Return True
+            Return Side.All
         End If
 
 
         Dim rect As New Rectangle(CInt(Position.X), CInt(Position.Y), Textures.Bullet.Width, Textures.Bullet.Height)
         Select Case Origin
             Case Character.CharacterTypes.Player
-                    For Each character As Character In selectedLevel.NPCs
-                        If rect.Intersects(character.getTrueRect) Then
+                For Each character As Character In selectedLevel.NPCs
+                    If rect.Intersects(character.getTrueRect) Then
                         character.HealthPoints -= Me.Damage
                         character.Velocity += New Vector2(Math.Sign(Me.Velocity.X) * 150, 0)
                         Return True
-                        End If
-                    Next
+                    End If
+                Next
 
-                Case Character.CharacterTypes.Enemy
+            Case Character.CharacterTypes.Enemy
                 Dim Player As Player = ScreenHandler.SelectedScreen.ToWorld.Player
 
                 If rect.Intersects(Player.getTrueRect) Then
@@ -108,7 +183,8 @@ Public Class Projectile
                 End If
         End Select
 
-        Return False
+        LastPosition = Position
+        Return Side.None
     End Function
 
     Private Sub DeleteProjectile() Handles ps.ParticlesDespawned
