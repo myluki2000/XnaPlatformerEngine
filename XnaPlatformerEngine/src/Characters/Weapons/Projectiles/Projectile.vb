@@ -60,9 +60,7 @@ Public Class Projectile
             '    ps.SpawnParticles(5)
             'End If
 
-            Dim col = CheckCollision()
-            Diagnostics.Debug.WriteLine(col.ToString)
-            Select Case col
+            Select Case CheckCollision()
                 Case Side.Left
                     Landed = True
 
@@ -170,7 +168,7 @@ Public Class Projectile
                     If rect.Intersects(character.getTrueRect) Then
                         character.HealthPoints -= Me.Damage
                         character.Velocity += New Vector2(Math.Sign(Me.Velocity.X) * 150, 0)
-                        Return True
+                        Return Side.All
                     End If
                 Next
 
@@ -179,7 +177,7 @@ Public Class Projectile
 
                 If rect.Intersects(Player.getTrueRect) Then
                     Player.HealthPoints -= Me.Damage
-                    Return True
+                    Return Side.All
                 End If
         End Select
 
