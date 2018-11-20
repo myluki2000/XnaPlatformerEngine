@@ -135,7 +135,8 @@ Public Class Misc
     End Function
 
     Public Shared Function ScreenPosToWorldPos(_screenPos As Point) As Vector2
-        Return New Vector2(_screenPos.X - LevelCameraMatrix.Translation.X, _screenPos.Y - LevelCameraMatrix.Translation.Y)
+        Return New Vector2((_screenPos.X - LevelCameraMatrix.Translation.X) / LevelCameraMatrix.Scale.X,
+                           (_screenPos.Y - LevelCameraMatrix.Translation.Y) / LevelCameraMatrix.Scale.Y)
     End Function
 
     Public Shared Function GetRandomArrayIndex(_arr() As Object) As Integer
