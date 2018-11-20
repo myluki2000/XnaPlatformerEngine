@@ -125,11 +125,11 @@ Public Class Level
 
 
 
-                            sb.Begin(Nothing, Nothing, SamplerState.PointClamp,
+                            sb.Begin(Nothing, Nothing, SamplerState.LinearClamp,
                                      Nothing, Nothing, Nothing, parallaxMatrix)
 
                         Else
-                            sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+                            sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
                         End If
 
                         obj.Draw(sb)
@@ -140,7 +140,7 @@ Public Class Level
             Next
         Next
 
-        sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+        sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
 
         player.Draw(sb)
 
@@ -160,11 +160,11 @@ Public Class Level
 
                         If obj.ParallaxMultiplier <> 1.0F Then
                             ' If object is parallax then begin spritebatch with special matrix
-                            sb.Begin(Nothing, Nothing, SamplerState.PointClamp,
+                            sb.Begin(Nothing, Nothing, SamplerState.LinearClamp,
                                      Nothing, Nothing, Nothing,
                                      Matrix.CreateTranslation(LevelCameraMatrix.Translation.X / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Y / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Z / obj.ParallaxMultiplier))
                         Else
-                            sb.Begin(Nothing, Nothing, SamplerState.PointClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+                            sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
                         End If
 
                         obj.Draw(sb)
@@ -189,7 +189,7 @@ Public Class Level
         End If
     End Sub
 
-    Public Sub DrawSky(sb As SpriteBatch)
+    Private Sub DrawSky(sb As SpriteBatch)
         If ShadowOverlay Is Nothing Then
             ShadowOverlay = New RenderTarget2D(graphics.GraphicsDevice, GetLevelSize().X, GetLevelSize().Y)
             ShadowOverlayRenderer.RenderShadowOverlay(sb, ShadowOverlay, LightPolygons)
@@ -228,7 +228,7 @@ Public Class Level
         sb.End()
     End Sub
 
-    Public Sub DrawShadowOverlay(sb As SpriteBatch)
+    Private Sub DrawShadowOverlay(sb As SpriteBatch)
         ' Draw overlay to darken world when it's nighttime
         sb.Begin(,,,,,, LevelCameraMatrix)
         Dim alpha As Single = 1 - CSng(-(TimeOfDay * 2 - 1) ^ 6 + 1)
@@ -246,7 +246,6 @@ Public Class Level
     End Sub
 
     Dim updatingWorldObjects As List(Of WorldObject)
-
     Public Sub Update(gameTime As GameTime, player As Player)
 
         LevelSpecificCode.LevelSpecificCode.ExecuteUpdate(gameTime)
@@ -275,14 +274,19 @@ Public Class Level
         NPCs.RemoveAll(Function(x) x.Alive = False)
     End Sub
 
-    Public Sub Explode(_centerPos As Vector2, _radius As Integer)
-        For x As Integer = CInt(_centerPos.X / 30 - _radius) To CInt(_centerPos.X / 30 + _radius)
-            For y As Integer = CInt(_centerPos.Y / 30 - _radius) To CInt(_centerPos.Y / 30 + _radius)
+    ''' <summary>
+    ''' Created explosion at position
+    ''' </summary>
+    ''' <param name="centerPos">Center position of the explosion</param>
+    ''' <param name="radius">Radius of the explosion</param>
+    Public Sub Explode(centerPos As Vector2, radius As Integer)
+        For x As Integer = CInt(centerPos.X / 30 - radius) To CInt(centerPos.X / 30 + radius)
+            For y As Integer = CInt(centerPos.Y / 30 - radius) To CInt(centerPos.Y / 30 + radius)
                 ' Get distance of center of block to center of explosion
                 If PlacedObjects.GetLowerBound(0) <= x AndAlso PlacedObjects.GetUpperBound(0) >= x AndAlso
                     PlacedObjects.GetLowerBound(1) <= y AndAlso PlacedObjects.GetUpperBound(1) >= y AndAlso PlacedObjects(x, y, 50) IsNot Nothing Then
-                    Dim _dist As Single = Vector2.Distance(PlacedObjects(x, y, 50).GetTrueRect().Location.ToVector2, _centerPos)
-                    If _dist < _radius Then
+                    Dim _dist As Single = Vector2.Distance(PlacedObjects(x, y, 50).GetTrueRect().Location.ToVector2, centerPos)
+                    If _dist < radius Then
                         PlacedObjects(x, y, 50) = Nothing
                     End If
                 End If
@@ -293,6 +297,7 @@ Public Class Level
     Public Function GetLevelSize() As Point
         'Return New Point(PlacedObjects(PlacedObjects.GetUpperBound(0), PlacedObjects.GetUpperBound(1), 50).GetTrueRect().Right, PlacedObjects(PlacedObjects.GetUpperBound(0), PlacedObjects.GetUpperBound(1), 50).GetTrueRect().Bottom)
         Return New Point(1, 1)
+        ' TODO: WHAT THE F*CK IS THIS?!
     End Function
 
     Public Function GetScreenRect() As Rectangle

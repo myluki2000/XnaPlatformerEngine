@@ -64,18 +64,6 @@ Namespace LevelSpecificCode
                         Nothing, Color.White, Nothing, New Vector2(CSng(Textures.TrainLights.Width / 2), CSng(Textures.TrainLights.Height / 2)), 3, Nothing, Nothing)
 
                 sb.End()
-
-                If Mouse.GetState.ScrollWheelValue Then
-                    Dim deltascroll = lastscroll - Mouse.GetState.ScrollWheelValue
-
-                    If deltascroll > 0 Then
-                        LevelCameraMatrix.Scale += New Vector3(0.1, 0.1, 0)
-                    ElseIf deltascroll < 0 Then
-                        LevelCameraMatrix.Scale += New Vector3(-0.1, -0.1, 0)
-                    End If
-
-                End If
-                lastscroll = Mouse.GetState.ScrollWheelValue
             End Sub
 
             Dim Counter As Integer = -5000
