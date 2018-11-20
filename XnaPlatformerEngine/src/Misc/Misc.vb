@@ -10,10 +10,24 @@ Public Class Misc
         dummyTexture.SetData(New Color() {Color.White})
     End Sub
 
+    ''' <summary>
+    ''' Draw a single-color rectangle
+    ''' </summary>
+    ''' <param name="sb">SpriteBatch to draw with</param>
+    ''' <param name="destRect">Rectangle to draw</param>
+    ''' <param name="color">Color of the rectangle</param>
     Public Shared Sub DrawRectangle(sb As SpriteBatch, destRect As Rectangle, color As Color)
         sb.Draw(dummyTexture, destRect, color)
     End Sub
 
+    ''' <summary>
+    ''' Draw a single-color rectangle with an outline
+    ''' </summary>
+    ''' <param name="sb">SpriteBatch to draw with</param>
+    ''' <param name="destRect">Rectangle to draw</param>
+    ''' <param name="color">Color of the rectangle</param>
+    ''' <param name="colorOutline">Color of the outline of the rectangle</param>
+    ''' <param name="thicknessOutline">Thickness of the outline</param>
     Public Shared Sub DrawRectangle(sb As SpriteBatch, destRect As Rectangle, color As Color, colorOutline As Color, thicknessOutline As Integer)
         DrawRectangle(sb, destRect, color) ' Main Rect
         DrawRectangle(sb, New Rectangle(destRect.X, destRect.Y, destRect.Width, thicknessOutline), colorOutline) ' Outline Top
@@ -22,10 +36,13 @@ Public Class Misc
         DrawRectangle(sb, New Rectangle(destRect.X + destRect.Width - thicknessOutline, destRect.Y, thicknessOutline, destRect.Height), colorOutline) ' Outline Right
     End Sub
 
-    Public Shared Sub DrawRectangle(sb As SpriteBatch, destRect As Rectangle, sourceRect As Rectangle, origin As Vector2, Rotation As Single, Color As Color)
-        sb.Draw(dummyTexture, destRect, sourceRect, Color, Rotation, origin, Nothing, 0)
-    End Sub
-
+    ''' <summary>
+    ''' Draw a rectangular outline
+    ''' </summary>
+    ''' <param name="sb">SpriteBatch to draw with</param>
+    ''' <param name="destRect">Rectangle to draw the outline around</param>
+    ''' <param name="colorOutline">Color of the outline</param>
+    ''' <param name="thicknessOutline">Thickness of the outline</param>
     Public Shared Sub DrawOutline(sb As SpriteBatch, destRect As Rectangle, colorOutline As Color, thicknessOutline As Integer)
         DrawRectangle(sb, New Rectangle(destRect.X, destRect.Y, destRect.Width, thicknessOutline), colorOutline) ' Outline Top
         DrawRectangle(sb, New Rectangle(destRect.X, destRect.Y + destRect.Height - thicknessOutline, destRect.Width, thicknessOutline), colorOutline) ' Outline Bottom
@@ -33,42 +50,51 @@ Public Class Misc
         DrawRectangle(sb, New Rectangle(destRect.X + destRect.Width - thicknessOutline, destRect.Y, thicknessOutline, destRect.Height), colorOutline) ' Outline Right
     End Sub
 
-    Public Shared Sub DrawLine(sb As SpriteBatch, _start As Vector2, _end As Vector2, Color As Color)
-        Dim edge As Vector2 = _end - _start
+    ''' <summary>
+    ''' Draw a line between two points
+    ''' </summary>
+    ''' <param name="sb">SpriteBatch to draw with</param>
+    ''' <param name="startPoint">First end point of the line</param>
+    ''' <param name="end">Second end point of line</param>
+    ''' <param name="color">Color of the line</param>
+    Public Shared Sub DrawLine(sb As SpriteBatch, startPoint As Vector2, endPoint As Vector2, color As Color)
+        Dim edge As Vector2 = endPoint - startPoint
         ' calculate angle to rotate line
         Dim angle As Single = CSng(Math.Atan2(edge.Y, edge.X))
 
 
         ' rectangle defines shape of line and position of start of line
-        'sb will strech the texture to fill this rectangle
-        'width of line, change this to make thicker line
-        'colour of line
-        'angle of line (calulated above)
+        ' sb will strech the texture to fill this rectangle
+        ' width of line, change this to make thicker line
+        ' colour of line
+        ' angle of line (calulated above)
         ' point in line about which to rotate
-        sb.Draw(dummyTexture, New Rectangle(CInt(_start.X), CInt(_start.Y), CInt(edge.Length()), 1), Nothing, Color, angle, New Vector2(0, 0),
+        sb.Draw(dummyTexture, New Rectangle(CInt(startPoint.X), CInt(startPoint.Y), CInt(edge.Length()), 1), Nothing, color, angle, New Vector2(0, 0),
         SpriteEffects.None, 0)
 
     End Sub
 
-    Public Shared Function ConvertToRbg(ByVal HexColor As String) As Color
+    ''' <summary>
+    ''' Convert hex code to Color object
+    ''' </summary>
+    ''' <param name="hexColor">hex color code as String</param>
+    ''' <returns></returns>
+    Public Shared Function ConvertToRbg(ByVal hexColor As String) As Color
         Dim Red As Integer
         Dim Green As Integer
         Dim Blue As Integer
-        HexColor = Replace(HexColor, "#", "")
-        Red = CInt("&H" & Mid(HexColor, 1, 2))
-        Green = CInt("&H" & Mid(HexColor, 3, 2))
-        Blue = CInt("&H" & Mid(HexColor, 5, 2))
+        hexColor = Replace(hexColor, "#", "")
+        Red = CInt("&H" & Mid(hexColor, 1, 2))
+        Green = CInt("&H" & Mid(hexColor, 3, 2))
+        Blue = CInt("&H" & Mid(hexColor, 5, 2))
         Return New Color(Red, Green, Blue, 255)
     End Function
 
-    Public Shared Function ToPositiveOnly(n As Integer) As Integer
-        If n > 0 Then
-            Return n
-        Else
-            Return 0
-        End If
-    End Function
-
+    ''' <summary>
+    ''' Converts a Texture2D object to a 2-dimentional array of color values
+    ''' </summary>
+    ''' <param name="texture">Texture to convert</param>
+    ''' <returns>2D color array (x, y)</returns>
     Public Shared Function TextureTo2DArray(texture As Texture2D) As Color(,)
         Dim colors1D As Color() = New Color(texture.Width * texture.Height - 1) {}
         texture.GetData(colors1D)
@@ -84,13 +110,18 @@ Public Class Misc
         Return colors2D
     End Function
 
+    ''' <summary>
+    ''' Convert a list of world objects to a 3-dimentional array of world objects
+    ''' </summary>
+    ''' <param name="_wObjs">List of world objects to convert</param>
+    ''' <returns>3D WorldObject array (x, y, z)</returns>
     Public Shared Function WObjListTo3DArray(_wObjs As List(Of WorldObject)) As WorldObject(,,)
         Dim arrWObjs(,,) As WorldObject
 
         Dim minX As Integer = 0
         Dim minY As Integer = 0
 
-        ' Fin min x and y values
+        ' Find min x and y values
         For Each _wObj In _wObjs
             If _wObj.rect.X < minX Then
                 minX = _wObj.rect.X
