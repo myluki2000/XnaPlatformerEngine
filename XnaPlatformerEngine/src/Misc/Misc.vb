@@ -134,16 +134,32 @@ Public Class Misc
         Return arrWObjs
     End Function
 
-    Public Shared Function ScreenPosToWorldPos(_screenPos As Point) As Vector2
-        Return New Vector2((_screenPos.X - LevelCameraMatrix.Translation.X) / LevelCameraMatrix.Scale.X,
-                           (_screenPos.Y - LevelCameraMatrix.Translation.Y) / LevelCameraMatrix.Scale.Y)
+    ''' <summary>
+    ''' Converts screen coordinates to level coordinates
+    ''' </summary>
+    ''' <param name="screenPos">Position on the screen</param>
+    ''' <returns></returns>
+    Public Shared Function ScreenPosToWorldPos(screenPos As Point) As Vector2
+        Return New Vector2((screenPos.X - LevelCameraMatrix.Translation.X) / LevelCameraMatrix.Scale.X,
+                           (screenPos.Y - LevelCameraMatrix.Translation.Y) / LevelCameraMatrix.Scale.Y)
     End Function
 
+    ''' <summary>
+    ''' Returns a random index of an array
+    ''' </summary>
+    ''' <param name="_arr">Array to get index for</param>
+    ''' <returns>index</returns>
     Public Shared Function GetRandomArrayIndex(_arr() As Object) As Integer
         Dim rand As New Random
         Return rand.Next(0, _arr.GetLength(0))
     End Function
 
+    ''' <summary>
+    ''' Subtract two colors from each other
+    ''' </summary>
+    ''' <param name="color1">Base color</param>
+    ''' <param name="color2">color to subtract</param>
+    ''' <returns></returns>
     Public Shared Function SubtractColors(color1 As Color, color2 As Color) As Color
         Dim returnColor As New Color
 
@@ -174,7 +190,14 @@ Public Class Misc
         Return returnColor
     End Function
 
+    ''' <summary>
+    ''' UNTESTED - MAY NOT WORK CORRECTLY
+    ''' </summary>
+    ''' <param name="rt"></param>
+    ''' <param name="point"></param>
     Public Shared Sub FloodFill(rt As RenderTarget2D, point As Point)
+        Throw New NotImplementedException("Function was never tested or may not be complete. Test before using")
+
         Dim colors(rt.Width * rt.Height) As Color
         rt.GetData(colors)
 
