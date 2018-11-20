@@ -6,16 +6,37 @@ Partial Public Class Character
 
     Friend Velocity As New Vector2(0, 0)
     Friend Acceleration As New Vector2(0, 0)
+    ''' <summary>
+    ''' True when character is on the ground
+    ''' </summary>
     Public IsGrounded As Boolean = True
+    ''' <summary>
+    ''' True when the character is alive
+    ''' </summary>
     Public Alive As Boolean = True
+    ''' <summary>
+    ''' Direction the character is looking at
+    ''' </summary>
     Public ViewDirection As ViewDirections = ViewDirections.Right
+    ''' <summary>
+    ''' Character is drawn to screen when true
+    ''' </summary>
     Public Visible As Boolean = True
+    ''' <summary>
+    ''' Abides to gravity when true, ignores it when false
+    ''' </summary>
     Public HasGravity As Boolean = True
-
+    ''' <summary>
+    ''' Type of the character
+    ''' </summary>
     Public CharacterType As CharacterTypes
-
+    ''' <summary>
+    ''' Current health points of the character
+    ''' </summary>
     Public HealthPoints As Integer = 100
-
+    ''' <summary>
+    ''' The weapon this character is using
+    ''' </summary>
     Public Weapon As Weapon
 
     Public Enum CharacterTypes
