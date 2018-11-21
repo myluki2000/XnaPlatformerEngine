@@ -12,7 +12,7 @@ Namespace LevelSpecificCode
             Shared TrainX As Integer = 3
             Shared TrainVelocityX As Single = 4.0F
 
-            Public Class Textures
+            Private Class Textures
                 Public Shared Logo As Texture2D
                 Public Shared TrainLights As Texture2D
             End Class
@@ -67,7 +67,6 @@ Namespace LevelSpecificCode
             End Sub
 
             Dim Counter As Integer = -5000
-
             Public Overrides Sub Update(gameTime As GameTime)
                 If Player Is Nothing Then
                     Player = ScreenHandler.SelectedScreen.ToWorld.Player
