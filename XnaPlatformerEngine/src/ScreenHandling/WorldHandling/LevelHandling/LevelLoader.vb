@@ -4,13 +4,22 @@ Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Content
 Imports Microsoft.Xna.Framework.Graphics
 
+''' <summary>
+''' Manages loading of levels
+''' </summary>
 Public Class LevelLoader
     Shared TextureObjs As List(Of TextureObject)
 
-    Public Shared Function LoadLevel(_path As String, Content As ContentManager) As Level
+    ''' <summary>
+    ''' Loads a level from the specified level file
+    ''' </summary>
+    ''' <param name="path">The path to the level file</param>
+    ''' <param name="Content">The game's ContentManager</param>
+    ''' <returns></returns>
+    Public Shared Function LoadLevel(path As String, Content As ContentManager) As Level
         Dim _placedObjects As New List(Of WorldObject)
 
-        Dim lvlXEle = XElement.Load(_path)
+        Dim lvlXEle = XElement.Load(path)
 
         For Each xele In lvlXEle.Element("WorldObjects").Elements
             Dim _placedObj As New WorldObject
@@ -44,7 +53,7 @@ Public Class LevelLoader
 
 
         ' Load technical objects
-        For Each xele In XElement.Load(_path).Element("TechnicalObjects").Elements
+        For Each xele In XElement.Load(path).Element("TechnicalObjects").Elements
             Select Case xele.Attribute("Name").Value
                 Case "PlayerSpawn"
                     Dim tObj As New PlayerSpawn

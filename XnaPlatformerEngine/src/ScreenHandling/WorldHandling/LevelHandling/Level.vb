@@ -4,6 +4,9 @@ Imports Microsoft.Xna.Framework.Content
 Imports Microsoft.Xna.Framework.Graphics
 Imports Microsoft.Xna.Framework.Input
 
+''' <summary>
+''' Represents a level in the game and all it's contents
+''' </summary>
 Public Class Level
     ''' <summary>
     ''' The name of the level
