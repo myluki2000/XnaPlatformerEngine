@@ -6,14 +6,23 @@ Imports Microsoft.Xna.Framework.Graphics
 Public Class World
     Inherits Screen
 
+    ''' <summary>
+    ''' A list of all levels that are part of this world
+    ''' </summary>
     Public Levels As New List(Of Level)
     Private _selectedLevel As Level
+    ''' <summary>
+    ''' The player in this world
+    ''' </summary>
     Public Player As New Player With {.Scale = 2, .Position = New Vector2(200, 0)}
 
     Sub New()
         Matrix.CreateTranslation(0, 0, 0, LevelCameraMatrix)
     End Sub
 
+    ''' <summary>
+    ''' Gets or sets the level of the world which is currently being run
+    ''' </summary>
     Public Property SelectedLevel As Level
         Get
             Return _selectedLevel
@@ -22,6 +31,7 @@ Public Class World
 
             _selectedLevel = value
 
+            ' Sets the player's position to that of the player spawner
             For x As Integer = 0 To SelectedLevel.PlacedObjects.GetLength(0) - 1
                 For y As Integer = 0 To SelectedLevel.PlacedObjects.GetLength(1) - 1
                     If SelectedLevel.PlacedObjects(x, y, 50) IsNot Nothing AndAlso SelectedLevel.PlacedObjects(x, y, 50).GetType = GetType(PlayerSpawn) Then
@@ -32,14 +42,25 @@ Public Class World
         End Set
     End Property
 
-    Public Sub LoadLevel(_path As String, _name As String, Content As ContentManager)
+    ''' <summary>
+    ''' Loads a level from a level file and adds it to the Levels list
+    ''' </summary>
+    ''' <param name="path">Path to the level file</param>
+    ''' <param name="name">Unique name of the level</param>
+    ''' <param name="Content">Content manager of the game</param>
+    Public Sub LoadLevel(path As String, name As String, Content As ContentManager)
         'Levels.Add(New Level(LevelLoader.LoadLevel(_path, Content)) With {.Name = _name, .LightPolygons = LevelLoader.LightPolygons})
-        Dim lvl = LevelLoader.LoadLevel(_path, Content)
-        lvl.Name = _name
+        Dim lvl = LevelLoader.LoadLevel(path, Content)
+        lvl.Name = name
 
         Levels.Add(lvl)
     End Sub
 
+    ''' <summary>
+    ''' Loads the content for all levels in this world.
+    ''' MUST BE RUN ONLY AFTER ALL LEVELS HAVE BEEN LOADED, OTHERWISE RESOURCES MAY NOT BE LOADED
+    ''' </summary>
+    ''' <param name="Content"></param>
     Public Sub LoadContent(Content As ContentManager)
         For Each _level In Levels
             _level.LoadContent(Content)
@@ -73,7 +94,7 @@ Public Class World
 
             If Player.HealthPoints < 1 Then
                 MsgBox("Omae Wa Mou Shindeiru")
-
+                ' TODO: Change this to a proper death scene
             End If
         End If
     End Sub
