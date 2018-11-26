@@ -14,9 +14,34 @@ Public Class Level
     Public Name As String = ""
 
     ''' <summary>
-    ''' A two-dimensional array (x, y) of all WorldObjects placed in the level
+    ''' An array of all WorldObjects placed in the level
     ''' </summary>
-    Public PlacedObjects(,,) As WorldObject
+    Public Property PlacedObjects As WorldObject()
+        Get
+            Return _PlacedObjects
+        End Get
+        Set(value As WorldObject())
+            _PlacedObjects = value
+            Array.Sort(_PlacedObjects, Function(x, y) x.zIndex.CompareTo(y.zIndex))
+
+            LevelMaxX = 0
+            LevelMaxY = 0
+
+            For Each wObj In _PlacedObjects
+                If wObj.rect.X > LevelMaxX Then
+                    LevelMaxX = wObj.rect.X
+                End If
+
+                If wObj.rect.Y > LevelMaxY Then
+                    LevelMaxY = wObj.rect.Y
+                End If
+            Next
+        End Set
+    End Property
+    Private _PlacedObjects() As WorldObject
+
+    Private LevelMaxX As Integer
+    Private LevelMaxY As Integer
 
     ''' <summary>
     ''' A list with WorldObjects with IsProp = True for faster access for level specific code
@@ -46,11 +71,8 @@ Public Class Level
 
     Private ShadowOverlay As RenderTarget2D
 
-    Private MinZIndex As Integer = 50
-    Private MaxZIndex As Integer = 50
-
     Sub New(_placedObjs As List(Of WorldObject))
-        PlacedObjects = Misc.WObjListTo3DArray(_placedObjs)
+        PlacedObjects = _placedObjs.ToArray
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)
@@ -79,17 +101,6 @@ Public Class Level
         ' Add all PlacedObjects with IsProp = True to the Props list
         For Each obj In PlacedObjects
             If obj IsNot Nothing Then
-                ' Find the highest zindex of all objects
-                If obj.zIndex > 50 AndAlso obj.zIndex > MaxZIndex Then
-                    MaxZIndex = obj.zIndex
-                End If
-
-                ' Find the lowest zindex of all objects
-                If obj.zIndex <= 50 AndAlso obj.zIndex < MinZIndex Then
-                    MinZIndex = obj.zIndex
-                End If
-
-
                 ' Add all PlacedObjects with IsProp = True to the Props list
                 If obj.IsProp Then
                     Props.Add(obj)
@@ -110,37 +121,35 @@ Public Class Level
 
         DrawSky(sb)
 
+        ' =====IMPORTANT=====
+        ' We assume that the PlacedObjects array is sorted by the zIndex field of the objects
+        ' (draw order might be wrong if array is not sorted after this)
+        ' ===================
+
+        Dim firstForegroundIndex As Integer = Array.FindIndex(PlacedObjects, Function(x) x.zIndex = 51)
 
         ' Draw tiles behind the characters
-        For z As Integer = 40 To 50
-            For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
-                For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
+        For i As Integer = 0 To If(firstForegroundIndex <> -1, firstForegroundIndex - 2, PlacedObjects.Length - 1)
+            Dim obj = PlacedObjects(i)
+            If obj.ParallaxMultiplier <> 1.0F Then
+                ' If object is parallax then begin spritebatch with special matrix
 
-                    Dim obj = PlacedObjects(x, y, z)
-                    If obj IsNot Nothing Then
-
-                        If obj.ParallaxMultiplier <> 1.0F Then
-                            ' If object is parallax then begin spritebatch with special matrix
-
-                            Dim parallaxMatrix As New Matrix
-                            parallaxMatrix = LevelCameraMatrix
-                            parallaxMatrix += Matrix.CreateTranslation(LevelCameraMatrix.Translation.X / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Y / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Z / obj.ParallaxMultiplier)
+                Dim parallaxMatrix As New Matrix
+                parallaxMatrix = LevelCameraMatrix
+                parallaxMatrix += Matrix.CreateTranslation(LevelCameraMatrix.Translation.X / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Y / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Z / obj.ParallaxMultiplier)
 
 
 
-                            sb.Begin(Nothing, Nothing, SamplerState.LinearClamp,
-                                     Nothing, Nothing, Nothing, parallaxMatrix)
+                sb.Begin(Nothing, Nothing, SamplerState.LinearClamp,
+                         Nothing, Nothing, Nothing, parallaxMatrix)
 
-                        Else
-                            sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
-                        End If
+            Else
+                sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+            End If
 
-                        obj.Draw(sb)
+            obj.Draw(sb)
 
-                        sb.End()
-                    End If
-                Next
-            Next
+            sb.End()
         Next
 
         sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
@@ -155,28 +164,25 @@ Public Class Level
 
 
         ' Draw tiles in front of characters
-        For x As Integer = 0 To PlacedObjects.GetUpperBound(0)
-            For y As Integer = 0 To PlacedObjects.GetUpperBound(1)
-                For z As Integer = 51 To 60
-                    Dim obj = PlacedObjects(x, y, z)
-                    If obj IsNot Nothing Then
+        If firstForegroundIndex <> -1 Then
 
-                        If obj.ParallaxMultiplier <> 1.0F Then
-                            ' If object is parallax then begin spritebatch with special matrix
-                            sb.Begin(Nothing, Nothing, SamplerState.LinearClamp,
-                                     Nothing, Nothing, Nothing,
-                                     Matrix.CreateTranslation(LevelCameraMatrix.Translation.X / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Y / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Z / obj.ParallaxMultiplier))
-                        Else
-                            sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
-                        End If
+            For i As Integer = firstForegroundIndex - 1 To PlacedObjects.Length - 1
+                MsgBox(i)
+                Dim obj = PlacedObjects(i)
+                If obj.ParallaxMultiplier <> 1.0F Then
+                    ' If object is parallax then begin spritebatch with special matrix
+                    sb.Begin(Nothing, Nothing, SamplerState.LinearClamp,
+                         Nothing, Nothing, Nothing,
+                         Matrix.CreateTranslation(LevelCameraMatrix.Translation.X / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Y / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Z / obj.ParallaxMultiplier))
+                Else
+                    sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+                End If
 
-                        obj.Draw(sb)
+                obj.Draw(sb)
 
-                        sb.End()
-                    End If
-                Next
+                sb.End()
             Next
-        Next
+        End If
 
         LevelSpecificCode.LevelSpecificCode.ExecuteDraw(sb)
 
@@ -283,24 +289,24 @@ Public Class Level
     ''' <param name="centerPos">Center position of the explosion</param>
     ''' <param name="radius">Radius of the explosion</param>
     Public Sub Explode(centerPos As Vector2, radius As Integer)
-        For x As Integer = CInt(centerPos.X / 30 - radius) To CInt(centerPos.X / 30 + radius)
-            For y As Integer = CInt(centerPos.Y / 30 - radius) To CInt(centerPos.Y / 30 + radius)
-                ' Get distance of center of block to center of explosion
-                If PlacedObjects.GetLowerBound(0) <= x AndAlso PlacedObjects.GetUpperBound(0) >= x AndAlso
-                    PlacedObjects.GetLowerBound(1) <= y AndAlso PlacedObjects.GetUpperBound(1) >= y AndAlso PlacedObjects(x, y, 50) IsNot Nothing Then
-                    Dim _dist As Single = Vector2.Distance(PlacedObjects(x, y, 50).GetTrueRect().Location.ToVector2, centerPos)
-                    If _dist < radius Then
-                        PlacedObjects(x, y, 50) = Nothing
-                    End If
-                End If
-            Next
-        Next
+        Throw New NotImplementedException("Has to be changed to use one dimensional array of worldobjects")
+
+        'For x As Integer = CInt(centerPos.X / 30 - radius) To CInt(centerPos.X / 30 + radius)
+        '    For y As Integer = CInt(centerPos.Y / 30 - radius) To CInt(centerPos.Y / 30 + radius)
+        '        ' Get distance of center of block to center of explosion
+        '        If PlacedObjects.GetLowerBound(0) <= x AndAlso PlacedObjects.GetUpperBound(0) >= x AndAlso
+        '            PlacedObjects.GetLowerBound(1) <= y AndAlso PlacedObjects.GetUpperBound(1) >= y AndAlso PlacedObjects(x, y, 50) IsNot Nothing Then
+        '            Dim _dist As Single = Vector2.Distance(PlacedObjects(x, y, 50).GetTrueRect().Location.ToVector2, centerPos)
+        '            If _dist < radius Then
+        '                PlacedObjects(x, y, 50) = Nothing
+        '            End If
+        '        End If
+        '    Next
+        'Next
     End Sub
 
     Public Function GetLevelSize() As Point
-        'Return New Point(PlacedObjects(PlacedObjects.GetUpperBound(0), PlacedObjects.GetUpperBound(1), 50).GetTrueRect().Right, PlacedObjects(PlacedObjects.GetUpperBound(0), PlacedObjects.GetUpperBound(1), 50).GetTrueRect().Bottom)
-        Return New Point(1, 1)
-        ' TODO: WHAT THE F*CK IS THIS?!
+        Return New Point(LevelMaxX, LevelMaxY)
     End Function
 
     Public Function GetScreenRect() As Rectangle

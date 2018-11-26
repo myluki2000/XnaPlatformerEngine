@@ -110,60 +110,60 @@ Public Class Misc
         Return colors2D
     End Function
 
-    ''' <summary>
-    ''' Convert a list of world objects to a 3-dimentional array of world objects
-    ''' </summary>
-    ''' <param name="_wObjs">List of world objects to convert</param>
-    ''' <returns>3D WorldObject array (x, y, z)</returns>
-    Public Shared Function WObjListTo3DArray(_wObjs As List(Of WorldObject)) As WorldObject(,,)
-        Dim arrWObjs(,,) As WorldObject
+    '''' <summary>
+    '''' Convert a list of world objects to a 3-dimentional array of world objects
+    '''' </summary>
+    '''' <param name="_wObjs">List of world objects to convert</param>
+    '''' <returns>3D WorldObject array (x, y, z)</returns>
+    'Public Shared Function WObjListTo3DArray(_wObjs As List(Of WorldObject)) As WorldObject(,,)
+    '    Dim arrWObjs(,,) As WorldObject
 
-        Dim minX As Integer = 0
-        Dim minY As Integer = 0
+    '    Dim minX As Integer = 0
+    '    Dim minY As Integer = 0
 
-        ' Find min x and y values
-        For Each _wObj In _wObjs
-            If _wObj.rect.X < minX Then
-                minX = _wObj.rect.X
-            End If
+    '    ' Find min x and y values
+    '    For Each _wObj In _wObjs
+    '        If _wObj.rect.X < minX Then
+    '            minX = _wObj.rect.X
+    '        End If
 
-            If _wObj.rect.Y < minY Then
-                minY = _wObj.rect.Y
-            End If
-        Next
+    '        If _wObj.rect.Y < minY Then
+    '            minY = _wObj.rect.Y
+    '        End If
+    '    Next
 
-        ' Move x and y values of all placed objects so no position is < 0
-        For Each _wObj In _wObjs
-            _wObj.rect.X += -minX
-            _wObj.rect.Y += -minY
-        Next
-
-
-        Dim maxX As Integer = 0
-        Dim maxY As Integer = 0
-
-        ' Find max x and y values for placed objects
-        For Each _wObj In _wObjs
-            If _wObj.rect.X > maxX Then
-                maxX = _wObj.rect.X
-            End If
-
-            If _wObj.rect.Y > maxY Then
-                maxY = _wObj.rect.Y
-            End If
-        Next
+    '    ' Move x and y values of all placed objects so no position is < 0
+    '    For Each _wObj In _wObjs
+    '        _wObj.rect.X += -minX
+    '        _wObj.rect.Y += -minY
+    '    Next
 
 
-        ' Resize array
-        ReDim arrWObjs(maxX, maxY, 100)
+    '    Dim maxX As Integer = 0
+    '    Dim maxY As Integer = 0
 
-        ' Copy objects from list to array
-        For Each _wObj In _wObjs
-            arrWObjs(_wObj.rect.X, _wObj.rect.Y, _wObj.zIndex + 50) = _wObj
-        Next
+    '    ' Find max x and y values for placed objects
+    '    For Each _wObj In _wObjs
+    '        If _wObj.rect.X > maxX Then
+    '            maxX = _wObj.rect.X
+    '        End If
 
-        Return arrWObjs
-    End Function
+    '        If _wObj.rect.Y > maxY Then
+    '            maxY = _wObj.rect.Y
+    '        End If
+    '    Next
+
+
+    '    ' Resize array
+    '    ReDim arrWObjs(maxX, maxY, 100)
+
+    '    ' Copy objects from list to array
+    '    For Each _wObj In _wObjs
+    '        arrWObjs(_wObj.rect.X, _wObj.rect.Y, _wObj.zIndex + 50) = _wObj
+    '    Next
+
+    '    Return arrWObjs
+    'End Function
 
     ''' <summary>
     ''' Converts screen coordinates to level coordinates

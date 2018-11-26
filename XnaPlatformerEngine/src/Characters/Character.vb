@@ -91,11 +91,11 @@ Partial Public Class Character
         End If
     End Sub
 
-    Public Overrides Function getTrueRect() As Rectangle
+    Public Overrides Function GetTrueRect() As Rectangle
         Return New Rectangle(Position.ToPoint, getTextureSize.ToPoint)
     End Function
 
-    Public Overrides Function getScreenRect() As Rectangle
+    Public Overrides Function GetScreenRect() As Rectangle
         Return New Rectangle(Position.ToPoint - New Point(CInt(LevelCameraMatrix.Translation.X), CInt(LevelCameraMatrix.Translation.Y)), getTextureSize.ToPoint)
     End Function
 

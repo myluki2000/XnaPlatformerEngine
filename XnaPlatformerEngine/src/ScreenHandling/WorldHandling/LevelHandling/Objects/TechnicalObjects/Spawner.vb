@@ -23,7 +23,7 @@ Public Class Spawner
     End Sub
 
     Public Sub SpawnEnemy()
-        Dim _e As New Enemy(32) With {.Position = Me.getTrueRect.Location.ToVector2, .Animations = AnimationSets.Player}
+        Dim _e As New Enemy(32) With {.Position = Me.GetTrueRect.Location.ToVector2, .Animations = AnimationSets.Player}
         _e.SetSelectedAnimation("idle")
 
         ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.NPCs.Add(_e)

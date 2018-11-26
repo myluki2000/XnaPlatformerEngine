@@ -134,38 +134,38 @@ Public Class Projectile
     Private Function CheckCollision() As Side
         Dim selectedLevel = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel
 
-        ' Check if projectile is out of level bounds horizonally or vertically
-        If (CInt(Math.Floor(Position.X / 30)) > 0 AndAlso CInt(Math.Floor(Position.X / 30)) < selectedLevel.PlacedObjects.GetUpperBound(0)) AndAlso
-            (CInt(Math.Floor(Position.Y / 30)) > 0 AndAlso CInt(Math.Floor(Position.Y / 30)) < selectedLevel.PlacedObjects.GetUpperBound(1)) Then
+        ' Check If projectile Is out of level bounds horizonally Or vertically
+        If (CInt(Math.Floor(Position.X / 30)) > 0 AndAlso CInt(Math.Floor(Position.X / 30)) < selectedLevel.GetLevelSize().X) AndAlso
+            (CInt(Math.Floor(Position.Y / 30)) > 0 AndAlso CInt(Math.Floor(Position.Y / 30)) < selectedLevel.GetLevelSize().Y) Then
 
-            Dim wObj As WorldObject = selectedLevel.PlacedObjects(CInt(Math.Floor(Position.X / 30)), CInt(Math.Floor(Position.Y / 30)), 50)
-            If wObj IsNot Nothing AndAlso wObj.GetType Is GetType(WorldObject) Then ' check if block at position in level
-
-                ' Finds out from which side the projectile entered the block
-                If LastPosition.Y < wObj.rect.Y * 30 Then
-                    Return Side.Top
-                ElseIf LastPosition.Y > wObj.rect.Y * 30 + wObj.rect.Height Then
-                    Return Side.Bottom
-                ElseIf LastPosition.X < wObj.rect.X * 30 Then
-                    Return Side.Left
-                ElseIf LastPosition.X > wObj.rect.X * 30 + wObj.rect.Width Then
-                    Return Side.Right
-                Else
-                    Return Side.All
+            For Each wObj In selectedLevel.PlacedObjects
+                If GetTrueRect.Intersects(wObj.GetTrueRect) AndAlso wObj.zIndex = 0 Then
+                    ' Finds out from which side the projectile entered the block
+                    If LastPosition.Y < wObj.rect.Y * 30 Then
+                        Return Side.Top
+                    ElseIf LastPosition.Y > wObj.rect.Y * 30 + wObj.rect.Height Then
+                        Return Side.Bottom
+                    ElseIf LastPosition.X < wObj.rect.X * 30 Then
+                        Return Side.Left
+                    ElseIf LastPosition.X > wObj.rect.X * 30 + wObj.rect.Width Then
+                        Return Side.Right
+                    Else
+                        Return Side.All
+                    End If
                 End If
-
-            End If
+            Next
 
         Else
             Return Side.All
         End If
 
 
+
         Dim rect As New Rectangle(CInt(Position.X), CInt(Position.Y), Textures.Bullet.Width, Textures.Bullet.Height)
         Select Case Origin
             Case Character.CharacterTypes.Player
                 For Each character As Character In selectedLevel.NPCs
-                    If rect.Intersects(character.getTrueRect) Then
+                    If rect.Intersects(character.GetTrueRect) Then
                         character.HealthPoints -= Me.Damage
                         character.Velocity += New Vector2(Math.Sign(Me.Velocity.X) * 150, 0)
                         Return Side.All
@@ -175,7 +175,7 @@ Public Class Projectile
             Case Character.CharacterTypes.Enemy
                 Dim Player As Player = ScreenHandler.SelectedScreen.ToWorld.Player
 
-                If rect.Intersects(Player.getTrueRect) Then
+                If rect.Intersects(Player.GetTrueRect) Then
                     Player.HealthPoints -= Me.Damage
                     Return Side.All
                 End If

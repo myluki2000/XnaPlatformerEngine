@@ -91,17 +91,15 @@ Public Class Player
         Dim SelectedLevel = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel
 
         For Each NPC In SelectedLevel.NPCs
-            If NPC.getTrueRect.Intersects(Me.getTrueRect) Then
+            If NPC.GetTrueRect.Intersects(Me.GetTrueRect) Then
                 NPC.Interaction()
                 Return
             End If
         Next
 
-        For x As Integer = 0 To SelectedLevel.PlacedObjects.GetUpperBound(0)
-            Dim _wObj As WorldObject = SelectedLevel.PlacedObjects(x, CInt(Me.getTrueRect.Center.Y / 30), 50)
-
-            If _wObj IsNot Nothing AndAlso _wObj.GetTrueRect.Intersects(New Rectangle(Me.getTrueRect.Left - 10, Me.getTrueRect.Top, Me.getTrueRect.Width + 20, Me.getTrueRect.Height)) Then
-                _wObj.Interaction()
+        For Each wObj In SelectedLevel.PlacedObjects
+            If wObj IsNot Nothing AndAlso wObj.GetTrueRect.Intersects(New Rectangle(GetTrueRect.Left - 10, GetTrueRect.Top, GetTrueRect.Width + 20, GetTrueRect.Height)) Then
+                wObj.Interaction()
                 Return
             End If
         Next

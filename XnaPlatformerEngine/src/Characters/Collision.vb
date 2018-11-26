@@ -3,7 +3,7 @@ Imports Microsoft.Xna.Framework.Input
 
 Partial Public Class Character
     Private Sub CollidingCheck(displacement As Vector2, gameTime As GameTime)
-        Dim _rect As New Rectangle(CInt(getTrueRect.X + displacement.X) - 1, CInt(getTrueRect.Y + displacement.Y) - 1, getTrueRect.Width + 2, getTrueRect.Height + 2) ' 1 Pixel border
+        Dim _rect As New Rectangle(CInt(GetTrueRect.X + displacement.X) - 1, CInt(GetTrueRect.Y + displacement.Y) - 1, GetTrueRect.Width + 2, GetTrueRect.Height + 2) ' 1 Pixel border
 
         Acceleration.Y += CSng(700 * gameTime.ElapsedGameTime.TotalSeconds + 0.01)
 
@@ -39,66 +39,39 @@ Partial Public Class Character
     ''' <returns>True = Is Colliding, False = Is Not Colliding</returns>
     Private Function CheckCollidingVertical(displacement As Vector2) As Boolean
         Try
-            Dim SelectedLevel As Level = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel
             If displacement.Y < 0 Then
+                ' Ceiling collision detection
                 IsGrounded = False
-                Dim _rect = New Rectangle(getTrueRect.X, CInt(getTrueRect.Y + displacement.Y - 1), getTrueRect.Width, getTrueRect.Height)
-                For ind As Integer = 0 To SelectedLevel.PlacedObjects.GetLength(0) - 1
-                    Dim _wObj As WorldObject = SelectedLevel.PlacedObjects(ind, CInt(Math.Floor(_rect.Top / 30)), 50) ' Z = 50 because z-index = 0 is 50 in the array
-                    If _wObj IsNot Nothing AndAlso _wObj.GetType = GetType(WorldObject) Then
-                        If _rect.Intersects(_wObj.GetTrueRect) Then
-                            Position.Y = _wObj.GetTrueRect.Y + _wObj.GetTrueRect.Height
-                            Acceleration.Y = 0
-                            Velocity.Y = 0
-                            Return True
-                        End If
-                    End If
-                Next
-                Return False
+                Dim playerRect = New Rectangle(GetTrueRect.X, CInt(GetTrueRect.Y + displacement.Y - 1), GetTrueRect.Width, GetTrueRect.Height)
+
+                Dim wObjColliding = GetWorldObjectRectIsColliding(playerRect)
+                If wObjColliding IsNot Nothing Then
+                    Position.Y = wObjColliding.GetTrueRect.Y + wObjColliding.GetTrueRect.Height
+                    Acceleration.Y = 0
+                    Velocity.Y = 0
+                    Return True
+                Else
+                    Return False
+                End If
+
 
             ElseIf displacement.Y > 0 Then
-                Dim _rect = New Rectangle(getTrueRect.X, CInt(getTrueRect.Y + displacement.Y + 1), getTrueRect.Width, getTrueRect.Height)
-                For ind As Integer = 0 To SelectedLevel.PlacedObjects.GetLength(0) - 1
-                    Dim _wObj As WorldObject = SelectedLevel.PlacedObjects(ind, CInt(Math.Floor(_rect.Bottom / 30)), 50) ' Z = 50 because z-index = 0 is 50 in the array
-                    If _wObj IsNot Nothing AndAlso _wObj.GetType = GetType(WorldObject) Then
-                        If _rect.Intersects(_wObj.GetTrueRect) Then
-                            Position.Y = _wObj.GetTrueRect.Y - getTrueRect.Height
-                            Acceleration.Y = 0
-                            Velocity.Y = 0
-                            IsGrounded = True
-                            Return True
-                        End If
-                    End If
-                Next
+                ' Floor collision detection
+                Dim playerRect = New Rectangle(GetTrueRect.X, CInt(GetTrueRect.Y + displacement.Y + 1), GetTrueRect.Width, GetTrueRect.Height)
 
-                Dim sideRectRight As New Rectangle(getTrueRect.Right, CInt(getTrueRect.Y), 10, 5)
-                For ind As Integer = 0 To SelectedLevel.PlacedObjects.GetLength(1) - 1
-                    Dim _wObj As WorldObject = SelectedLevel.PlacedObjects(CInt(Math.Floor(sideRectRight.Right / 30)), ind, 50)
-                    If _wObj IsNot Nothing AndAlso _wObj.GetType = GetType(WorldObject) Then
-                        If sideRectRight.Intersects(_wObj.GetTrueRect) Then
-                            Acceleration.Y = 0
-                            Velocity.Y = 0
-                            IsGrounded = True
-                            Return True
-                        End If
-                    End If
-                Next
+                Dim wObjColliding = GetWorldObjectRectIsColliding(playerRect)
+                If wObjColliding IsNot Nothing Then
+                    Position.Y = wObjColliding.GetTrueRect.Y - GetTrueRect.Height
+                    Acceleration.Y = 0
+                    Velocity.Y = 0
+                    IsGrounded = True
+                    Return True
+                Else
+                    IsGrounded = False
+                    Return False
+                End If
 
-                Dim sideRectLeft As New Rectangle(getTrueRect.Left - 10, CInt(getTrueRect.Y), 10, 5)
-                For ind As Integer = 0 To SelectedLevel.PlacedObjects.GetLength(1) - 1
-                    Dim _wObj As WorldObject = SelectedLevel.PlacedObjects(CInt(Math.Floor(sideRectLeft.Left / 30)), ind, 50)
-                    If _wObj IsNot Nothing AndAlso _wObj.GetType = GetType(WorldObject) Then
-                        If sideRectLeft.Intersects(_wObj.GetTrueRect) Then
-                            Acceleration.Y = 0
-                            Velocity.Y = 0
-                            IsGrounded = True
-                            Return True
-                        End If
-                    End If
-                Next
 
-                IsGrounded = False
-                Return False
 
             Else
                 Return False
@@ -111,34 +84,31 @@ Partial Public Class Character
     Private Function CheckCollidingSides(displacement As Vector2) As Boolean
         Try
             If displacement.X < 0 Then ' collision check on left side
-                Dim _rect = New Rectangle(CInt(getTrueRect.X + displacement.X - 1), getTrueRect.Y, getTrueRect.Width, getTrueRect.Height)
-                For ind As Integer = 0 To ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.PlacedObjects.GetLength(1) - 1
-                    Dim _wObj As WorldObject = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Left / 30)), ind, 50) ' Z = 50 because z-index = 0 is 50 in the array
-                    If _wObj IsNot Nothing AndAlso _wObj.GetType = GetType(WorldObject) Then
-                        If _rect.Intersects(_wObj.GetTrueRect) AndAlso _wObj.zIndex = 0 Then
-                            Position.X = _wObj.GetTrueRect.X + _wObj.GetTrueRect.Width
-                            Acceleration.X = 0
-                            Velocity.X = 0
-                            Return True
-                        End If
-                    End If
-                Next
-                Return False
+                Dim playerRect = New Rectangle(CInt(GetTrueRect.X + displacement.X - 1), GetTrueRect.Y, GetTrueRect.Width, GetTrueRect.Height)
+
+                Dim wObjColliding = GetWorldObjectRectIsColliding(playerRect)
+                If wObjColliding IsNot Nothing Then
+                    Position.X = wObjColliding.GetTrueRect.X + wObjColliding.GetTrueRect.Width
+                    Acceleration.X = 0
+                    Velocity.X = 0
+                    Return True
+                Else
+                    Return False
+                End If
+
 
             ElseIf displacement.X > 0 Then ' collision check on right side
-                Dim _rect = New Rectangle(CInt(getTrueRect.X + displacement.X + 1), getTrueRect.Y, getTrueRect.Width, getTrueRect.Height)
-                For ind As Integer = 0 To ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.PlacedObjects.GetLength(1) - 1
-                    Dim _wObj As WorldObject = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.PlacedObjects(CInt(Math.Floor(_rect.Right / 30)), ind, 50) ' Z = 50 because z-index = 0 is 50 in the array
-                    If _wObj IsNot Nothing AndAlso _wObj.GetType = GetType(WorldObject) Then
-                        If _rect.Intersects(_wObj.GetTrueRect) AndAlso _wObj.zIndex = 0 Then
-                            Position.X = _wObj.GetTrueRect.X - getTrueRect.Width
-                            Acceleration.X = 0
-                            Velocity.X = 0
-                            Return True
-                        End If
-                    End If
-                Next
-                Return False
+                Dim playerRect = New Rectangle(CInt(GetTrueRect.X + displacement.X + 1), GetTrueRect.Y, GetTrueRect.Width, GetTrueRect.Height)
+
+                Dim wObjColliding = GetWorldObjectRectIsColliding(playerRect)
+                If wObjColliding IsNot Nothing Then
+                    Position.X = wObjColliding.GetTrueRect.X - GetTrueRect.Width
+                    Acceleration.X = 0
+                    Velocity.X = 0
+                    Return True
+                Else
+                    Return False
+                End If
 
             Else
                 Return False ' If sideway velocity is 0 it can't collide on sides
@@ -146,5 +116,14 @@ Partial Public Class Character
         Catch ex As IndexOutOfRangeException
             Return False
         End Try
+    End Function
+
+    Private Function GetWorldObjectRectIsColliding(rect As Rectangle) As WorldObject
+        For Each wObj In ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.PlacedObjects
+            If rect.Intersects(wObj.GetTrueRect) AndAlso wObj.zIndex = 0 Then
+                Return wObj
+            End If
+        Next
+        Return Nothing
     End Function
 End Class

@@ -32,12 +32,10 @@ Public Class World
             _selectedLevel = value
 
             ' Sets the player's position to that of the player spawner
-            For x As Integer = 0 To SelectedLevel.PlacedObjects.GetLength(0) - 1
-                For y As Integer = 0 To SelectedLevel.PlacedObjects.GetLength(1) - 1
-                    If SelectedLevel.PlacedObjects(x, y, 50) IsNot Nothing AndAlso SelectedLevel.PlacedObjects(x, y, 50).GetType = GetType(PlayerSpawn) Then
-                        Player.Position = SelectedLevel.PlacedObjects(x, y, 50).GetTrueRect.Location.ToVector2
-                    End If
-                Next
+            For Each wObj In value.PlacedObjects
+                If wObj.GetType = GetType(PlayerSpawn) Then
+                    Player.Position = wObj.GetTrueRect.Location.ToVector2
+                End If
             Next
         End Set
     End Property
