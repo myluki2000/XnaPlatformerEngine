@@ -278,7 +278,7 @@ Public Class Level
     End Sub
 
     ''' <summary>
-    ''' Created explosion at position
+    ''' Creates explosion at position
     ''' </summary>
     ''' <param name="centerPos">Center position of the explosion</param>
     ''' <param name="radius">Radius of the explosion</param>
