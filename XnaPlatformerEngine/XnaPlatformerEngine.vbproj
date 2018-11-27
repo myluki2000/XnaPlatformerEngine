@@ -181,9 +181,6 @@
     <Content Include="Content\Textures\Characters\Girl\Dialogue\idle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Fonts\FontSheet.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\LoadingScreen\cassette.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -229,6 +226,7 @@
     <Import Include="System.Runtime" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Fonts\" />
     <Folder Include="Content\Sounds\Characters\Player\" />
     <Folder Include="Content\Sounds\Music\" />
     <Folder Include="Content\Sounds\Weapons\AR\" />

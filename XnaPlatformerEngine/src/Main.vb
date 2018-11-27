@@ -62,6 +62,7 @@ Public Class Main
 
         ' Load important stuff before we switch to the background loading thread
         FontKoot = Content.Load(Of SpriteFont)("Koot")
+        FontChakra = Content.Load(Of SpriteFont)("Fonts/Chakra_Petch")
 
         LoadingScreen.LoadContent(Content)
         MainMenu.LoadContent(Content)
