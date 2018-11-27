@@ -7,10 +7,10 @@ Namespace LevelSpecificCode
     Public Class LevelSpecificCode
         Shared LevelCodeClass As LevelSpecificCodeTemplate
 
-        Public Shared Sub SetCurrentLevel(levelName As String, props As List(Of WorldObject))
-            Select Case levelName
+        Public Shared Sub SetCurrentLevel(level As Level, props As List(Of WorldObject))
+            Select Case level.Name
                 Case "IntroCity"
-                    LevelCodeClass = New Levels.IntroCity(props)
+                    LevelCodeClass = New Levels.IntroCity(level, props)
             End Select
         End Sub
 

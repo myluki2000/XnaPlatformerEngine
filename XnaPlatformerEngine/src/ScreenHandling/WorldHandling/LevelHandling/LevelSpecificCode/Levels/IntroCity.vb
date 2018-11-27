@@ -17,8 +17,13 @@ Namespace LevelSpecificCode
                 Public Shared TrainLights As Texture2D
             End Class
 
+
+            Sub New(level As Level, props As List(Of WorldObject))
+                MyBase.New(level, props)
+            End Sub
+
             Public Overrides Sub Initialize()
-                ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.Scale = New Vector3(1.4, 1.4, 1)
+                Level.Camera.Scale = New Vector3(1.4, 1.4, 1)
             End Sub
 
             Public Overrides Sub LoadContent(content As ContentManager)
@@ -32,13 +37,13 @@ Namespace LevelSpecificCode
 
             Dim lastscroll As Integer = 0
             Public Overrides Sub Draw(sb As SpriteBatch)
-                sb.Begin(,,,,,, ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.GetMatrix())
+                sb.Begin(, BlendState.NonPremultiplied,,,,, ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.GetMatrix())
 
                 Misc.DrawRectangle(sb, New Rectangle(0, -1000, 1600, 3000), Color.Black)
 
                 sb.End()
 
-                sb.Begin()
+                sb.Begin(, BlendState.NonPremultiplied,,,,,)
 
                 If Transparency < 1 Then
                     Transparency += 0.02F
@@ -111,10 +116,6 @@ Namespace LevelSpecificCode
                 selectedLevel.Camera.Translation = New Vector3(-CInt(Train.Position.X * selectedLevel.Camera.Scale.X),
                         -CInt(Train.Position.Y - (graphics.PreferredBackBufferHeight / 2 + 100) / selectedLevel.Camera.Scale.Y),
                         0)
-            End Sub
-
-            Sub New(props As List(Of WorldObject))
-                MyBase.New(props)
             End Sub
         End Class
     End Namespace

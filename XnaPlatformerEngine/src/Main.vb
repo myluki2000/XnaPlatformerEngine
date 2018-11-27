@@ -61,8 +61,7 @@ Public Class Main
         spriteBatch = New SpriteBatch(GraphicsDevice)
 
         ' Load important stuff before we switch to the background loading thread
-        FontKoot = Content.Load(Of SpriteFont)("Koot")
-        FontChakra = Content.Load(Of SpriteFont)("Fonts/Chakra_Petch")
+        Fonts.ChakraPetch = Content.Load(Of SpriteFont)("Fonts/ChakraPetch/ChakraPetch")
 
         LoadingScreen.LoadContent(Content)
         MainMenu.LoadContent(Content)

@@ -26,8 +26,10 @@ Public MustInherit Class LevelSpecificCodeTemplate
 
     Friend Player As Player
     Friend Props As List(Of WorldObject)
+    Friend ReadOnly Level As Level
 
-    Sub New(props As List(Of WorldObject))
+    Sub New(level As Level, props As List(Of WorldObject))
         Me.Props = props
+        Me.Level = level
     End Sub
 End Class

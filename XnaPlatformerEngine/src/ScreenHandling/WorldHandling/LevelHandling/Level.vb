@@ -68,8 +68,8 @@ Public Class Level
     Public BackgroundImage As Texture2D
 
     Private Clouds(20) As Sprite
-    Private SkyColors(100) As Color
-    Private BackgroundGradient As New Texture2D(graphics.GraphicsDevice, 1, graphics.PreferredBackBufferHeight)
+    Private SkyColors(99) As Color
+    Private BackgroundGradient As Texture2D
 
     Private ShadowOverlay As RenderTarget2D
 
@@ -78,7 +78,7 @@ Public Class Level
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)
-        LevelSpecificCode.LevelSpecificCode.SetCurrentLevel(Name, Props)
+        LevelSpecificCode.LevelSpecificCode.SetCurrentLevel(Me, Props)
 
         LevelSpecificCode.LevelSpecificCode.ExecuteInitialization()
 
@@ -86,7 +86,7 @@ Public Class Level
 
         f.Dialogue = New Dialogue
 
-        f.Dialogue.Segments = {New DialogueSegment With {.FaceSprite = Content.Load(Of Texture2D)("Textures\Characters\Girl\Dialogue\idle"), .Text = "Hello"}, New DialogueSegment With {.Text = "This is an awesome" & vbNewLine & "and wholesome text", .FaceSprite = Content.Load(Of Texture2D)("Textures\Characters\Girl\Dialogue\idle")}}
+        f.Dialogue.Segments = {New DialogueSegment With {.FaceSprite = TextureLoader.Load("Textures\Characters\Girl\Dialogue\idle"), .Text = "Hello"}, New DialogueSegment With {.Text = "This is an awesome" & vbNewLine & "and wholesome text", .FaceSprite = TextureLoader.Load("Textures\Characters\Girl\Dialogue\idle")}}
         f.SetSelectedAnimation("idle")
         NPCs.Add(f)
 
@@ -117,7 +117,7 @@ Public Class Level
         Dim selectedLevel = ScreenHandler.SelectedScreen.ToWorld().SelectedLevel
 
         If BackgroundImage IsNot Nothing Then
-            sb.Begin()
+            sb.Begin(, BlendState.NonPremultiplied,,,,,)
             sb.Draw(BackgroundImage, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White)
             sb.End()
         End If
@@ -147,11 +147,11 @@ Public Class Level
 
 
 
-                sb.Begin(Nothing, Nothing, SamplerState.LinearClamp,
+                sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp,
                          Nothing, Nothing, Nothing, parallaxMatrix)
 
             Else
-                sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, selectedLevel.Camera.GetMatrix())
+                sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp, Nothing, Nothing, Nothing, selectedLevel.Camera.GetMatrix())
             End If
 
             obj.Draw(sb)
@@ -159,7 +159,7 @@ Public Class Level
             sb.End()
         Next
 
-        sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, selectedLevel.Camera.GetMatrix())
+        sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp, Nothing, Nothing, Nothing, selectedLevel.Camera.GetMatrix())
 
         player.Draw(sb)
 
@@ -178,11 +178,11 @@ Public Class Level
                 Dim obj = PlacedObjects(i)
                 If obj.ParallaxMultiplier <> 1.0F Then
                     ' If object is parallax then begin spritebatch with special matrix
-                    sb.Begin(Nothing, Nothing, SamplerState.LinearClamp,
+                    sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp,
                          Nothing, Nothing, Nothing,
                          Matrix.CreateTranslation(selectedLevel.Camera.Translation.X / obj.ParallaxMultiplier, selectedLevel.Camera.Translation.Y / obj.ParallaxMultiplier, selectedLevel.Camera.Translation.Z / obj.ParallaxMultiplier))
                 Else
-                    sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, selectedLevel.Camera.GetMatrix())
+                    sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp, Nothing, Nothing, Nothing, selectedLevel.Camera.GetMatrix())
                 End If
 
                 obj.Draw(sb)
@@ -212,13 +212,15 @@ Public Class Level
         End If
 
 
-        sb.Begin(,, SamplerState.PointClamp,,,,)
+        sb.Begin(, BlendState.NonPremultiplied, SamplerState.PointClamp,,,,)
         ' Draw sky and sun
-        Dim pixels(graphics.PreferredBackBufferHeight) As Color
+        Dim pixels(graphics.PreferredBackBufferHeight - 1) As Color
 
         For i As Integer = 0 To pixels.Length - 1
             pixels(i) = Color.Lerp(Misc.SubtractColors(SkyColors(CInt(TimeOfDay * 50)), New Color(100, 100, 100)), SkyColors(CInt(TimeOfDay * 50)), CSng(i / graphics.PreferredBackBufferHeight))
         Next
+
+        BackgroundGradient = New Texture2D(graphics.GraphicsDevice, 1, graphics.PreferredBackBufferHeight)
 
         BackgroundGradient.SetData(pixels)
 
@@ -246,7 +248,7 @@ Public Class Level
 
     Private Sub DrawShadowOverlay(sb As SpriteBatch)
         ' Draw overlay to darken world when it's nighttime
-        sb.Begin(,,,,,, ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.GetMatrix())
+        sb.Begin(, BlendState.NonPremultiplied,,,,, ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.GetMatrix())
         Dim alpha As Single = 1 - CSng(-(TimeOfDay * 2 - 1) ^ 6 + 1)
         If alpha > 0.5 Then
             alpha = 0.5

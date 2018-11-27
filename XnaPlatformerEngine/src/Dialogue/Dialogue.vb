@@ -71,7 +71,7 @@ Public Class Dialogue
 
             ' Change srcRect to next frame of SpeechBox open animation
             If srcRect.Y < 4000 AndAlso counter > 30 Then
-                srcRect.Y += 800
+                srcRect.Y += 334
             End If
         End If
 

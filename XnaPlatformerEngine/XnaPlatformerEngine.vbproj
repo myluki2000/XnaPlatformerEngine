@@ -97,14 +97,15 @@
     <Compile Include="src\Dialogue\DialogueSegment.vb" />
     <Compile Include="src\Graphics\Camera.vb" />
     <Compile Include="src\Graphics\ShadowOverlayRenderer.vb" />
-    <Compile Include="src\ResourceHandling\TextureLoader.vb" />
+    <Compile Include="src\ResourceHandling\FontHandling\Fonts.vb" />
+    <Compile Include="src\ResourceHandling\TextureHandling\TextureLoader.vb" />
     <Compile Include="src\ScreenHandling\UI\InfoBox.vb" />
     <Compile Include="src\Misc\GlobalVariables.vb" />
     <Compile Include="src\Main.vb" />
     <Compile Include="src\Misc\Misc.vb" />
     <Compile Include="src\Misc\Polygon.vb" />
-    <Compile Include="src\ResourceHandling\TextureObject.vb" />
-    <Compile Include="src\ResourceHandling\Textures.vb" />
+    <Compile Include="src\ResourceHandling\TextureHandling\TextureObject.vb" />
+    <Compile Include="src\ResourceHandling\TextureHandling\Textures.vb" />
     <Compile Include="src\Graphics\ParticleSystem\Particle.vb" />
     <Compile Include="src\Graphics\ParticleSystem\ParticleSystem.vb" />
     <Compile Include="src\Program.vb" />
@@ -175,6 +176,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Fonts\ChakraPetch\OFL.txt" />
     <Content Include="Content\Textures\bullet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -209,7 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Content\Koot.xnb">
+    <None Include="Content\Fonts\ChakraPetch\ChakraPetch.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Sounds\Weapons\Pistol\Pistol_Reload.xnb">
@@ -226,7 +228,6 @@
     <Import Include="System.Runtime" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Fonts\" />
     <Folder Include="Content\Sounds\Characters\Player\" />
     <Folder Include="Content\Sounds\Music\" />
     <Folder Include="Content\Sounds\Weapons\AR\" />
