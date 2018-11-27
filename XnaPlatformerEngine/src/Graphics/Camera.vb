@@ -5,7 +5,7 @@ Public Class Camera
     Public Scale As New Vector3(1, 1, 1)
 
     Public Function GetMatrix() As Matrix
-        Return Matrix.CreateTranslation(Translation) * Matrix.CreateScale(Scale)
+        Return Matrix.CreateScale(Scale) * Matrix.CreateTranslation(Translation)
     End Function
 
 
