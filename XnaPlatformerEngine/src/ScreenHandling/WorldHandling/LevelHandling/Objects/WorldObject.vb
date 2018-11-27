@@ -57,10 +57,12 @@ Public Class WorldObject
     End Function
 
     Public Overrides Function GetScreenRect() As Rectangle
+        Dim selectedLevel = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel
+
         If IsProp Then
-            Return New Rectangle(CInt(Position.X + LevelCameraMatrix.Translation.X), CInt(Position.Y + LevelCameraMatrix.Translation.Y), rect.Width, rect.Height)
+            Return New Rectangle(CInt(Position.X + selectedLevel.Camera.Translation.X), CInt(Position.Y + selectedLevel.Camera.Translation.Y), rect.Width, rect.Height)
         Else
-            Return New Rectangle(CInt(rect.X * 30 + LevelCameraMatrix.Translation.X), CInt(rect.Y * 30 + LevelCameraMatrix.Translation.Y), rect.Width, rect.Height)
+            Return New Rectangle(CInt(rect.X * 30 + selectedLevel.Camera.Translation.X), CInt(rect.Y * 30 + selectedLevel.Camera.Translation.Y), rect.Width, rect.Height)
         End If
     End Function
 

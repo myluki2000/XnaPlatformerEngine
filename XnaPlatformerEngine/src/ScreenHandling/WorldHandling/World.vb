@@ -16,10 +16,6 @@ Public Class World
     ''' </summary>
     Public Player As New Player With {.Scale = 2, .Position = New Vector2(200, 0)}
 
-    Sub New()
-        Matrix.CreateTranslation(0, 0, 0, LevelCameraMatrix)
-    End Sub
-
     ''' <summary>
     ''' Gets or sets the level of the world which is currently being run
     ''' </summary>
@@ -98,7 +94,7 @@ Public Class World
     End Sub
 
     Private Sub CameraFocusOnObject(_obj As Sprite)
-        LevelCameraMatrix.Translation = New Vector3(-CInt(_obj.GetTrueRect.X - graphics.PreferredBackBufferWidth / 2), -CInt(_obj.GetTrueRect.Y - graphics.PreferredBackBufferHeight / 2) + 200, 0)
+        ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.Translation = New Vector3(-CInt(_obj.GetTrueRect.X - graphics.PreferredBackBufferWidth / 2), -CInt(_obj.GetTrueRect.Y - graphics.PreferredBackBufferHeight / 2) + 200, 0)
     End Sub
 
     Public Sub DrawUI(_sb As SpriteBatch)

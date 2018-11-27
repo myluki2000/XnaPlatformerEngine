@@ -25,8 +25,8 @@ Public Class InfoBox
         If Opacity > 0.0F OrElse Active Then
 
             sb.Draw(Texture, New Rectangle(0, 0, 400, 600), Color.White)
-            FontHand.DrawString(sb, New Vector2(60, 60), Text, Color.White, 0.2)
-
+            'FontHand.DrawString(sb, New Vector2(60, 60), Text, Color.White, 0.2)
+            ' TODO: Use new font 
             If Active Then
                 If Opacity < 1.0F Then
                     Opacity += CSng(2.0F * gameTime.ElapsedGameTime.TotalSeconds)

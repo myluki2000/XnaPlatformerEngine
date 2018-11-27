@@ -15,7 +15,7 @@ Public Class Animation
     End Sub
 
     Public Sub LoadContent(_content As ContentManager)
-        Texture = _content.Load(Of Texture2D)(TexturePath)
+        Texture = TextureLoader.Load(TexturePath)
         TexturePath = Nothing
     End Sub
 End Class

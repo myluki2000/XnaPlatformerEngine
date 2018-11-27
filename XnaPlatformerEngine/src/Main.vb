@@ -62,16 +62,15 @@ Public Class Main
 
         ' Load important stuff before we switch to the background loading thread
         FontKoot = Content.Load(Of SpriteFont)("Koot")
-        FontHand.LoadContent(Content, "Fonts/FontSheet", 70)
 
         LoadingScreen.LoadContent(Content)
         MainMenu.LoadContent(Content)
     End Sub
 
     Private Sub LoadWorldContentBackground()
-        InfoBox.Texture = Content.Load(Of Texture2D)("UI/Textures/info_box")
+        InfoBox.Texture = TextureLoader.Load("UI/Textures/info_box")
 
-        Dialogue.SpeechBox = Content.Load(Of Texture2D)("UI/Textures/speech_box")
+        Dialogue.SpeechBox = TextureLoader.Load("UI/Textures/speech_box")
 
         Textures.LoadTextures(Content)
 

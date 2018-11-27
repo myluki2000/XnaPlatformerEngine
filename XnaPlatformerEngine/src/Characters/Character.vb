@@ -96,7 +96,8 @@ Partial Public Class Character
     End Function
 
     Public Overrides Function GetScreenRect() As Rectangle
-        Return New Rectangle(Position.ToPoint - New Point(CInt(LevelCameraMatrix.Translation.X), CInt(LevelCameraMatrix.Translation.Y)), getTextureSize.ToPoint)
+        Dim selectedLevel = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel
+        Return New Rectangle(Position.ToPoint - New Point(CInt(selectedLevel.Camera.Translation.X), CInt(selectedLevel.Camera.Translation.Y)), getTextureSize.ToPoint)
     End Function
 
     Public Overridable Sub Interaction()

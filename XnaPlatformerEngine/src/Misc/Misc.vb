@@ -171,8 +171,10 @@ Public Class Misc
     ''' <param name="screenPos">Position on the screen</param>
     ''' <returns></returns>
     Public Shared Function ScreenPosToWorldPos(screenPos As Point) As Vector2
-        Return New Vector2((screenPos.X - LevelCameraMatrix.Translation.X) / LevelCameraMatrix.Scale.X,
-                           (screenPos.Y - LevelCameraMatrix.Translation.Y) / LevelCameraMatrix.Scale.Y)
+        Dim selectedLevel = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel
+
+        Return New Vector2((screenPos.X - selectedLevel.Camera.Translation.X) / selectedLevel.Camera.Scale.X,
+                           (screenPos.Y - selectedLevel.Camera.Translation.Y) / selectedLevel.Camera.Scale.Y)
     End Function
 
     ''' <summary>

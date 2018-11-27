@@ -13,6 +13,8 @@ Public Class Level
     ''' </summary>
     Public Name As String = ""
 
+    Public Camera As New Camera
+
     ''' <summary>
     ''' An array of all WorldObjects placed in the level
     ''' </summary>
@@ -112,6 +114,8 @@ Public Class Level
     End Sub
 
     Public Sub Draw(ByRef sb As SpriteBatch, ByRef player As Player)
+        Dim selectedLevel = ScreenHandler.SelectedScreen.ToWorld().SelectedLevel
+
         If BackgroundImage IsNot Nothing Then
             sb.Begin()
             sb.Draw(BackgroundImage, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White)
@@ -135,8 +139,11 @@ Public Class Level
                 ' If object is parallax then begin spritebatch with special matrix
 
                 Dim parallaxMatrix As New Matrix
-                parallaxMatrix = LevelCameraMatrix
-                parallaxMatrix += Matrix.CreateTranslation(LevelCameraMatrix.Translation.X / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Y / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Z / obj.ParallaxMultiplier)
+
+                parallaxMatrix = selectedLevel.Camera.GetMatrix()
+                parallaxMatrix += Matrix.CreateTranslation(selectedLevel.Camera.Translation.X / obj.ParallaxMultiplier,
+                                                           selectedLevel.Camera.Translation.Y / obj.ParallaxMultiplier,
+                                                           selectedLevel.Camera.Translation.Z / obj.ParallaxMultiplier)
 
 
 
@@ -144,7 +151,7 @@ Public Class Level
                          Nothing, Nothing, Nothing, parallaxMatrix)
 
             Else
-                sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+                sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, selectedLevel.Camera.GetMatrix())
             End If
 
             obj.Draw(sb)
@@ -152,7 +159,7 @@ Public Class Level
             sb.End()
         Next
 
-        sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+        sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, selectedLevel.Camera.GetMatrix())
 
         player.Draw(sb)
 
@@ -173,9 +180,9 @@ Public Class Level
                     ' If object is parallax then begin spritebatch with special matrix
                     sb.Begin(Nothing, Nothing, SamplerState.LinearClamp,
                          Nothing, Nothing, Nothing,
-                         Matrix.CreateTranslation(LevelCameraMatrix.Translation.X / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Y / obj.ParallaxMultiplier, LevelCameraMatrix.Translation.Z / obj.ParallaxMultiplier))
+                         Matrix.CreateTranslation(selectedLevel.Camera.Translation.X / obj.ParallaxMultiplier, selectedLevel.Camera.Translation.Y / obj.ParallaxMultiplier, selectedLevel.Camera.Translation.Z / obj.ParallaxMultiplier))
                 Else
-                    sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, LevelCameraMatrix)
+                    sb.Begin(Nothing, Nothing, SamplerState.LinearClamp, Nothing, Nothing, Nothing, selectedLevel.Camera.GetMatrix())
                 End If
 
                 obj.Draw(sb)
@@ -239,7 +246,7 @@ Public Class Level
 
     Private Sub DrawShadowOverlay(sb As SpriteBatch)
         ' Draw overlay to darken world when it's nighttime
-        sb.Begin(,,,,,, LevelCameraMatrix)
+        sb.Begin(,,,,,, ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.GetMatrix())
         Dim alpha As Single = 1 - CSng(-(TimeOfDay * 2 - 1) ^ 6 + 1)
         If alpha > 0.5 Then
             alpha = 0.5
@@ -310,6 +317,9 @@ Public Class Level
     End Function
 
     Public Function GetScreenRect() As Rectangle
-        Return New Rectangle(CInt(LevelCameraMatrix.Translation.X), CInt(LevelCameraMatrix.Translation.Y), GetLevelSize().X, GetLevelSize().Y)
+        Dim selectedLevel = ScreenHandler.SelectedScreen.ToWorld().SelectedLevel
+        Return New Rectangle(CInt(selectedLevel.Camera.Translation.X),
+                             CInt(selectedLevel.Camera.Translation.Y),
+                             GetLevelSize().X, GetLevelSize().Y)
     End Function
 End Class

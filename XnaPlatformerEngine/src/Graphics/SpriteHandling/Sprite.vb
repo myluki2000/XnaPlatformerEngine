@@ -42,10 +42,12 @@ Public Class Sprite
     End Sub
 
     Public Overridable Function GetScreenRect() As Rectangle
+        Dim selectedLevel = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel
+
         If Texture IsNot Nothing Then
-            Return New Rectangle(CInt(Position.X - LevelCameraMatrix.Translation.X), CInt(Position.Y - LevelCameraMatrix.Translation.Y), CInt(Texture.Width * Scale), CInt(Texture.Height * Scale))
+            Return New Rectangle(CInt(Position.X - selectedLevel.Camera.Translation.X), CInt(Position.Y - selectedLevel.Camera.Translation.Y), CInt(Texture.Width * Scale), CInt(Texture.Height * Scale))
         Else
-            Return New Rectangle(CInt(Position.X - LevelCameraMatrix.Translation.X), CInt(Position.Y - LevelCameraMatrix.Translation.Y), 0, 0)
+            Return New Rectangle(CInt(Position.X - selectedLevel.Camera.Translation.X), CInt(Position.Y - selectedLevel.Camera.Translation.Y), 0, 0)
         End If
     End Function
 

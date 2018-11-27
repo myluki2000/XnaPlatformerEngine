@@ -95,7 +95,8 @@ Public Class Dialogue
             sb.Draw(SpeechBox, New Rectangle(300, graphics.PreferredBackBufferHeight - 250, graphics.PreferredBackBufferWidth - 500, 230), srcRect, Color.White)
 
             If srcRect.Y = 4000 Then
-                FontHand.DrawString(sb, New Vector2(450, graphics.PreferredBackBufferHeight - 220), Segments(SegmentIndex).Text.Substring(0, CInt(Math.Floor(DisplayingTextLength))), Color.White, 0.3)
+                'FontHand.DrawString(sb, New Vector2(450, graphics.PreferredBackBufferHeight - 220), Segments(SegmentIndex).Text.Substring(0, CInt(Math.Floor(DisplayingTextLength))), Color.White, 0.3)
+                ' TODO: Change this to use the new font
             End If
         End If
     End Sub

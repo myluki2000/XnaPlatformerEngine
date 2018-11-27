@@ -16,8 +16,8 @@ Public Class MainMenu
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)
-        btnLoadWorld.Texture = Content.Load(Of Texture2D)("UI/Textures/Buttons/btnLoadGame")
-        btnLoadWorld.TextureHover = Content.Load(Of Texture2D)("UI/Textures/Buttons/btnLoadGame_hover")
+        btnLoadWorld.Texture = TextureLoader.Load("UI/Textures/Buttons/btnLoadGame")
+        btnLoadWorld.TextureHover = TextureLoader.Load("UI/Textures/Buttons/btnLoadGame_hover")
     End Sub
 
     Public Overrides Sub Update(gameTime As GameTime)

@@ -18,12 +18,12 @@ Namespace LevelSpecificCode
             End Class
 
             Public Overrides Sub Initialize()
-                LevelCameraMatrix.Scale = New Vector3(1.4, 1.4, 1)
+                ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.Scale = New Vector3(1.4, 1.4, 1)
             End Sub
 
             Public Overrides Sub LoadContent(content As ContentManager)
-                Textures.Logo = content.Load(Of Texture2D)("World/Textures/Other/logo")
-                Textures.TrainLights = content.Load(Of Texture2D)("World/Textures/Blocks/City/train_lights")
+                Textures.Logo = TextureLoader.Load("World/Textures/Other/logo")
+                Textures.TrainLights = TextureLoader.Load("World/Textures/Blocks/City/train_lights")
             End Sub
 
             Dim Transparency As Single = -0.5
@@ -32,7 +32,7 @@ Namespace LevelSpecificCode
 
             Dim lastscroll As Integer = 0
             Public Overrides Sub Draw(sb As SpriteBatch)
-                sb.Begin(,,,,,, LevelCameraMatrix)
+                sb.Begin(,,,,,, ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.GetMatrix())
 
                 Misc.DrawRectangle(sb, New Rectangle(0, -1000, 1600, 3000), Color.Black)
 
@@ -68,6 +68,8 @@ Namespace LevelSpecificCode
 
             Dim Counter As Integer = -5000
             Public Overrides Sub Update(gameTime As GameTime)
+                Dim selectedLevel = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel
+
                 If Player Is Nothing Then
                     Player = ScreenHandler.SelectedScreen.ToWorld.Player
                 End If
@@ -104,9 +106,11 @@ Namespace LevelSpecificCode
                     End If
                 End If
 
-                LevelCameraMatrix.Translation = New Vector3(-CInt(Train.Position.X * LevelCameraMatrix.Scale.X),
-                                                            -CInt(Train.Position.Y - (graphics.PreferredBackBufferHeight / 2 + 100) / LevelCameraMatrix.Scale.Y),
-                                                            0)
+
+
+                selectedLevel.Camera.Translation = New Vector3(-CInt(Train.Position.X * selectedLevel.Camera.Scale.X),
+                        -CInt(Train.Position.Y - (graphics.PreferredBackBufferHeight / 2 + 100) / selectedLevel.Camera.Scale.Y),
+                        0)
             End Sub
 
             Sub New(props As List(Of WorldObject))

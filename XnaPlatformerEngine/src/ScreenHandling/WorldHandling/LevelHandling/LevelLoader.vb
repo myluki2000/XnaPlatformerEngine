@@ -94,7 +94,7 @@ Public Class LevelLoader
 
         Dim lvl As New Level(_placedObjects)
         If lvlXEle.Element("Properties").Element("BackgroundImagePath").Value <> "" Then
-            lvl.BackgroundImage = Content.Load(Of Texture2D)(lvlXEle.Element("Properties").Element("BackgroundImagePath").Value)
+            lvl.BackgroundImage = TextureLoader.Load(lvlXEle.Element("Properties").Element("BackgroundImagePath").Value)
         End If
         lvl.LightPolygons = LoadLightPolygons(lvlXEle.Element("LightPolygons"))
 
@@ -109,7 +109,7 @@ Public Class LevelLoader
 
         For Each _tObj In lvlXEle.Element("Textures").Elements
             resultObjs.Add(New TextureObject(_tObj.Element("Name").Value,
-                                             Content.Load(Of Texture2D)(_tObj.Element("TexturePath").Value),
+                                             TextureLoader.Load(_tObj.Element("TexturePath").Value),
                                              Convert.ToBoolean(_tObj.Element("RandomTextureRotation").Value),
                                              Convert.ToBoolean(_tObj.Element("IsFoliage").Value)))
         Next
