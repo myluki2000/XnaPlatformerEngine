@@ -3,16 +3,44 @@ Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Graphics
 
 Public Class ParticleSystem
+    ''' <summary>
+    ''' List of all currently existing particles emitted from the spawner
+    ''' </summary>
     Private Particles As New List(Of Particle)
+    ''' <summary>
+    ''' All textures which canbe applied to the particles
+    ''' </summary>
     Public PossibleTextures() As Texture2D
+    ''' <summary>
+    ''' Position of the particle spawner
+    ''' </summary>
     Public Position As Vector2
+    ''' <summary>
+    ''' The lowest velocity a particle can have
+    ''' </summary>
     Public ParticleVelocityLowest As Point
+    ''' <summary>
+    ''' The highest velocity a particle can have
+    ''' </summary>
     Public ParticleVelocityHighest As Point
+    ''' <summary>
+    ''' How long each particle lives for
+    ''' </summary>
     Public ParticleLifetime As Integer = 5000
-    Private Rand As New Random
+    ''' <summary>
+    ''' How many particles the spawner creates per second
+    ''' </summary>
     Public SpawnsPerSecond As Single = 0
+    ''' <summary>
+    ''' How long a particle fades for (from fully opaque to invisible)
+    ''' </summary>
     Public ParticleFadeTime As Integer = 500
+    ''' <summary>
+    ''' Fired when all particles of the system have despawned
+    ''' </summary>
     Public Event ParticlesDespawned()
+
+    Private Rand As New Random
 
     Sub New(_pos As Vector2)
         Position = _pos

@@ -174,7 +174,8 @@ Public Class Misc
         Dim camera = ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera
         Dim viewport = graphics.GraphicsDevice.Viewport
 
-        Return New Vector2(CSng((screenPos.X - viewport.Width / 2) / camera.Scale.X - camera.Translation.X), CSng((screenPos.Y - viewport.Height / 2) / camera.Scale.Y - 150 - camera.Translation.Y))
+        Return New Vector2(CSng((screenPos.X - viewport.Width / 2) / camera.Scale.X - camera.Translation.X),
+                           CSng((screenPos.Y - viewport.Height / 2) / camera.Scale.Y - 150 - camera.Translation.Y))
     End Function
 
     ''' <summary>
