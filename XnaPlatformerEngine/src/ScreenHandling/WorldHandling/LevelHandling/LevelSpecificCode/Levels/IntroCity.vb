@@ -9,8 +9,8 @@ Namespace LevelSpecificCode
         Public Class IntroCity
             Inherits LevelSpecificCodeTemplate
 
-            Shared TrainX As Integer = 3
-            Shared TrainVelocityX As Single = 4.0F
+            Private TrainX As Integer = 3
+            Private TrainVelocityX As Single = 4.0F
 
             Private Class Textures
                 Public Shared Logo As Texture2D
@@ -39,7 +39,7 @@ Namespace LevelSpecificCode
             Public Overrides Sub Draw(sb As SpriteBatch)
                 sb.Begin(, BlendState.NonPremultiplied,,,,, ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.GetMatrix())
 
-                Misc.DrawRectangle(sb, New Rectangle(0, -1000, 1600, 3000), Color.Black)
+                'Misc.DrawRectangle(sb, New Rectangle(0, -1000, 1600, 3000), Color.Black)
 
                 sb.End()
 
@@ -95,15 +95,14 @@ Namespace LevelSpecificCode
 
                 If Counter > 10 Then
                     Counter = 0
-
                     If Train.Position.X < 1200 Then
                         Train.Position.X += TrainVelocityX
-                        Player.Position = Train.Position
+                        Player.Position = Train.Position + New Vector2(400, 0)
                     Else
                         If TrainVelocityX > 0 Then
                             Train.Position.X += TrainVelocityX
                             TrainVelocityX -= 0.02F
-                            Player.Position = Train.Position
+                            Player.Position = Train.Position + New Vector2(180, 200)
                         Else
                             Player.HasGravity = True
                             Player.Visible = True
@@ -112,10 +111,8 @@ Namespace LevelSpecificCode
                 End If
 
 
-
-                selectedLevel.Camera.Translation = New Vector3(-CInt(Train.Position.X * selectedLevel.Camera.Scale.X),
-                        -CInt(Train.Position.Y - (graphics.PreferredBackBufferHeight / 2 + 100) / selectedLevel.Camera.Scale.Y),
-                        0)
+                Level.Camera.FocusOnPosition(Train.Position + New Vector2(700, 0))
+                'Level.Camera.FocusOnPosition(New Vector2(400, 0))
             End Sub
         End Class
     End Namespace

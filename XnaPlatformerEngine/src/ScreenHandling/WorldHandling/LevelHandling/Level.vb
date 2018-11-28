@@ -198,7 +198,7 @@ Public Class Level
 
 
 
-        ' DEBUG FEATURE
+        ' DEBUG FEATURES
         If Keyboard.GetState.IsKeyDown(Keys.O) Then
             TimeOfDay += 0.01F
             TimeOfDay = TimeOfDay Mod 2

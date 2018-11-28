@@ -5,8 +5,18 @@ Public Class Camera
     Public Scale As New Vector3(1, 1, 1)
 
     Public Function GetMatrix() As Matrix
-        Return Matrix.CreateScale(Scale) * Matrix.CreateTranslation(Translation)
+        Return Matrix.CreateTranslation(Translation) *
+                Matrix.CreateTranslation(New Vector3(0, 150, 0)) *
+                Matrix.CreateScale(Scale) *
+                Matrix.CreateTranslation(New Vector3(CSng(graphics.GraphicsDevice.Viewport.Width / 2), CSng(graphics.GraphicsDevice.Viewport.Height / 2), 0))
     End Function
 
+    Public Sub FocusOnObject(obj As Sprite)
+        'ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.Translation = New Vector3(-CInt(_obj.GetTrueRect.X - graphics.PreferredBackBufferWidth / 2), -CInt(_obj.GetTrueRect.Y - graphics.PreferredBackBufferHeight / 2) + 200, 0)
+        Translation = New Vector3(-obj.Position, 0)
+    End Sub
 
+    Public Sub FocusOnPosition(pos As Vector2)
+        Translation = New Vector3(-pos, 0)
+    End Sub
 End Class
