@@ -32,7 +32,7 @@ Public Class LoadingScreen
                                 origin:=New Vector2(88 / 2, 88 / 2))
 
         sb.Draw(texture:=CassetteReel,
-                            position:=New Vector2(CSng(graphics.PreferredBackBufferWidth / 2 + 150), CSng(graphics.PreferredBackBufferHeight / 2 + 15)),
+                            position:=New Vector2(CSng(graphics.PreferredBackBufferWidth / 2 + 141), CSng(graphics.PreferredBackBufferHeight / 2 + 15)),
                             rotation:=ReelRoation + 1,
                             origin:=New Vector2(88 / 2, 88 / 2))
 
@@ -40,8 +40,8 @@ Public Class LoadingScreen
                             position:=New Vector2(CSng(graphics.PreferredBackBufferWidth / 2 - Cassette.Width / 2), CSng(graphics.PreferredBackBufferHeight / 2 - Cassette.Height / 2)))
 
 
-        ' Using white rect overlay instead of making textures transparent because otherwise the reel parts that are normally behind the cassette are visible when blending in
-        Misc.DrawRectangle(sb, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White * transparency)
+        ' Using black rect overlay instead of making textures transparent because otherwise the reel parts that are normally behind the cassette are visible when blending in
+        Misc.DrawRectangle(sb, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.Black * transparency)
 
 
         sb.End()

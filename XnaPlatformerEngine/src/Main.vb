@@ -83,6 +83,8 @@ Public Class Main
         TestWorld1.LoadContent(Content)
         TestWorld1.SelectedLevel = TestWorld1.Levels(0)
 
+        Threading.Thread.Sleep(5000)
+
         ScreenHandler.SelectedScreen = TestWorld1
     End Sub
 
@@ -155,7 +157,7 @@ Public Class Main
         InfoBox.DrawRT(spriteBatch, gameTime)
 
         If LoadingThread.IsAlive Then ' If thread is loading
-            GraphicsDevice.Clear(Color.White)
+            GraphicsDevice.Clear(Color.Black)
 
             LoadingScreen.Draw(spriteBatch)
 
