@@ -1,6 +1,4 @@
-﻿Imports Microsoft.Xna.Framework
-
-Public Class Pistol
+﻿Public Class Pistol
     Inherits Weapon
 
     Sub New(_cType As Character.CharacterTypes)
@@ -11,10 +9,10 @@ Public Class Pistol
     End Sub
 
     Private Sub Pistol_ShotFired() Handles MyBase.ShotFired
-        Sounds.Weapons.Pistol.Shoot.CreateInstance.Play()
+        SoundSystem.Play(Sounds.Weapons.Pistol.Shoot)
     End Sub
 
     Private Sub Pistol_ReloadStarted() Handles MyBase.ReloadStarted
-        Sounds.Weapons.Pistol.Reload.CreateInstance.Play()
+        SoundSystem.Play(Sounds.Weapons.Pistol.Reload)
     End Sub
 End Class

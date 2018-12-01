@@ -44,8 +44,8 @@ Public Class Main
 
         Window.Position = New Point(0, 0)
 
-        graphics.PreferredBackBufferHeight = 1080
         graphics.PreferredBackBufferWidth = 1920
+        graphics.PreferredBackBufferHeight = 1080
         graphics.IsFullScreen = False
         graphics.ApplyChanges()
 
@@ -129,6 +129,20 @@ Public Class Main
                 ScreenHandler.Update(gameTime)
             End If
         End If
+
+        ' DEBUG FEATURE
+        If Keyboard.GetState.IsKeyDown(Keys.OemComma) Then
+            graphics.PreferredBackBufferWidth = 1280
+            graphics.PreferredBackBufferHeight = 720
+            graphics.ApplyChanges()
+        End If
+
+        If Keyboard.GetState.IsKeyDown(Keys.OemPeriod) Then
+            graphics.PreferredBackBufferWidth = 1920
+            graphics.PreferredBackBufferHeight = 1080
+            graphics.ApplyChanges()
+        End If
+
 
         MyBase.Update(gameTime)
     End Sub

@@ -54,7 +54,7 @@ Partial Public Class Character
         MyBase.New(_frmWidth)
 
         CharacterType = _cType
-        Weapon = New AR(CharacterType)
+        Weapon = New Pistol(CharacterType)
     End Sub
 
     Public Sub Jump()

@@ -98,6 +98,10 @@
     <Compile Include="src\Graphics\Camera.vb" />
     <Compile Include="src\Graphics\ShadowOverlayRenderer.vb" />
     <Compile Include="src\ResourceHandling\FontHandling\Fonts.vb" />
+    <Compile Include="src\ResourceHandling\SoundSystem\ExtendedSoundEffect.vb" />
+    <Compile Include="src\ResourceHandling\SoundSystem\Note.vb" />
+    <Compile Include="src\ResourceHandling\SoundSystem\PCSpeaker.vb" />
+    <Compile Include="src\ResourceHandling\SoundSystem\SoundSystem.vb" />
     <Compile Include="src\ResourceHandling\TextureHandling\TextureLoader.vb" />
     <Compile Include="src\ScreenHandling\UI\InfoBox.vb" />
     <Compile Include="src\Misc\GlobalVariables.vb" />

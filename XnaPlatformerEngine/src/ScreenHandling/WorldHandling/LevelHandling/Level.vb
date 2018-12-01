@@ -114,8 +114,6 @@ Public Class Level
     End Sub
 
     Public Sub Draw(ByRef sb As SpriteBatch, ByRef player As Player)
-        Dim selectedLevel = ScreenHandler.SelectedScreen.ToWorld().SelectedLevel
-
         If BackgroundImage IsNot Nothing Then
             sb.Begin(, BlendState.NonPremultiplied,,,,,)
             sb.Draw(BackgroundImage, New Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White)
@@ -138,20 +136,12 @@ Public Class Level
             If obj.ParallaxMultiplier <> 1.0F Then
                 ' If object is parallax then begin spritebatch with special matrix
 
-                Dim parallaxMatrix As New Matrix
-
-                parallaxMatrix = selectedLevel.Camera.GetMatrix()
-                parallaxMatrix += Matrix.CreateTranslation(selectedLevel.Camera.Translation.X / obj.ParallaxMultiplier,
-                                                           selectedLevel.Camera.Translation.Y / obj.ParallaxMultiplier,
-                                                           selectedLevel.Camera.Translation.Z / obj.ParallaxMultiplier)
-
-
 
                 sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp,
-                         Nothing, Nothing, Nothing, parallaxMatrix)
+                         Nothing, Nothing, Nothing, Camera.GetMatrix(New Vector3(obj.ParallaxMultiplier)))
 
             Else
-                sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp, Nothing, Nothing, Nothing, selectedLevel.Camera.GetMatrix())
+                sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp, Nothing, Nothing, Nothing, Camera.GetMatrix())
             End If
 
             obj.Draw(sb)
@@ -159,7 +149,7 @@ Public Class Level
             sb.End()
         Next
 
-        sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp, Nothing, Nothing, Nothing, selectedLevel.Camera.GetMatrix())
+        sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp, Nothing, Nothing, Nothing, Camera.GetMatrix())
 
         player.Draw(sb)
 
@@ -180,9 +170,9 @@ Public Class Level
                     ' If object is parallax then begin spritebatch with special matrix
                     sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp,
                          Nothing, Nothing, Nothing,
-                         Matrix.CreateTranslation(selectedLevel.Camera.Translation.X / obj.ParallaxMultiplier, selectedLevel.Camera.Translation.Y / obj.ParallaxMultiplier, selectedLevel.Camera.Translation.Z / obj.ParallaxMultiplier))
+                         Matrix.CreateTranslation(Camera.Translation.X / obj.ParallaxMultiplier, Camera.Translation.Y / obj.ParallaxMultiplier, Camera.Translation.Z / obj.ParallaxMultiplier))
                 Else
-                    sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp, Nothing, Nothing, Nothing, selectedLevel.Camera.GetMatrix())
+                    sb.Begin(Nothing, BlendState.NonPremultiplied, SamplerState.LinearClamp, Nothing, Nothing, Nothing, Camera.GetMatrix())
                 End If
 
                 obj.Draw(sb)
