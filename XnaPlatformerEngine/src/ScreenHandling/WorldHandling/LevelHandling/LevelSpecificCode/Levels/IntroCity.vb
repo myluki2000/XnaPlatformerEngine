@@ -39,7 +39,7 @@ Namespace LevelSpecificCode
             Public Overrides Sub Draw(sb As SpriteBatch)
                 sb.Begin(, BlendState.NonPremultiplied,,,,, ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.GetMatrix())
 
-                'Misc.DrawRectangle(sb, New Rectangle(0, -1000, 1600, 3000), Color.Black)
+                Misc.DrawRectangle(sb, New Rectangle(0, -1000, 1600, 3000), Color.Black)
 
                 sb.End()
 
