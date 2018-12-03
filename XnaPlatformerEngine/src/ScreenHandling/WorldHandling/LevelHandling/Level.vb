@@ -86,7 +86,7 @@ Public Class Level
 
         f.Dialogue = New Dialogue
 
-        f.Dialogue.Segments = {New DialogueSegment With {.FaceSprite = TextureLoader.Load("Textures\Characters\Girl\Dialogue\idle"), .Text = "Hello"}, New DialogueSegment With {.Text = "This is an awesome" & vbNewLine & "and wholesome text", .FaceSprite = TextureLoader.Load("Textures\Characters\Girl\Dialogue\idle")}}
+        f.Dialogue.Segments = {New DialogueSegment With {.FaceSprite = TextureLoader.Load("World/Textures/Characters/Girl/Dialogue/idle"), .Text = "Hello"}, New DialogueSegment With {.Text = "This is an awesome" & vbNewLine & "and wholesome text", .FaceSprite = TextureLoader.Load("World/Textures/Characters/Girl/Dialogue/idle")}}
         f.SetSelectedAnimation("idle")
         NPCs.Add(f)
 

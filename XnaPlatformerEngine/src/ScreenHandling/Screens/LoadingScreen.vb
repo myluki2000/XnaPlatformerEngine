@@ -49,7 +49,7 @@ Public Class LoadingScreen
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)
-        Cassette = TextureLoader.Load("LoadingScreen\cassette")
-        CassetteReel = TextureLoader.Load("LoadingScreen\cassette_reel")
+        Cassette = TextureLoader.Load("Content/LoadingScreen/cassette")
+        CassetteReel = TextureLoader.Load("Content/LoadingScreen/cassette_reel")
     End Sub
 End Class

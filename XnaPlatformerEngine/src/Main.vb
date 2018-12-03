@@ -67,9 +67,9 @@ Public Class Main
     End Sub
 
     Private Sub LoadWorldContentBackground()
-        InfoBox.Texture = TextureLoader.Load("UI/Textures/info_box")
+        InfoBox.Texture = TextureLoader.Load("Content/UI/Textures/info_box")
 
-        Dialogue.SpeechBox = TextureLoader.Load("UI/Textures/speech_box")
+        Dialogue.SpeechBox = TextureLoader.Load("Content/UI/Textures/speech_box")
 
         Textures.LoadTextures(Content)
 

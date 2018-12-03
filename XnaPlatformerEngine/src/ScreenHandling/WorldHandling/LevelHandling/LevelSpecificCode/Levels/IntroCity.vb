@@ -27,7 +27,7 @@ Namespace LevelSpecificCode
             End Sub
 
             Public Overrides Sub LoadContent(content As ContentManager)
-                Textures.Logo = TextureLoader.Load("World/Textures/Other/logo")
+                Textures.Logo = TextureLoader.Load("Content/Textures/Other/logo")
                 Textures.TrainLights = TextureLoader.Load("World/Textures/Blocks/City/train_lights")
             End Sub
 
