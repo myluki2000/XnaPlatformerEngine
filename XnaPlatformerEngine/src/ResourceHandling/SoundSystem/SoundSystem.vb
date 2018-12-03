@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Xna.Framework.Audio
+Imports Microsoft.Xna.Framework.Media
 
 Public Class SoundSystem
 

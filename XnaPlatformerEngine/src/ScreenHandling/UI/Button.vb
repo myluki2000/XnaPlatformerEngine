@@ -105,11 +105,11 @@ Public Class Button
         ' Draw Button label
         Select Case TextAlignment
             Case Alignments.Center
-                sb.DrawString(Fonts.ChakraPetch, Text, New Vector2(CSng(rect.X + rect.Width / 2 - Fonts.ChakraPetch.MeasureString(Text).X / 2), CSng(rect.Y + rect.Height / 2 - Fonts.ChakraPetch.MeasureString(Text).Y / 2)), Color.Black)
+                sb.DrawString(Fonts.ChakraPetch.Normal, Text, New Vector2(CSng(rect.X + rect.Width / 2 - Fonts.ChakraPetch.Normal.MeasureString(Text).X / 2), CSng(rect.Y + rect.Height / 2 - Fonts.ChakraPetch.Normal.MeasureString(Text).Y / 2)), Color.Black)
             Case Alignments.Left
-                sb.DrawString(Fonts.ChakraPetch, Text, New Vector2(rect.X + SidePadding, CSng(rect.Y + rect.Height / 2 - Fonts.ChakraPetch.MeasureString(Text).Y / 2)), Color.Black)
+                sb.DrawString(Fonts.ChakraPetch.Normal, Text, New Vector2(rect.X + SidePadding, CSng(rect.Y + rect.Height / 2 - Fonts.ChakraPetch.Normal.MeasureString(Text).Y / 2)), Color.Black)
             Case Alignments.Right
-                sb.DrawString(Fonts.ChakraPetch, Text, New Vector2(rect.Right - Fonts.ChakraPetch.MeasureString(Text).X - SidePadding, CSng(rect.Y + rect.Height / 2 - Fonts.ChakraPetch.MeasureString(Text).Y / 2)), Color.Black)
+                sb.DrawString(Fonts.ChakraPetch.Normal, Text, New Vector2(rect.Right - Fonts.ChakraPetch.Normal.MeasureString(Text).X - SidePadding, CSng(rect.Y + rect.Height / 2 - Fonts.ChakraPetch.Normal.MeasureString(Text).Y / 2)), Color.Black)
         End Select
 
         MouseLastState = Mouse.GetState

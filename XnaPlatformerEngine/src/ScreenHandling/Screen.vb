@@ -10,7 +10,7 @@ Public MustInherit Class Screen
 
     Public Overridable Sub Draw(sb As SpriteBatch)
         sb.Begin()
-        sb.DrawString(Fonts.ChakraPetch, "Default Screen", New Vector2(100, 100), Color.Black)
+        sb.DrawString(Fonts.ChakraPetch.Normal, "Default Screen", New Vector2(100, 100), Color.Black)
         sb.End()
     End Sub
 

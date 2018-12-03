@@ -96,6 +96,6 @@ Public Class World
 
 
     Public Sub DrawUI(_sb As SpriteBatch)
-        _sb.DrawString(Fonts.ChakraPetch, Player.Weapon.ProjectilesInMag & "/" & Player.Weapon.ProjectilesMagMax, New Vector2(10, 10), Color.Black)
+        _sb.DrawString(Fonts.ChakraPetch.Normal, Player.Weapon.ProjectilesInMag & "/" & Player.Weapon.ProjectilesMagMax, New Vector2(10, 10), Color.Black)
     End Sub
 End Class

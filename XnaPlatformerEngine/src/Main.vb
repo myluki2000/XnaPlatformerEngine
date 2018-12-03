@@ -61,8 +61,7 @@ Public Class Main
         spriteBatch = New SpriteBatch(GraphicsDevice)
 
         ' Load important stuff before we switch to the background loading thread
-        Fonts.ChakraPetch = Content.Load(Of SpriteFont)("Fonts/ChakraPetch/ChakraPetch")
-
+        Fonts.ChakraPetch.Normal = Content.Load(Of SpriteFont)("Fonts/ChakraPetch/ChakraPetch-Normal")
         LoadingScreen.LoadContent(Content)
         MainMenu.LoadContent(Content)
     End Sub
@@ -78,12 +77,12 @@ Public Class Main
 
         Sounds.LoadSounds(Content)
 
+        Fonts.LoadContent(Content)
+
         TestWorld1 = WorldLoader.LoadWorld(worldFilePath, Content)
 
         TestWorld1.LoadContent(Content)
         TestWorld1.SelectedLevel = TestWorld1.Levels(0)
-
-        Threading.Thread.Sleep(5000)
 
         ScreenHandler.SelectedScreen = TestWorld1
     End Sub

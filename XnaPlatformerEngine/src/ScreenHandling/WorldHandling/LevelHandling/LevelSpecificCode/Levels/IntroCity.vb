@@ -36,6 +36,8 @@ Namespace LevelSpecificCode
             Dim PassingTrainActivated As Boolean = False
 
             Dim lastscroll As Integer = 0
+            Dim musicPlaying As Boolean = False
+            Dim textCounter As Integer = 0
             Public Overrides Sub Draw(sb As SpriteBatch)
                 sb.Begin(, BlendState.NonPremultiplied,,,,, ScreenHandler.SelectedScreen.ToWorld.SelectedLevel.Camera.GetMatrix())
 
@@ -57,13 +59,26 @@ Namespace LevelSpecificCode
                     End If
                 End If
 
-                If TrainCountdown < 1000 AndAlso Transparency > 0 Then
-                    Transparency -= 0.2F
+                If TrainCountdown < 1000 Then
+                    If Transparency > 0 Then
+                        Transparency -= 0.2F
+                    Else
+                        If Not musicPlaying Then
+                            musicPlaying = True
+                            Media.MediaPlayer.Volume = 0.7
+                            Media.MediaPlayer.Play(Sounds.Music.SweetYou)
+                        End If
+                    End If
                 End If
 
 
-                sb.Draw(Textures.Logo, New Vector2(CSng(graphics.PreferredBackBufferWidth / 2), CSng(graphics.PreferredBackBufferHeight / 2)),
-                        Nothing, Color.White * Transparency, Nothing, New Vector2(CSng(Textures.Logo.Width / 2), CSng(Textures.Logo.Height / 2)), 0.8, Nothing, Nothing)
+                If textCounter > 13000 AndAlso textCounter < 18000 Then
+                    sb.DrawString(Fonts.ChakraPetch.ExtraLarge,
+                                  "NAMEHERE",
+                                  New Vector2(graphics.PreferredBackBufferWidth / 2 - Fonts.ChakraPetch.ExtraLarge.MeasureString("NAMEHERE").X / 2, 100),
+                                  Color.Black)
+                End If
+
 
                 sb.Draw(Textures.TrainLights, New Vector2(CSng(graphics.PreferredBackBufferWidth / 2) + TrainCountdown, CSng(graphics.PreferredBackBufferHeight / 2)),
                         Nothing, Color.White, Nothing, New Vector2(CSng(Textures.TrainLights.Width / 2), CSng(Textures.TrainLights.Height / 2)), 3, Nothing, Nothing)
@@ -81,6 +96,8 @@ Namespace LevelSpecificCode
 
                 Counter += gameTime.ElapsedGameTime.Milliseconds
 
+                textCounter += gameTime.ElapsedGameTime.Milliseconds
+
                 Dim Train = Props.Find(Function(x) x.Name = "Train1")
 
                 If Train.Position = New Vector2(0, 0) Then
@@ -95,7 +112,7 @@ Namespace LevelSpecificCode
 
                 If Counter > 10 Then
                     Counter = 0
-                    If Train.Position.X < 1200 Then
+                    If Train.Position.X < 2800 Then
                         Train.Position.X += TrainVelocityX
                         Player.Position = Train.Position + New Vector2(400, 0)
                     Else
