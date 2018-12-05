@@ -73,10 +73,7 @@ Namespace LevelSpecificCode
 
 
                 If textCounter > 13000 AndAlso textCounter < 18000 Then
-                    sb.DrawString(Fonts.ChakraPetch.ExtraLarge,
-                                  "NAMEHERE",
-                                  New Vector2(graphics.PreferredBackBufferWidth / 2 - Fonts.ChakraPetch.ExtraLarge.MeasureString("NAMEHERE").X / 2, 100),
-                                  Color.Black)
+                    DrawTextFlicker(sb, "NAMEHERE")
                 End If
 
 
@@ -129,7 +126,27 @@ Namespace LevelSpecificCode
 
 
                 Level.Camera.FocusOnPosition(Train.Position + New Vector2(700, 0))
-                'Level.Camera.FocusOnPosition(New Vector2(400, 0))
+            End Sub
+
+            Dim displacement As New Vector2(0, 0)
+            Private Sub DrawTextFlicker(sb As SpriteBatch, text As String)
+                If displacement = New Vector2(0, 0) Then
+                    If Random.Next(0, 10) = 0 Then
+                        displacement = New Vector2(Random.Next(-10, 10), Random.Next(-10, 10))
+                    End If
+
+                Else
+
+                    If Random.Next(0, 5) = 0 Then
+                        displacement = New Vector2(0, 0)
+                    End If
+                End If
+
+                sb.DrawString(Fonts.ChakraPetch.ExtraLarge,
+                              text,
+                              New Vector2(CSng(graphics.PreferredBackBufferWidth / 2 - Fonts.ChakraPetch.ExtraLarge.MeasureString(text).X / 2), 100) + displacement,
+                              Color.Black)
+
             End Sub
         End Class
     End Namespace
