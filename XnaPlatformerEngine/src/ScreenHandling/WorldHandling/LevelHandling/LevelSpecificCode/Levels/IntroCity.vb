@@ -137,7 +137,7 @@ Namespace LevelSpecificCode
 
                 Else
 
-                    If Random.Next(0, 5) = 0 Then
+                    If Random.Next(0, 4) = 0 Then
                         displacement = New Vector2(0, 0)
                     End If
                 End If
