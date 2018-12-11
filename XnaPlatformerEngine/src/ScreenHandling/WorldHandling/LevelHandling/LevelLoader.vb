@@ -2,7 +2,6 @@
 Imports System.Xml.Linq
 Imports Microsoft.Xna.Framework
 Imports Microsoft.Xna.Framework.Content
-Imports Microsoft.Xna.Framework.Graphics
 
 ''' <summary>
 ''' Manages loading of levels
