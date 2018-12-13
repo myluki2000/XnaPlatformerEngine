@@ -7,11 +7,10 @@ Public Class MainMenu
     Inherits Screen
 
 #Region "UI Declarations"
-    Dim WithEvents btnLoadWorld As New Button With {
+    Dim WithEvents btnLoadWorld As New ParallelogramButton With {
         .rect = New Rectangle(100, 100, 300, 130),
         .TextAlignment = Button.Alignments.Left,
-        .SidePadding = 10,
-        .ButtonStyle = Button.ButtonStyles.Textured}
+        .SidePadding = 10}
 #End Region
 
     Public Overrides Sub Inititialize()
@@ -19,9 +18,7 @@ Public Class MainMenu
     End Sub
 
     Public Sub LoadContent(Content As ContentManager)
-        btnLoadWorld.TextureNormal = TextureLoader.Load("Content/UI/Textures/Buttons/btnLoadGame")
-        btnLoadWorld.TextureHover = TextureLoader.Load("Content/UI/Textures/Buttons/btnLoadGame_hover")
-        btnLoadWorld.TextureClicked = btnLoadWorld.TextureHover
+
     End Sub
 
     Public Overrides Sub Update(gameTime As GameTime)

@@ -1,0 +1,7 @@
+organization=myluki2000-github
+projectKey=myluki2000_XnaPlatformerEngine
+serverUrl=https://sonarcloud.io
+serverVersion=7.5.0.20127
+dashboardUrl=https://sonarcloud.io/dashboard?id=myluki2000_XnaPlatformerEngine
+ceTaskId=AWed-Mf4ehv-uB2o3CQ6
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWed-Mf4ehv-uB2o3CQ6

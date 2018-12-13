@@ -62,7 +62,6 @@ Public Class Misc
         ' calculate angle to rotate line
         Dim angle As Single = CSng(Math.Atan2(edge.Y, edge.X))
 
-
         ' rectangle defines shape of line and position of start of line
         ' sb will strech the texture to fill this rectangle
         ' width of line, change this to make thicker line
@@ -71,7 +70,29 @@ Public Class Misc
         ' point in line about which to rotate
         sb.Draw(dummyTexture, New Rectangle(CInt(startPoint.X), CInt(startPoint.Y), CInt(edge.Length()), 1), Nothing, color, angle, New Vector2(0, 0),
         SpriteEffects.None, 0)
+    End Sub
 
+    ''' <summary>
+    ''' Draw a line between two points
+    ''' </summary>
+    ''' <param name="sb">SpriteBatch to draw with</param>
+    ''' <param name="startPoint">First end point of the line</param>
+    ''' <param name="endPoint">Second end point of line</param>
+    ''' <param name="color">Color of the line</param>
+    ''' <param name="thickness">Thickness of the line</param>
+    Public Shared Sub DrawLine(sb As SpriteBatch, startPoint As Vector2, endPoint As Vector2, color As Color, thickness As Integer)
+        Dim edge As Vector2 = endPoint - startPoint
+        ' calculate angle to rotate line
+        Dim angle As Single = CSng(Math.Atan2(edge.Y, edge.X))
+
+        ' rectangle defines shape of line and position of start of line
+        ' sb will strech the texture to fill this rectangle
+        ' width of line, change this to make thicker line
+        ' colour of line
+        ' angle of line (calulated above)
+        ' point in line about which to rotate
+        sb.Draw(dummyTexture, New Rectangle(CInt(startPoint.X), CInt(startPoint.Y), CInt(edge.Length()), thickness), Nothing, color, angle, New Vector2(0, 0),
+        SpriteEffects.None, 0)
     End Sub
 
     ''' <summary>
