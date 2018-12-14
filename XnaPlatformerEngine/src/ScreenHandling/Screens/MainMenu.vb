@@ -9,6 +9,7 @@ Public Class MainMenu
 #Region "UI Declarations"
     Dim WithEvents btnLoadWorld As New ParallelogramButton With {
         .rect = New Rectangle(100, 100, 300, 130),
+        .Text = "Load Game",
         .TextAlignment = Button.Alignments.Left,
         .SidePadding = 10}
 #End Region

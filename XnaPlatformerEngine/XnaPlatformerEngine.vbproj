@@ -106,9 +106,9 @@
     <Compile Include="src\ResourceHandling\SoundSystem\Track.vb" />
     <Compile Include="src\ResourceHandling\SoundSystem\XmlSound\XmlSoundParser.vb" />
     <Compile Include="src\ResourceHandling\TextureHandling\TextureLoader.vb" />
-    <Compile Include="src\ScreenHandling\UI\Button\ParallelogramButton.vb" />
-    <Compile Include="src\ScreenHandling\UI\Button\SimpleButton.vb" />
-    <Compile Include="src\ScreenHandling\UI\Button\TexturedButton.vb" />
+    <Compile Include="src\ScreenHandling\UI\Buttons\ParallelogramButton.vb" />
+    <Compile Include="src\ScreenHandling\UI\Buttons\SimpleButton.vb" />
+    <Compile Include="src\ScreenHandling\UI\Buttons\TexturedButton.vb" />
     <Compile Include="src\ScreenHandling\UI\InfoBox.vb" />
     <Compile Include="src\Misc\GlobalVariables.vb" />
     <Compile Include="src\Main.vb" />
@@ -125,7 +125,7 @@
     <Compile Include="src\ScreenHandling\Screens\LoadingScreen.vb" />
     <Compile Include="src\ScreenHandling\Screens\MainMenu.vb" />
     <Compile Include="src\ScreenHandling\Screens\TestScreen.vb" />
-    <Compile Include="src\ScreenHandling\UI\Button\Button.vb" />
+    <Compile Include="src\ScreenHandling\UI\Buttons\Button.vb" />
     <Compile Include="src\ScreenHandling\UI\UIElement.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\LevelSpecificCode\LevelSpecificCode.vb" />
     <Compile Include="src\ScreenHandling\WorldHandling\LevelHandling\LevelSpecificCode\Levels\IntroCity.vb" />
@@ -252,6 +252,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Fonts\ChakraPetch\ChakraPetch-ExtraLarge.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Fonts\ChakraPetch\ChakraPetch-Large.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Sounds\Weapons\Pistol\Pistol_Reload.xnb">

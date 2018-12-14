@@ -112,19 +112,8 @@
       <Width>20</Width>
       <Height>100</Height>
       <Scale>1</Scale>
-      <Z-Index>-3</Z-Index>
+      <Z-Index>-5</Z-Index>
       <ParallaxMultiplier>3</ParallaxMultiplier>
-      <IsProp>False</IsProp>
-    </Object>
-    <Object Name="CityHouse3">
-      <ID>3</ID>
-      <X>18</X>
-      <Y>7</Y>
-      <Width>120</Width>
-      <Height>400</Height>
-      <Scale>1</Scale>
-      <Z-Index>-3</Z-Index>
-      <ParallaxMultiplier>2</ParallaxMultiplier>
       <IsProp>False</IsProp>
     </Object>
     <Object Name="Hill1">
@@ -134,7 +123,7 @@
       <Width>600</Width>
       <Height>200</Height>
       <Scale>1</Scale>
-      <Z-Index>-3</Z-Index>
+      <Z-Index>-5</Z-Index>
       <ParallaxMultiplier>3</ParallaxMultiplier>
       <IsProp>False</IsProp>
     </Object>
@@ -145,7 +134,7 @@
       <Width>1100</Width>
       <Height>600</Height>
       <Scale>1</Scale>
-      <Z-Index>-2</Z-Index>
+      <Z-Index>-4</Z-Index>
       <ParallaxMultiplier>2</ParallaxMultiplier>
       <IsProp>False</IsProp>
     </Object>
@@ -156,8 +145,19 @@
       <Width>180</Width>
       <Height>280</Height>
       <Scale>1</Scale>
-      <Z-Index>-2</Z-Index>
+      <Z-Index>-4</Z-Index>
       <ParallaxMultiplier>1,75</ParallaxMultiplier>
+      <IsProp>False</IsProp>
+    </Object>
+    <Object Name="CityHouse3">
+      <ID>3</ID>
+      <X>18</X>
+      <Y>7</Y>
+      <Width>120</Width>
+      <Height>400</Height>
+      <Scale>1</Scale>
+      <Z-Index>-4</Z-Index>
+      <ParallaxMultiplier>2</ParallaxMultiplier>
       <IsProp>False</IsProp>
     </Object>
     <Object Name="Building1">
@@ -167,7 +167,7 @@
       <Width>500</Width>
       <Height>320</Height>
       <Scale>1</Scale>
-      <Z-Index>-1</Z-Index>
+      <Z-Index>-3</Z-Index>
       <ParallaxMultiplier>1,5</ParallaxMultiplier>
       <IsProp>False</IsProp>
     </Object>
@@ -178,7 +178,7 @@
       <Width>5000</Width>
       <Height>200</Height>
       <Scale>1</Scale>
-      <Z-Index>-1</Z-Index>
+      <Z-Index>-2</Z-Index>
       <ParallaxMultiplier>1</ParallaxMultiplier>
       <IsProp>False</IsProp>
     </Object>
@@ -189,13 +189,24 @@
       <Width>509</Width>
       <Height>158</Height>
       <Scale>1</Scale>
-      <Z-Index>0</Z-Index>
+      <Z-Index>-1</Z-Index>
       <ParallaxMultiplier>1</ParallaxMultiplier>
       <IsProp>True</IsProp>
     </Object>
     <Object Name="Overpass1">
       <ID>4</ID>
-      <X>0</X>
+      <X>56</X>
+      <Y>16</Y>
+      <Width>900</Width>
+      <Height>177</Height>
+      <Scale>1</Scale>
+      <Z-Index>0</Z-Index>
+      <ParallaxMultiplier>1</ParallaxMultiplier>
+      <IsProp>False</IsProp>
+    </Object>
+    <Object Name="Overpass1">
+      <ID>4</ID>
+      <X>113</X>
       <Y>16</Y>
       <Width>900</Width>
       <Height>177</Height>
@@ -215,23 +226,23 @@
       <ParallaxMultiplier>1</ParallaxMultiplier>
       <IsProp>False</IsProp>
     </Object>
-    <Object Name="Overpass1">
-      <ID>4</ID>
-      <X>56</X>
-      <Y>16</Y>
-      <Width>900</Width>
-      <Height>177</Height>
+    <Object Name="Dirt">
+      <ID>7</ID>
+      <X>117</X>
+      <Y>13</Y>
+      <Width>30</Width>
+      <Height>30</Height>
       <Scale>1</Scale>
       <Z-Index>0</Z-Index>
       <ParallaxMultiplier>1</ParallaxMultiplier>
       <IsProp>False</IsProp>
     </Object>
-    <Object Name="Dirt">
-      <ID>7</ID>
-      <X>5</X>
-      <Y>-1</Y>
-      <Width>30</Width>
-      <Height>30</Height>
+    <Object Name="Overpass1">
+      <ID>4</ID>
+      <X>0</X>
+      <Y>16</Y>
+      <Width>900</Width>
+      <Height>177</Height>
       <Scale>1</Scale>
       <Z-Index>0</Z-Index>
       <ParallaxMultiplier>1</ParallaxMultiplier>
@@ -248,12 +259,12 @@
       <ParallaxMultiplier>1</ParallaxMultiplier>
       <IsProp>False</IsProp>
     </Object>
-    <Object Name="Dirt">
-      <ID>7</ID>
-      <X>69</X>
-      <Y>13</Y>
-      <Width>30</Width>
-      <Height>30</Height>
+    <Object Name="Overpass1">
+      <ID>4</ID>
+      <X>141</X>
+      <Y>16</Y>
+      <Width>900</Width>
+      <Height>177</Height>
       <Scale>1</Scale>
       <Z-Index>0</Z-Index>
       <ParallaxMultiplier>1</ParallaxMultiplier>
@@ -265,6 +276,17 @@
       <Y>16</Y>
       <Width>900</Width>
       <Height>177</Height>
+      <Scale>1</Scale>
+      <Z-Index>0</Z-Index>
+      <ParallaxMultiplier>1</ParallaxMultiplier>
+      <IsProp>False</IsProp>
+    </Object>
+    <Object Name="Dirt">
+      <ID>7</ID>
+      <X>5</X>
+      <Y>-1</Y>
+      <Width>30</Width>
+      <Height>30</Height>
       <Scale>1</Scale>
       <Z-Index>0</Z-Index>
       <ParallaxMultiplier>1</ParallaxMultiplier>

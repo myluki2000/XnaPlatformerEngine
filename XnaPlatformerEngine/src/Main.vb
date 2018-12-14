@@ -62,6 +62,7 @@ Public Class Main
 
         ' Load important stuff before we switch to the background loading thread
         Fonts.ChakraPetch.Normal = Content.Load(Of SpriteFont)("Fonts/ChakraPetch/ChakraPetch-Normal")
+        Fonts.ChakraPetch.Large = Content.Load(Of SpriteFont)("Fonts/ChakraPetch/ChakraPetch-Large")
         LoadingScreen.LoadContent(Content)
         MainMenu.LoadContent(Content)
     End Sub
