@@ -20,8 +20,8 @@ Public Class Sounds
         End Class
 
         Public Class Pistol
-            Public Shared Reload As SoundEffect
-            Public Shared Shoot As SoundEffect
+            Public Shared Reload As ExtendedSoundEffect
+            Public Shared Shoot As ExtendedSoundEffect
         End Class
     End Class
 
@@ -34,7 +34,7 @@ Public Class Sounds
     End Class
 
     Public Shared Sub LoadSounds(Content As ContentManager)
-        Weapons.Pistol.Reload = Content.Load(Of SoundEffect)("Sounds/Weapons/Pistol/Pistol_Reload")
-        Weapons.Pistol.Shoot = Content.Load(Of SoundEffect)("Sounds/Weapons/Pistol/Pistol_Shoot")
+        Weapons.Pistol.Reload.SoundEffect = Content.Load(Of SoundEffect)("Sounds/Weapons/Pistol/Pistol_Reload")
+        Weapons.Pistol.Shoot.SoundEffect = Content.Load(Of SoundEffect)("Sounds/Weapons/Pistol/Pistol_Shoot")
     End Sub
 End Class
