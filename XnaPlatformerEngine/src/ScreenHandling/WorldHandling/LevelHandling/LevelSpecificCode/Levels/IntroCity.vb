@@ -72,7 +72,7 @@ Namespace LevelSpecificCode
 
 
                 If textCounter > 13000 AndAlso textCounter < 18000 Then
-                    DrawTextFlicker(sb, "The Final Camisado")
+                    DrawTextFlicker(sb, "Camisado")
                 End If
 
 

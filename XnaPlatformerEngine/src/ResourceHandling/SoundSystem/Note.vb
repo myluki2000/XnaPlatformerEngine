@@ -1,6 +1,9 @@
 ﻿Public Class Note
     Public Pitch As Integer
+    Public PlayTime As Integer
+    Public TimeUntilPlaying As Integer
     Public Duration As Integer
+    Public DurationPlayed As Integer
 
     Public Class Pitches
         Const C0 As Integer = 16

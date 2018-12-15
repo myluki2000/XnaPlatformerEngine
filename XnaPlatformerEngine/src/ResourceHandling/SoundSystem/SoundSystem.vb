@@ -1,26 +1,18 @@
-﻿Imports Microsoft.Xna.Framework.Audio
-Imports Microsoft.Xna.Framework.Media
+﻿Imports System.ComponentModel
 
 Public Class SoundSystem
 
     Public Shared BeepModeActivated As Boolean = False
 
-    Private Shared WithEvents BeepTimer As New Windows.Forms.Timer
+    Private Shared ReadOnly PCSpeaker As New PCSpeaker()
+    Private Shared ReadOnly BgWorker As New BackgroundWorker
 
-    Public Shared Sub Play(soundEffect As SoundEffect)
+    Public Shared Sub Play(soundEffect As ExtendedSoundEffect)
         If Not BeepModeActivated Then
-            soundEffect.CreateInstance.Play()
+            soundEffect.SoundEffect.CreateInstance.Play()
             ' TODO: Make this more advanced!
         Else
-            ' Placeholder
-            PCSpeaker.Beep(1000)
-            BeepTimer.Interval = 200
-            BeepTimer.Start()
+            PCSpeaker.PlaySong(soundEffect.BeepSong)
         End If
-    End Sub
-
-    Private Shared Sub BeepTimer_Tick() Handles BeepTimer.Tick
-        PCSpeaker.StopBeep()
-        BeepTimer.Stop()
     End Sub
 End Class

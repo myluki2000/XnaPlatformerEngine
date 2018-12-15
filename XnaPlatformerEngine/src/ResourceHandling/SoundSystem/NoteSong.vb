@@ -1,5 +1,5 @@
 ﻿Imports System.Collections.Generic
 
 Public Class NoteSong
-    Public Tracks As New List(Of Track)
+    Public Notes As List(Of Note)
 End Class

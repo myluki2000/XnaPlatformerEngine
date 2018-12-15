@@ -2,5 +2,5 @@
 
 Public Class ExtendedSoundEffect
     Public SoundEffect As SoundEffect
-    Public BeeperNotes As Note()
+    Public BeepSong As NoteSong
 End Class
