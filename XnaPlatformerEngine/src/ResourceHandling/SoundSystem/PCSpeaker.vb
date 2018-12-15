@@ -73,7 +73,9 @@ Public Class PCSpeaker
     End Sub
 
     Private Sub SelectNextNote()
-        CurrentlyPlayingNote = CurrentNotes((CurrentNotes.IndexOf(CurrentlyPlayingNote) + 1) Mod CurrentNotes.Count)
+        If CurrentNotes.Count > 0 Then
+            CurrentlyPlayingNote = CurrentNotes((CurrentNotes.IndexOf(CurrentlyPlayingNote) + 1) Mod CurrentNotes.Count)
+        End If
     End Sub
 
     <DllImport("InpOut32/InpOut32.dll", CharSet:=CharSet.Auto, EntryPoint:="Out32")>

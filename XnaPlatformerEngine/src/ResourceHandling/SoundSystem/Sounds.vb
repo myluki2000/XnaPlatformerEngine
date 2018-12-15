@@ -20,8 +20,8 @@ Public Class Sounds
         End Class
 
         Public Class Pistol
-            Public Shared Reload As ExtendedSoundEffect
-            Public Shared Shoot As ExtendedSoundEffect
+            Public Shared Reload As New ExtendedSoundEffect
+            Public Shared Shoot As New ExtendedSoundEffect
         End Class
     End Class
 
